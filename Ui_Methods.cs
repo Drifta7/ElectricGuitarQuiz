@@ -21,6 +21,29 @@ namespace ElectricGuitarQuiz
             return playeranswer;
         }
 
-         
+        public static int SelectingGameMode(int userChoice)
+        {
+            Console.WriteLine("Please Select ONE of the following game mode please ");
+
+            Console.WriteLine();
+            if (userChoice == 1)
+            {
+                Console.WriteLine("GuitarBodies");
+                Console.WriteLine($"You have selected{userChoice}");
+            }
+
+            else if (userChoice == 2)
+            {
+                Console.WriteLine("GuitarPickups");
+                Console.WriteLine($"You have selected {userChoice}");
+            }
+
+            else if (userChoice == 3)
+            {
+                Console.WriteLine($"ColorORFinish");
+                Console.WriteLine($"You have selected {userChoice}");
+            }
+            return userChoice;
+        }
     }
 }

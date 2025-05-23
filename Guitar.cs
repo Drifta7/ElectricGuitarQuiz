@@ -10,15 +10,15 @@ namespace ElectricGuitarQuiz
 {
     public class Guitar
     {
-        
 
-        public string Name;
+
+        public string Name = "";
         public int Strings;
-        public string GuitarBody; // whether it's an arch top or solidbody
+        public string GuitarBody=""; // whether it's an arch top or solidbody
         public double Price;
-        public string colorOrFinish;
+        public string colorOrFinish = "";
         public int tuners;
-        public string fretboardWood;
+        public string fretboardWood = "";
 
         public Pickups thePickups = new Pickups();
 
@@ -30,20 +30,17 @@ namespace ElectricGuitarQuiz
 
         public class Pickups // compemplating on whether that should be in it's own class 
         {
-            public string pickupType; // single coil or humbucker
-            public string pickupBrand; // EMG, Seymour Duncan, etc.
+            public string pickupType = ""; // single coil or humbucker
+            public string pickupBrand = ""; // EMG, Seymour Duncan, etc.
             public int numberOfPickups;
             public int numberOfCoils;
             public int numberOfWires;
-            public int numberOfMagnets;
-            public int numberOfScrews;
-            public int numberOfPoles;
-
+           
             public int humbuckers;
             public int singleCoils;
         }
 
-        XmlSerializer serializer = new XmlSerializer(typeof(List<Guitar>));
-        string path = @"\Users\User\Documents\GitHub\ElectricGuitarQuiz\ElectricGuitarQuiz\bin\Debug\net6.0-windows\ElectricGuitarQuiz.exe";
+        //XmlSerializer serializer = new XmlSerializer(typeof(List<Guitar>));
+        //string path = @"\Users\User\Documents\GitHub\ElectricGuitarQuiz\ElectricGuitarQuiz\bin\Debug\net6.0-windows\ElectricGuitarQuiz.exe";
     }
 }
