@@ -27,10 +27,11 @@ namespace ElectricGuitarQuiz
 
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Guitar));
 
-            serializer.Serialize(Console.Out, guitar);
-            //Console.WriteLine();
-            //Console.ReadLine();
+            serializer.Serialize(Console.Out, guitar); // this serilizes the object to XML and prints it out to the console.
+            Console.WriteLine();
+            Console.ReadLine();
 
+            
 
             //theGuitar.Name = "Gibson ES-335";
             //theGuitar.Strings = 6;

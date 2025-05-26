@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Globalization;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,34 +19,128 @@ namespace ElectricGuitarQuiz
         {
             Console.WriteLine("Thank you for playing the Electric Guitar Quiz Challenge");
         }
-        public static char UserInput(char playeranswer) // this will act as a placeholder for the user input unless saved in a var
+        public static char GetUserInput() // this will act as a placeholder for the user input unless saved in a var
         {
-            return playeranswer;
+            char userInput = Console.ReadKey().KeyChar; // get the user input to work in the in game selection
+            return userInput;
         }
 
-        public static int SelectingGameMode(int userChoice)
+
+        ///--------_____--------------------------------------  ---------------------------------------
+
+        public char GetValidUserChoice()// this is a "bluePrint" for the In game selection
         {
+            char userInput = Ui_Methods.GetUserInput();
+            bool isTheSelectionValid = false;
+
+            do
+            {
+                if (char.ToUpper(userInput) != ConstantsVAR.USER_SELECTION_A
+                    && char.ToUpper(userInput) != ConstantsVAR.USER_SELECTION_B
+                    && char.ToUpper(userInput) != ConstantsVAR.USER_SELECTION_C
+                    && char.ToUpper(userInput) != ConstantsVAR.USER_SELECTION_D
+                    && char.ToUpper(userInput) != ConstantsVAR.USER_SELECTION_E)
+                {
+                    Console.WriteLine("This isn't Within the Selection Parameters, Please try again");
+                    userInput = Ui_Methods.GetUserInput(); // if the user input is not valid, it will ask the user to try again.
+                }
+
+                else
+                {
+                    isTheSelectionValid = true; // if the user input is valid, it will set the variable to true.
+                    Console.WriteLine($" You've selected {userInput}");
+                }
+
+            }
+            while (!isTheSelectionValid); // this will keep asking the user for input until the input is valid.
+
+            return userInput; // if the user input is valid, it will return the user input.
+        }
+        public static string GetNumericUserInput()
+        {
+            string UserNumericInput = Console.ReadLine(); // <=== fix this potential issue with the input being null or empty.
+            int numericInput;
+
+            if (int.TryParse(UserNumericInput, out numericInput))
+            {
+                Console.WriteLine($"You've Entered{numericInput} ");
+            }
+            else
+            {
+                Console.WriteLine("Invaild number");
+            }
+            return numericInput.ToString(); // return the numeric input as a string
+        }
+        public static int ValidatingNumericInput()
+        {
+            string userInput = GetNumericUserInput();
+            int numericInput;
+            bool isTheSelectionValid = false;
+
+            do
+            {
+                if (Int32.TryParse(userInput, out numericInput))
+                {
+                    if (numericInput < ConstantsVAR.RANGE_MIN_ONE && numericInput > ConstantsVAR.RANGE_MAX_FOUR)
+                    {
+                        Console.WriteLine("This is not within the Correct Selection range Please try again");
+                        userInput = GetNumericUserInput();// the the input isn't valid the user get this message. 
+                    }
+                    else
+                    {
+                        isTheSelectionValid = true;
+                        Console.WriteLine($"You have selected {numericInput}");
+                    }
+                }
+            } while (!isTheSelectionValid);
+
+            return numericInput;
+        }
+
+        public static int SelectingGameMode() // this is for the outer game mode meaning selecting numeric values.
+        {
+
             Console.WriteLine("Please Select ONE of the following game mode please ");
 
+            int userChoice = ValidatingNumericInput(); // potnetial issue?
+
             Console.WriteLine();
-            if (userChoice == 1)
+
+            if (userChoice == ConstantsVAR.RANGE_MIN_ONE)
             {
+                Console.WriteLine($"You have selected: {userChoice}");
                 Console.WriteLine("GuitarBodies");
-                Console.WriteLine($"You have selected{userChoice}");
             }
 
-            else if (userChoice == 2)
+            else if (userChoice == ConstantsVAR.NUMBER_SELECTION_TWO)
             {
+                Console.WriteLine($"You have selected: {userChoice}");
                 Console.WriteLine("GuitarPickups");
-                Console.WriteLine($"You have selected {userChoice}");
             }
 
-            else if (userChoice == 3)
+            else if (userChoice == ConstantsVAR.NUMBER_ELECTION_THREE)
             {
-                Console.WriteLine($"ColorORFinish");
-                Console.WriteLine($"You have selected {userChoice}");
+                Console.WriteLine($"You have selected: {userChoice}");
+                Console.WriteLine("ColorORFinish");
+            }
+            else if (userChoice == ConstantsVAR.RANGE_MAX_FOUR)
+            {
+                Console.WriteLine($"You have selected: {userChoice}");
+                Console.WriteLine("FretBoard");
             }
             return userChoice;
+        }
+        public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
+        {
+            if (ans1 == 'C' && ans2 == 'D')
+            {
+                Console.WriteLine("These are the correct answers");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
