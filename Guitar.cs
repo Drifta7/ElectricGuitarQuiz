@@ -10,13 +10,11 @@ namespace ElectricGuitarQuiz
 {
     public class Guitar
     {
-
-
         public string Name = "";
         public int Strings;
-        public string GuitarBody=""; // whether it's an arch top or solidbody
+        public string GuitarBody = ""; // whether it's an arch top or solidbody
         public double Price;
-        public string colorOrFinish = "";
+        public string ColorOrFinish = "";
         public int tuners;
         public string fretboardWood = "";
 
@@ -35,7 +33,7 @@ namespace ElectricGuitarQuiz
             public int numberOfPickups;
             public int numberOfCoils;
             public int numberOfWires;
-           
+
             public int humbuckers;
             public int singleCoils;
         }

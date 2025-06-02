@@ -7,11 +7,11 @@ namespace ElectricGuitarQuiz
         static void Main(string[] args)
         {
             string chord = "Cmaj7";
-            Guitar theGuitar = new Guitar();
+            Guitar theGuitar = new Guitar(); // bringing in the Guitar class from the Guitar.cs file into an object called theGuitar (NOTE)
             Guitar anotherGuitar = new Guitar();
             Guitar theGuitar2 = new Guitar();
 
-            List<Guitar> GuitarList = new List<Guitar>(); // explicitly declaring the data type list then creating the object as the "value".
+            List<Guitar> GuitarList = new List<Guitar>(); // explicitly declaring the data type list of Guitar objects and initializing an empty instance
 
             //Guitar AGuitar = new Guitar { Name = "Fender Stratocaster", GuitarBody = "Solid", colorOrFinish = "Sunburst" };
 
@@ -22,14 +22,14 @@ namespace ElectricGuitarQuiz
                 Price = 1500.00,
                 thePickups = new Guitar.Pickups() { humbuckers = 2 },
                 GuitarBody = "Semi-Hollow",
-                colorOrFinish = "VintageSunburst"
+                ColorOrFinish = "VintageSunburst"
             }; // creating a new object and setting the properties at the same time
 
-            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Guitar));
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Guitar)); // just an example
 
             serializer.Serialize(Console.Out, guitar); // this serilizes the object to XML and prints it out to the console.
-            Console.WriteLine();
-            Console.ReadLine();
+            //Console.WriteLine();
+            //Console.ReadLine();
 
             
 

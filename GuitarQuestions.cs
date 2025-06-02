@@ -10,8 +10,10 @@ namespace ElectricGuitarQuiz
     class GuitarQuestions
     {
         // might have to change this all together soon
-        public char Question1(char UserGuess)
+        public static char Question1(char UserGuess)
         {
+           
+
             Console.WriteLine("What is the style the Guitar that has an arch-top?"); // perhaps make this a blank for spaceholder for a question 
 
             Console.WriteLine($"A: {UserGuess} Gibson Les Paul"); // make this a placeholder for a question perhaps( and for the rest of the other questions).
@@ -19,12 +21,15 @@ namespace ElectricGuitarQuiz
             Console.WriteLine($"C: {UserGuess} Gibson ES-335");
             Console.WriteLine($"D: {UserGuess} Fender JazzMaster");
             Console.WriteLine($"E: {UserGuess} Gibson SG Standard");
-            Console.WriteLine($"F: {UserGuess} Gretsch WHite Falcon");
+            Console.WriteLine($"F: {UserGuess} Gretsch White Falcon");
 
             char correctAnswer = 'D'; // store this for XML serialization later.
             return correctAnswer;
         }
 
+        public char UserCorrectAnswer = Question1(Ui_Methods.GetValidUserChoice()); // this will store the user answer or maybe serilize it later.
+
+        
 
         //------will use this soon but want to test out one question first.
 

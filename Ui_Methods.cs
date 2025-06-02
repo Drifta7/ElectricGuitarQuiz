@@ -28,7 +28,7 @@ namespace ElectricGuitarQuiz
 
         ///--------_____--------------------------------------  ---------------------------------------
 
-        public char GetValidUserChoice()// this is a "bluePrint" for the In game selection
+        public static char GetValidUserChoice()// this is a answer "bluePrint" for the In game selection
         {
             char userInput = Ui_Methods.GetUserInput();
             bool isTheSelectionValid = false;
@@ -41,7 +41,7 @@ namespace ElectricGuitarQuiz
                     && char.ToUpper(userInput) != ConstantsVAR.USER_SELECTION_D
                     && char.ToUpper(userInput) != ConstantsVAR.USER_SELECTION_E)
                 {
-                    Console.WriteLine("This isn't Within the Selection Parameters, Please try again");
+                    Console.WriteLine("This isn't within the selection parameters, Please try again");
                     userInput = Ui_Methods.GetUserInput(); // if the user input is not valid, it will ask the user to try again.
                 }
 
@@ -56,22 +56,33 @@ namespace ElectricGuitarQuiz
 
             return userInput; // if the user input is valid, it will return the user input.
         }
-        public static string GetNumericUserInput()
-        {
-            string UserNumericInput = Console.ReadLine(); // <=== fix this potential issue with the input being null or empty.
-            int numericInput;
 
-            if (int.TryParse(UserNumericInput, out numericInput))
+        // ___-----_--------------------------------------  ---------------------------------------____-----_--_----_-//
+
+        public static string GetNumericUserInput() // This gets the Number input from the user for The SelectionGameMode() method
+        {
+            int numericInput;
+            string userNumericInput = "";
+
+            do
             {
-                Console.WriteLine($"You've Entered{numericInput} ");
-            }
-            else
-            {
-                Console.WriteLine("Invaild number");
-            }
+                Console.WriteLine("Enter a choice ");
+                userNumericInput = Console.ReadLine(); // <=== fix this potential issue with the input being null or empty
+
+                if (int.TryParse(userNumericInput, out numericInput))
+                {
+                    Console.WriteLine($"You've Entered{numericInput} ");
+                }
+                else
+                {
+                    Console.WriteLine("Invaild number , please enter again.");
+                }
+
+            } while (!int.TryParse(userNumericInput, out numericInput)); // this will keep asking the user for input until the input is valid.
+
             return numericInput.ToString(); // return the numeric input as a string
         }
-        public static int ValidatingNumericInput()
+        public static int ValidatingNumericInput() // this will validate the numeric input within the range of 1 to 4 and will not exceed that range.
         {
             string userInput = GetNumericUserInput();
             int numericInput;
@@ -81,7 +92,7 @@ namespace ElectricGuitarQuiz
             {
                 if (Int32.TryParse(userInput, out numericInput))
                 {
-                    if (numericInput < ConstantsVAR.RANGE_MIN_ONE && numericInput > ConstantsVAR.RANGE_MAX_FOUR)
+                    if (numericInput < ConstantsVAR.RANGE_MIN && numericInput > ConstantsVAR.RANGE_MAX)
                     {
                         Console.WriteLine("This is not within the Correct Selection range Please try again");
                         userInput = GetNumericUserInput();// the the input isn't valid the user get this message. 
@@ -106,7 +117,7 @@ namespace ElectricGuitarQuiz
 
             Console.WriteLine();
 
-            if (userChoice == ConstantsVAR.RANGE_MIN_ONE)
+            if (userChoice == ConstantsVAR.RANGE_MIN)
             {
                 Console.WriteLine($"You have selected: {userChoice}");
                 Console.WriteLine("GuitarBodies");
@@ -123,13 +134,14 @@ namespace ElectricGuitarQuiz
                 Console.WriteLine($"You have selected: {userChoice}");
                 Console.WriteLine("ColorORFinish");
             }
-            else if (userChoice == ConstantsVAR.RANGE_MAX_FOUR)
+            else if (userChoice == ConstantsVAR.RANGE_MAX)
             {
                 Console.WriteLine($"You have selected: {userChoice}");
                 Console.WriteLine("FretBoard");
             }
             return userChoice;
         }
+
         public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
         {
             if (ans1 == 'C' && ans2 == 'D')
