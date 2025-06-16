@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ElectricGuitarQuiz
 {
-    class GuitarQuestions
+   public class GuitarQuestions
     {
         // might have to change this all together soon
         public static char Question1(char UserGuess)
@@ -25,6 +25,7 @@ namespace ElectricGuitarQuiz
 
             char correctAnswer = 'D'; // store this for XML serialization later.
             return correctAnswer;
+             
         }
 
         public char UserCorrectAnswer = Question1(Ui_Methods.GetValidUserChoice()); // this will store the user answer or maybe serilize it later.

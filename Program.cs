@@ -28,8 +28,7 @@ namespace ElectricGuitarQuiz
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Guitar)); // just an example
 
             serializer.Serialize(Console.Out, guitar); // this serilizes the object to XML and prints it out to the console.
-            //Console.WriteLine();
-            //Console.ReadLine();
+            
 
             
 

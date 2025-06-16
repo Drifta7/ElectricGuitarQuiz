@@ -28,7 +28,7 @@ namespace ElectricGuitarQuiz
 
         ///--------_____--------------------------------------  ---------------------------------------
 
-        public static char GetValidUserChoice()// this is a answer "bluePrint" for the In game selection
+        public static char      GetValidUserChoice()// this is a answer "bluePrint" for the In game selection
         {
             char userInput = Ui_Methods.GetUserInput();
             bool isTheSelectionValid = false;
