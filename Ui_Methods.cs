@@ -25,10 +25,15 @@ namespace ElectricGuitarQuiz
             return userInput;
         }
 
-
+        public static void DisplayingSavedToFile()
+        {
+            // basic message
+            Console.WriteLine("Saved To XML!");
+        }
+        
         ///--------_____--------------------------------------  ---------------------------------------
 
-        public static char      GetValidUserChoice()// this is a answer "bluePrint" for the In game selection
+        public static char GetValidUserChoice()// this is a answer "bluePrint" for the In game selection
         {
             char userInput = Ui_Methods.GetUserInput();
             bool isTheSelectionValid = false;
@@ -110,7 +115,6 @@ namespace ElectricGuitarQuiz
 
         public static int SelectingGameMode() // this is for the outer game mode meaning selecting numeric values.
         {
-
             Console.WriteLine("Please Select ONE of the following game mode please ");
 
             int userChoice = ValidatingNumericInput(); // potnetial issue?

@@ -6,18 +6,10 @@ using System.Threading.Tasks;
 
 namespace ElectricGuitarQuiz
 {
-    class Logic
+    public class Logic
     {
 
-
-        public static void SerializationForGuitarQuestion() //this will use a list for the questions for the quiz
-        {
-                
-        }
-        public static void Deserializtion()
-        {
-
-        }
+       
 
         // create a random method that can pick up out a number between 1 and 7-8 and display it to the user 
         //then that number will be used to select a question from the list of questions.
@@ -31,7 +23,7 @@ namespace ElectricGuitarQuiz
             return questionNumber;
         }
 
-        // will have to change this later intio ui methods.cs file
+        // will have to change this later into ui methods.cs file
         public static void UndersStandingList()
         {
             List<string> questionList = new List<string>()

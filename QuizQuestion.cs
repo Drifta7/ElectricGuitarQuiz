@@ -13,13 +13,14 @@ namespace ElectricGuitarQuiz
         public string Question1 { get; set; }
         public List<string> Options { get; set; }
         public char CorrectAnswer { get; set; }
+       
         public QuizQuestion()
         {
             Options = new List<string>(); // initialize the List
         }
 
-        XmlSerializer serializer = new XmlSerializer(typeof(QuizQuestion));
-        
-        
+       
+
+
     }
 }

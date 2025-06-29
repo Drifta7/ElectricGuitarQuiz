@@ -6,31 +6,52 @@ namespace ElectricGuitarQuiz
     {
         static void Main(string[] args)
         {
-            string chord = "Cmaj7";
-            Guitar theGuitar = new Guitar(); // bringing in the Guitar class from the Guitar.cs file into an object called theGuitar (NOTE)
-            Guitar anotherGuitar = new Guitar();
-            Guitar theGuitar2 = new Guitar();
+            // string chord = "Cmaj7";
+            GuitarParts theGuitar = new GuitarParts(); // bringing in the Guitar class from the Guitar.cs file into an object called theGuitar (NOTE)
+            GuitarParts anotherGuitar = new GuitarParts();
+            GuitarParts theGuitar2 = new GuitarParts();
 
-            List<Guitar> GuitarList = new List<Guitar>(); // explicitly declaring the data type list of Guitar objects and initializing an empty instance
+            List<GuitarParts> GuitarList = new List<GuitarParts>(); // explicitly declaring the data type list of Guitar objects and initializing an empty instance
 
             //Guitar AGuitar = new Guitar { Name = "Fender Stratocaster", GuitarBody = "Solid", colorOrFinish = "Sunburst" };
 
-            Guitar guitar = new Guitar
+            GuitarParts guitar = new GuitarParts
             {
                 Name = "Gibson ES-335",
                 Strings = 6,
                 Price = 1500.00,
-                thePickups = new Guitar.Pickups() { humbuckers = 2 },
+                thePickups = new GuitarParts.Pickups() { humbuckers = 2 },
                 GuitarBody = "Semi-Hollow",
                 ColorOrFinish = "VintageSunburst"
             }; // creating a new object and setting the properties at the same time
 
-            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Guitar)); // just an example
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(GuitarParts)); // just an example
 
             serializer.Serialize(Console.Out, guitar); // this serilizes the object to XML and prints it out to the console.
-            
 
-            
+            //_----____----_-______--_-______---------------- (Serialize and Deserialize) ---------__---__-_-_-_-------------_--_-_--__---------------__--__-_-___- 
+
+            GuitarQuestionsList questionManager = new GuitarQuestionsList(); // creating an instance of the GuitarQuestion class
+
+            // create the question
+            QuizQuestion question = new GuitarQuestionsList().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
+
+            //serialized question to Xml
+            string filepath = @"D:\Random Drawings\Serialization Guitar.xml";
+            questionManager.SaveQuestionToFile(question, filepath); // saving the question to a file
+            Ui_Methods.DisplayingSavedToFile(); // displaying a message to the user that the question has been saved
+
+            // derserialize the question from the file
+            QuizQuestion loadedQuestion = questionManager.LoadQuestionFromFile(filepath); // loading the question from the file
+            Console.WriteLine("\nLoaded Question:");
+            Console.WriteLine("Question:" + loadedQuestion.Question1);
+
+            // prints out the list within the class QuizQuestion from SampleQuestion().cs (method)
+            foreach (string option in question.Options)
+            {
+                Console.WriteLine(option);
+            }
+            //_----____----_-______--_-______---------------------(TESTING)----__---__-_-_-_-------------_--_-_--__---------------__--__-_-___-
 
             //theGuitar.Name = "Gibson ES-335";
             //theGuitar.Strings = 6;

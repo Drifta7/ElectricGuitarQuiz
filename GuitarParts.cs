@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace ElectricGuitarQuiz
 {
-    public class Guitar
+    public class GuitarParts
     {
         public string Name = "";
         public int Strings;
