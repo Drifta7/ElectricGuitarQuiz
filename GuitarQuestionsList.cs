@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -10,18 +11,18 @@ namespace ElectricGuitarQuiz
 {
     public class GuitarQuestionsList
     {
-        // might have to change this all together soon
         public QuizQuestion GetSampleQuestion()
         {
+
             QuizQuestion question = new QuizQuestion
             {
-                Question1 = "What is the style of guitar that has an arch -top?",
+                Question = "What is the style of guitar that has an arch -top?",
                 CorrectAnswer = 'C'
             };
 
             Console.WriteLine("What is the style the Guitar that has an arch-top?"); // perhaps make this a blank for spaceholder for a question 
 
-            question.Options.Add($"A: Gibson Les Paul"); // make this a placeholder for a question perhaps( and for the rest of the other questions).
+            question.Options.Add($"A: Gibson Les Paul"); // make this a placeholder for a question perhaps(and for the rest of the other questions).
             question.Options.Add($"B: Fender Stratocaster");
             question.Options.Add($"C: Gibson ES-335");
             question.Options.Add($"D: Fender JazzMaster");
@@ -29,8 +30,8 @@ namespace ElectricGuitarQuiz
             question.Options.Add($"F: Gretsch White Falcon");
 
             return question; // store this for XML serialization later.
-
         }
+
         //serialize
         public void SaveQuestionToFile(QuizQuestion question, string filepath)
         {
@@ -51,7 +52,7 @@ namespace ElectricGuitarQuiz
                 return (QuizQuestion)serializer.Deserialize(fs);
             }
         }
-        //public char UserCorrectAnswer = GuitarQuizQuestion(Ui_Methods.GetValidUserChoice()); // this will store the user answer or maybe serilize it later.
+        //public char CorrectAnswer = GuitarQuizQuestion(Ui_Methods.GetValidUserChoice()); // this will store the user answer or maybe serilize it later.
     }
 }
 

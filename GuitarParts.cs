@@ -18,13 +18,8 @@ namespace ElectricGuitarQuiz
         public int tuners;
         public string fretboardWood = "";
 
-        public Pickups thePickups = new Pickups();
+        public Pickups thePickups = new Pickups(); // this will be used to store the pickups information
 
-        // will remove later this was just for testing 
-        public static void PlayNote(string chord)
-        {
-            Console.WriteLine($"Fretting the Chord {chord}");
-        }
 
         public class Pickups // compemplating on whether that should be in it's own class 
         {
@@ -37,8 +32,5 @@ namespace ElectricGuitarQuiz
             public int humbuckers;
             public int singleCoils;
         }
-
-        //XmlSerializer serializer = new XmlSerializer(typeof(List<Guitar>));
-        //string path = @"\Users\User\Documents\GitHub\ElectricGuitarQuiz\ElectricGuitarQuiz\bin\Debug\net6.0-windows\ElectricGuitarQuiz.exe";
     }
 }

@@ -24,10 +24,29 @@ namespace ElectricGuitarQuiz
             char userInput = Console.ReadKey().KeyChar; // get the user input to work in the in game selection
             return userInput;
         }
+        public static void GetCorrectAnswer(char getUserinput)
+        {
+            if (char.ToUpper(getUserinput) == ConstantsVAR.USER_SELECTION_A)
+            {
+                Console.WriteLine("This is NOT the correct Answer!");
+            }
+            else if (char.ToUpper(getUserinput) == ConstantsVAR.USER_SELECTION_B)
+            {
+                Console.WriteLine("This is NOT the correct Answer!");
+            }
+            else if (char.ToUpper(getUserinput) == ConstantsVAR.USER_SELECTION_C) // this is the correct answer
+            {
+                Console.WriteLine("This is the correct Answer!");
+            }
+            else if (char.ToUpper(getUserinput) == ConstantsVAR.USER_SELECTION_D)
+            {
+                Console.WriteLine("This is NOT the correct Answer!");
+            }
+        }
 
         public static void DisplayingSavedToFile()
         {
-            // basic message
+            // basic messagefor saving files
             Console.WriteLine("Saved To XML!");
         }
         
@@ -49,13 +68,14 @@ namespace ElectricGuitarQuiz
                     Console.WriteLine("This isn't within the selection parameters, Please try again");
                     userInput = Ui_Methods.GetUserInput(); // if the user input is not valid, it will ask the user to try again.
                 }
-
+                
                 else
                 {
                     isTheSelectionValid = true; // if the user input is valid, it will set the variable to true.
-                    Console.WriteLine($" You've selected {userInput}");
+                    Console.WriteLine($" You've selected {userInput}"); // might use GetcorrectAnswer() method here to check if the user input is correct or not.
                 }
-
+                
+                Ui_Methods.GetCorrectAnswer(userInput); // this will check if the user input is correct or not.
             }
             while (!isTheSelectionValid); // this will keep asking the user for input until the input is valid.
 

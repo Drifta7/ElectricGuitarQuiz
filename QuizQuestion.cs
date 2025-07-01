@@ -10,7 +10,7 @@ namespace ElectricGuitarQuiz
 {
     public class QuizQuestion
     {
-        public string Question1 { get; set; }
+        public string Question { get; set; }
         public List<string> Options { get; set; }
         public char CorrectAnswer { get; set; }
        
