@@ -49,7 +49,7 @@ namespace ElectricGuitarQuiz
             // basic messagefor saving files
             Console.WriteLine("Saved To XML!");
         }
-        
+
         ///--------_____--------------------------------------  ---------------------------------------
 
         public static char GetValidUserChoice()// this is a answer "bluePrint" for the In game selection
@@ -68,13 +68,13 @@ namespace ElectricGuitarQuiz
                     Console.WriteLine("This isn't within the selection parameters, Please try again");
                     userInput = Ui_Methods.GetUserInput(); // if the user input is not valid, it will ask the user to try again.
                 }
-                
+
                 else
                 {
                     isTheSelectionValid = true; // if the user input is valid, it will set the variable to true.
                     Console.WriteLine($" You've selected {userInput}"); // might use GetcorrectAnswer() method here to check if the user input is correct or not.
                 }
-                
+
                 Ui_Methods.GetCorrectAnswer(userInput); // this will check if the user input is correct or not.
             }
             while (!isTheSelectionValid); // this will keep asking the user for input until the input is valid.
@@ -84,7 +84,52 @@ namespace ElectricGuitarQuiz
 
         // ___-----_--------------------------------------  ---------------------------------------____-----_--_----_-//
 
-        public static string GetNumericUserInput() // This gets the Number input from the user for The SelectionGameMode() method
+        public static char CreateUserTypedQuestion() // this will allow the user to create a quiz question 
+        {
+            Console.WriteLine("Create a Question for the Quiz Game");
+            string createdQuestionText = Console.ReadLine(); // this will store the users typed question text
+
+            Console.WriteLine("Create another Question for the GameQuiz");
+            string cratedQuestionText2 = Console.ReadLine();
+
+            char userGameQuestionChoice = Console.ReadKey().KeyChar;
+            bool isTheInputValid = false;
+
+            do
+            {
+                Console.WriteLine("Would you like to Create more question for the Quiz Game Y/N ?");
+                userGameQuestionChoice = char.ToUpper(Console.ReadKey().KeyChar); // this will get the user input and convert it to uppercase
+                Console.WriteLine();
+
+                isTheInputValid = userGameQuestionChoice == ConstantsVAR.USERSELECT_YES ||
+                                  userGameQuestionChoice == ConstantsVAR.USERSELECT_NO; // this will check if the user input is valid or not
+
+                if (!isTheInputValid)
+                {
+                    Console.WriteLine("This is not a valid selection. PLease enter Y or N.");
+                }
+
+            } while (!isTheInputValid); // this will keep asking the user for input until the input is valid.
+
+            if (userGameQuestionChoice == ConstantsVAR.USERSELECT_YES)
+            {
+                Console.WriteLine("Please continue to creat more question");
+
+            }
+            else 
+            {
+                Console.WriteLine("Thank you for creating a question for the Quiz Game");
+            }
+            return userGameQuestionChoice; // this will return the user input
+        }
+    
+
+
+
+// ___-----_--------------------------------------  ---------------------------------------____-----_--_----_-//
+
+
+public static string GetNumericUserInput() // This gets the Number input from the user for The SelectionGameMode() method
         {
             int numericInput;
             string userNumericInput = "";
@@ -128,6 +173,7 @@ namespace ElectricGuitarQuiz
                         Console.WriteLine($"You have selected {numericInput}");
                     }
                 }
+
             } while (!isTheSelectionValid);
 
             return numericInput;
