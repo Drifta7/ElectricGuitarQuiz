@@ -27,8 +27,10 @@ namespace ElectricGuitarQuiz
                 Question = "What is the style of guitar that has an arch -top?",
                 CorrectAnswer = 'C'
             };
+           
 
-            Console.WriteLine("What is the style the Guitar that has an arch-top?"); // perhaps make this a blank for spaceholder for a question 
+            
+            Console.WriteLine("What is the style the Guitar that has an arch-top?"); // Blueprint for a question.
 
             question.Options.Add($"A: Gibson Les Paul"); // make this a placeholder for a question perhaps(and for the rest of the other questions).
             question.Options.Add($"B: Fender Stratocaster");
@@ -40,6 +42,8 @@ namespace ElectricGuitarQuiz
             return question; // store this for XML serialization later.
         }
 
+
+
         public QuizQuestion BlankQuizQuestionsForUser()
         {
             QuizQuestion question = new QuizQuestion
@@ -47,7 +51,29 @@ namespace ElectricGuitarQuiz
                 Question = " ",
                 CorrectAnswer = ' '
             };
-            
+
+            //-------_--------- Questiond For the User to fill -----------_---_-_-----_-
+
+            QuizQuestion userQuizquestion = new QuizQuestion();
+            userQuizquestion.Question = " ";    // this is a placeholder for the user to enter their own question.
+           
+            QuizQuestion userQuizQuestion_2 = new QuizQuestion();
+            userQuizQuestion_2.Question = "";
+
+            QuizQuestion userQuizQuestion_3 = new QuizQuestion();
+            userQuizQuestion_2.Question = "";
+
+            QuizQuestion userQuizQuestion_4 = new QuizQuestion();
+            userQuizQuestion_4.Question = "";
+
+            QuizQuestion userQuizQuestion_5 = new QuizQuestion();
+            userQuizQuestion_5.Question = "";
+
+            QuizQuestion userQuizQuestion_6 = new QuizQuestion();
+            userQuizQuestion_6.Question = "";
+
+            userQuizquestion.CorrectAnswer = ' '; // this is a placeholder for the user to enter their own correct answer.
+           
             Console.WriteLine("Enter the Question for the multiple answers");
 
             question.Options.Add($"A:  ");
@@ -59,6 +85,10 @@ namespace ElectricGuitarQuiz
 
             return question;
         }
+
+
+
+
 
         //serialize
         public void SaveQuestionToFile(QuizQuestion question, string filepath)

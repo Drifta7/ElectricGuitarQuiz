@@ -49,6 +49,20 @@ namespace ElectricGuitarQuiz
             // basic messagefor saving files
             Console.WriteLine("Saved To XML!");
         }
+        ///__-------------------------------------------- UserCreation Prompts ---------------------------------------____-----_--_----_-//
+        
+        public static void CreatingQuestionPrompt()
+        {
+            Console.WriteLine("Please input the question text");
+        }
+        public static void CreatingAvaibleOptionsPrompt()
+        {
+            Console.WriteLine("Please Input the avaliable option");
+        }
+        public static void CreatingCorrectAnswerPrompt()
+        {
+            Console.WriteLine("Please input the correct answer");
+        }
 
         ///--------_____--------------------------------------  ---------------------------------------
 
