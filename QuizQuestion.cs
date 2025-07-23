@@ -52,27 +52,29 @@ namespace ElectricGuitarQuiz
                 CorrectAnswer = ' '
             };
 
-            //-------_--------- Questiond For the User to fill -----------_---_-_-----_-
+            //-------_--------- Questiond For the User to fill -----------_---_-_-----_- MIGHT NOT USE THIS FOR A FOR LOOP IS BETTER!!!!!
 
-            QuizQuestion userQuizquestion = new QuizQuestion();
-            userQuizquestion.Question = " ";    // this is a placeholder for the user to enter their own question.
+            QuizQuestion userQuizQuestion = new QuizQuestion();
+            userQuizQuestion.Question = " ";    // this is a placeholder for the user to enter their own question.
            
-            QuizQuestion userQuizQuestion_2 = new QuizQuestion();
-            userQuizQuestion_2.Question = "";
+                        
 
-            QuizQuestion userQuizQuestion_3 = new QuizQuestion();
-            userQuizQuestion_2.Question = "";
+            //QuizQuestion userQuizQuestion_2 = new QuizQuestion();
+            //userQuizQuestion_2.Question = "";
 
-            QuizQuestion userQuizQuestion_4 = new QuizQuestion();
-            userQuizQuestion_4.Question = "";
+            //QuizQuestion userQuizQuestion_3 = new QuizQuestion();
+            //userQuizQuestion_2.Question = "";
 
-            QuizQuestion userQuizQuestion_5 = new QuizQuestion();
-            userQuizQuestion_5.Question = "";
+            //QuizQuestion userQuizQuestion_4 = new QuizQuestion();
+            //userQuizQuestion_4.Question = "";
 
-            QuizQuestion userQuizQuestion_6 = new QuizQuestion();
-            userQuizQuestion_6.Question = "";
+            //QuizQuestion userQuizQuestion_5 = new QuizQuestion();
+            //userQuizQuestion_5.Question = "";
 
-            userQuizquestion.CorrectAnswer = ' '; // this is a placeholder for the user to enter their own correct answer.
+            //QuizQuestion userQuizQuestion_6 = new QuizQuestion();
+            //userQuizQuestion_6.Question = "";
+
+            userQuizQuestion.CorrectAnswer = ' '; // this is a placeholder for the user to enter their own correct answer.
            
             Console.WriteLine("Enter the Question for the multiple answers");
 
@@ -86,7 +88,22 @@ namespace ElectricGuitarQuiz
             return question;
         }
 
+       
+        public static void PrintOutSelectedNumberOfQuestions()
+        {
+            int numberOfQuestions = Ui_Methods.InputNumberOfQuestions();
+            
+            QuizQuestion question = new QuizQuestion();// for the user to enter their own question and answers
 
+            for (int i = 0; i < numberOfQuestions; i++) // this will print out the selected number of questions
+            {
+                char multiChoiceChar = (char)('A' + i); // this will cast a char and the iterator "i" will increment the char value
+                Console.WriteLine($"{multiChoiceChar}" + "Enter Question" + ":");
+
+                string userInput = Console.ReadLine();
+                question.Options.Add($"{multiChoiceChar}: {userInput}"); // this will add to the list with the label")
+            }
+        }
 
 
 

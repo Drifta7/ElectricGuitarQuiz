@@ -13,7 +13,7 @@ namespace ElectricGuitarQuiz
     {
         public static void PrintWelcomeMessage()
         {
-            Console.WriteLine("Welcome to the Electric Guitar Quiz Challenge ");
+            Console.WriteLine("Welcome to the Electric Guitar Quiz Challenge");
         }
         public static void PrintGoodbyeMessage()
         {
@@ -50,7 +50,7 @@ namespace ElectricGuitarQuiz
             Console.WriteLine("Saved To XML!");
         }
         ///__-------------------------------------------- UserCreation Prompts ---------------------------------------____-----_--_----_-//
-        
+
         public static void CreatingQuestionPrompt()
         {
             Console.WriteLine("Please input the question text");
@@ -63,6 +63,20 @@ namespace ElectricGuitarQuiz
         {
             Console.WriteLine("Please input the correct answer");
         }
+
+        public static int InputNumberOfQuestions()
+        {
+            Console.WriteLine("How many questions do you want to create?");
+            int numberOfQuestions = Console.Read();
+            return numberOfQuestions;
+        }
+        //--------_____--------------------------------------FORLOOP  ---------------------------------------
+
+      
+
+
+
+
 
         ///--------_____--------------------------------------  ---------------------------------------
 
@@ -103,9 +117,6 @@ namespace ElectricGuitarQuiz
             Console.WriteLine("Create a Question for the Quiz Game");
             string createdQuestionText = Console.ReadLine(); // this will store the users typed question text
 
-            Console.WriteLine("Create another Question for the GameQuiz");
-            string cratedQuestionText2 = Console.ReadLine();
-
             char userGameQuestionChoice = Console.ReadKey().KeyChar;
             bool isTheInputValid = false;
 
@@ -127,23 +138,23 @@ namespace ElectricGuitarQuiz
 
             if (userGameQuestionChoice == ConstantsVAR.USERSELECT_YES)
             {
-                Console.WriteLine("Please continue to creat more question");
+                Console.WriteLine("Please continue to create more question");
 
             }
-            else 
+            else
             {
                 Console.WriteLine("Thank you for creating a question for the Quiz Game");
             }
             return userGameQuestionChoice; // this will return the user input
         }
-    
 
 
 
-// ___-----_--------------------------------------  ---------------------------------------____-----_--_----_-//
+
+        // ___-----_--------------------------------------  ---------------------------------------____-----_--_----_-//
 
 
-public static string GetNumericUserInput() // This gets the Number input from the user for The SelectionGameMode() method
+        public static string GetNumericUserInput() // This gets the Number input from the user for The SelectionGameMode() method
         {
             int numericInput;
             string userNumericInput = "";
