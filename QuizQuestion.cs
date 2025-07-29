@@ -89,7 +89,7 @@ namespace ElectricGuitarQuiz
         }
 
        
-        public static void PrintOutSelectedNumberOfQuestions()
+        public static void PrintOutSelectedNumberOfQuestions() // this will be used for Create Mode 
         {
             int numberOfQuestions = Ui_Methods.InputNumberOfQuestions();
             
@@ -100,6 +100,8 @@ namespace ElectricGuitarQuiz
                 char multiChoiceChar = (char)('A' + i); // this will cast a char and the iterator "i" will increment the char value
                 Console.WriteLine($"{multiChoiceChar}" + "Enter Question" + ":");
 
+                // there supposed to be a method that creates a question in here 
+                
                 string userInput = Console.ReadLine();
                 question.Options.Add($"{multiChoiceChar}: {userInput}"); // this will add to the list with the label")
             }

@@ -64,7 +64,7 @@ namespace ElectricGuitarQuiz
             Console.WriteLine("Please input the correct answer");
         }
 
-        public static int InputNumberOfQuestions()
+        public static int InputNumberOfQuestions()// prompt user question on how many "questions" they want 
         {
             Console.WriteLine("How many questions do you want to create?");
             int numberOfQuestions = Console.Read();
@@ -72,7 +72,7 @@ namespace ElectricGuitarQuiz
         }
         //--------_____--------------------------------------FORLOOP  ---------------------------------------
 
-      
+
 
 
 
@@ -111,20 +111,20 @@ namespace ElectricGuitarQuiz
         }
 
         // ___-----_--------------------------------------  ---------------------------------------____-----_--_----_-//
-
+        // Might delete from line 123 to line 147
         public static char CreateUserTypedQuestion() // this will allow the user to create a quiz question 
         {
-            Console.WriteLine("Create a Question for the Quiz Game");
+            Console.WriteLine("Create a Question for your Quiz Game");
             string createdQuestionText = Console.ReadLine(); // this will store the users typed question text
 
-            char userGameQuestionChoice = Console.ReadKey().KeyChar;
+            char userGameQuestionChoice = Console.ReadKey().KeyChar; // declare for char input for User variable
             bool isTheInputValid = false;
 
             do
             {
                 Console.WriteLine("Would you like to Create more question for the Quiz Game Y/N ?");
                 userGameQuestionChoice = char.ToUpper(Console.ReadKey().KeyChar); // this will get the user input and convert it to uppercase
-                Console.WriteLine();
+                Console.WriteLine(); // creates a "break" line in the program 
 
                 isTheInputValid = userGameQuestionChoice == ConstantsVAR.USERSELECT_YES ||
                                   userGameQuestionChoice == ConstantsVAR.USERSELECT_NO; // this will check if the user input is valid or not
@@ -235,6 +235,30 @@ namespace ElectricGuitarQuiz
                 Console.WriteLine("FretBoard");
             }
             return userChoice;
+        }
+
+        public static char SelectingGameOrCreateMode()// selecting either create or play mode 
+        {
+            Console.WriteLine("Please select a game mode A or B"); 
+
+            char userSelection = Console.ReadKey().KeyChar; // wait for user input
+            bool isTheSelectionValid = false;
+            do
+            {
+                if (userSelection != ConstantsVAR.USER_SELECTION_A && userSelection != ConstantsVAR.USER_SELECTION_B)
+                {
+                    isTheSelectionValid = false;
+                    Console.WriteLine("\n This is not the correct selection, please make the correct selection");
+                    userSelection = Console.ReadKey().KeyChar;// prompts the user to enter again.
+                }
+                else
+                {
+                    Console.WriteLine($"\n You have selected {userSelection}");
+                    isTheSelectionValid = true;
+                }
+            }
+            while (!isTheSelectionValid);
+            return userSelection;
         }
 
         public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
