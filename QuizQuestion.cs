@@ -27,8 +27,6 @@ namespace ElectricGuitarQuiz
                 Question = "What is the style of guitar that has an arch -top?",
                 CorrectAnswer = 'C'
             };
-           
-
             
             Console.WriteLine("What is the style the Guitar that has an arch-top?"); // Blueprint for a question.
 
@@ -41,8 +39,6 @@ namespace ElectricGuitarQuiz
 
             return question; // store this for XML serialization later.
         }
-
-
 
         public QuizQuestion BlankQuizQuestionsForUser()
         {
@@ -88,6 +84,7 @@ namespace ElectricGuitarQuiz
             return question;
         }
 
+
        
         public static void PrintOutSelectedNumberOfQuestions() // this will be used for Create Mode 
         {
@@ -97,12 +94,12 @@ namespace ElectricGuitarQuiz
 
             for (int i = 0; i < numberOfQuestions; i++) // this will print out the selected number of questions
             {
-                char multiChoiceChar = (char)('A' + i); // this will cast a char and the iterator "i" will increment the char value
+                
+                char multiChoiceChar = (char)('A' + i); string userInput = Console.ReadLine(); // this will cast a char and the iterator "i" will increment the char value
                 Console.WriteLine($"{multiChoiceChar}" + "Enter Question" + ":");
 
                 // there supposed to be a method that creates a question in here 
                 
-                string userInput = Console.ReadLine();
                 question.Options.Add($"{multiChoiceChar}: {userInput}"); // this will add to the list with the label")
             }
         }
@@ -129,8 +126,6 @@ namespace ElectricGuitarQuiz
                 return (QuizQuestion)serializer.Deserialize(fs);
             }
         }
-        
-
     }
 }
 

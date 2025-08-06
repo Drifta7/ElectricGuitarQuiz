@@ -19,6 +19,9 @@ namespace ElectricGuitarQuiz
         public const char USER_SELECTION_D = 'D';
         public const char USER_SELECTION_E = 'E';
 
+        public const char START_PLAY_MODE = 'A'; // const for the mutiple choice 
+        public const char BUILD_QUIZ_MODE = 'B'; // const for the Build Quiz mode 
+
         public const int RANGE_MIN = 1;
         public const int NUMBER_SELECTION_TWO = 2;
         public const int NUMBER_ELECTION_THREE = 3;

@@ -9,11 +9,22 @@ namespace ElectricGuitarQuiz
 
            char userInputSelect = Ui_Methods.SelectingGameOrCreateMode();
 
-            if (userInputSelect == ConstantsVAR.USER_SELECTION_A) // this will house the Play Mode
-            { 
+            if (userInputSelect == ConstantsVAR.START_PLAY_MODE) // this will house the Play Mode
+
+            {
+                Ui_Methods.PrintWelcomeMessage();
+                QuizQuestion start = new GuitarQuestionsList().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
+               
+                
+                // QuizQuestion Question_2 = new GuitarQuestionsList().GetSampleQuestion_1();
+
+
+                QuizQuestion.PrintOutSelectedNumberOfQuestions();
+                Ui_Methods.GetCorrectAnswer(Ui_Methods.GetUserInput());
+                //Ui_Methods.PrintGoodbyeMessage();
 
             }
-            if (userInputSelect == ConstantsVAR.USER_SELECTION_B) // this will house the Create mode
+            if (userInputSelect == ConstantsVAR.BUILD_QUIZ_MODE) // this will house the Create mode
             {
                 //Console.WriteLine("you have selected ");
 
