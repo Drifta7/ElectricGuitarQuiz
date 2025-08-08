@@ -101,7 +101,7 @@ namespace ElectricGuitarQuiz
                 Console.WriteLine($"{multiChoiceChar}" + "Enter Question" + ":");
 
                 string userInput = Console.ReadLine();
-                question.Options.Add($"{multiChoiceChar}: {userInput}"); // this will add to the list with the label")
+                question.Options.Add($"{multiChoiceChar}: {userInput}"); // this will add to the list with the label
             }
         }
 
