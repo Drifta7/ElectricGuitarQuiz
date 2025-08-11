@@ -6,8 +6,31 @@ namespace ElectricGuitarQuiz
     {
         static void Main(string[] args)
         {
-           
 
+           char userInputSelect = Ui_Methods.SelectingGameOrCreateMode();
+
+            if (userInputSelect == ConstantsVAR.START_PLAY_MODE) // this will house the Play Mode
+
+            {
+                Ui_Methods.PrintWelcomeMessage();
+                QuizQuestion start = new GuitarQuestionsList().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
+               
+                
+                // QuizQuestion Question_2 = new GuitarQuestionsList().GetSampleQuestion_1();
+
+
+                QuizQuestion.PrintOutSelectedNumberOfQuestions();
+                Ui_Methods.GetCorrectAnswer(Ui_Methods.GetUserInput());
+                //Ui_Methods.PrintGoodbyeMessage();
+
+            }
+            if (userInputSelect == ConstantsVAR.BUILD_QUIZ_MODE) // this will house the Create mode
+            {
+                //Console.WriteLine("you have selected ");
+
+                Ui_Methods.CreateUserTypedQuestion();
+                QuizQuestion.PrintOutSelectedNumberOfQuestions();
+            }
             //_----____----_-______--_-______----------------  ---------__---__-_-_-_-------------_--_-_--__---------------__--__-_-___- 
 
             GuitarQuestionsList questionManager = new GuitarQuestionsList(); // creating an instance of the GuitarQuestion class
@@ -15,8 +38,7 @@ namespace ElectricGuitarQuiz
             // create the question
             QuizQuestion question = new GuitarQuestionsList().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
 
-            //__-_----__--_____-_----_(Serialize and Deserialize)---_-_-_-_--_______-----__---_-_-_-_-_-________----___-\\
-            
+           
             
             //serialized question to Xml
             string filepath = @"D:\Random Drawings\Serialization Guitar.xml";

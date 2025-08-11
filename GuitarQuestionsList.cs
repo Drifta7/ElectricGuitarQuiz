@@ -29,8 +29,40 @@ namespace ElectricGuitarQuiz
             question.Options.Add($"E: Gibson SG Standard");
             question.Options.Add($"F: Gretsch White Falcon");
 
+            foreach (string option in question.Options)
+            {
+                Console.WriteLine(option);
+            }
+
             return question; // store this for XML serialization later.
+
         }
+
+        public QuizQuestion GetSampleQuestion_1()
+        {
+            QuizQuestion question = new QuizQuestion
+            {
+                Question = "Which Guitar has single coils as opposed to humbuckers?",
+                CorrectAnswer = 'B'
+            };
+            
+            Console.WriteLine("Which Guitar has single coils as opposed to humbuckers?");
+            
+            question.Options.Add($"A: Gibson ES-335");
+            question.Options.Add($"B: Gibson SG Standard");
+            question.Options.Add($"C: Gretsch White Falcon");
+            question.Options.Add($"D: Fender JazzMaster");
+            question.Options.Add($"E: Fender Stratocaster");
+            question.Options.Add($"A: Gibson Les Paul");
+
+            foreach (string option in question.Options)
+            {
+                Console.WriteLine(option);
+            }
+
+            return question;
+        }
+        
 
         //serialize
         public void SaveQuestionToFile(QuizQuestion question, string filepath)
