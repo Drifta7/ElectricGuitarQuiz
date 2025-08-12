@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ElectricGuitarQuiz
 {
-    class Ui_Methods
+    class UiMethods
     {
         public static void PrintWelcomeMessage()
         {
@@ -26,19 +26,9 @@ namespace ElectricGuitarQuiz
         }
         public static void GetCorrectAnswer(char getUserInput)
         {
-            if (char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_A)
-            {
-                Console.WriteLine("This is NOT the correct Answer!");
-            }
-            else if (char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_B)
-            {
-                Console.WriteLine("This is NOT the correct Answer!");
-            }
-            else if (char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_C) // this is the correct answer
-            {
-                Console.WriteLine("This is the correct Answer!");
-            }
-            else if (char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_D)
+            if(char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_A|| char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_B||
+               char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_C|| char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_D ||
+               char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_E)
             {
                 Console.WriteLine("This is NOT the correct Answer!");
             }
@@ -51,15 +41,16 @@ namespace ElectricGuitarQuiz
         }
         ///__-------------------------------------------- UserCreation Prompts ---------------------------------------____-----_--_----_-//
 
-        public static void CreatingQuestionPrompt() // NOTE: use for create part of program
+        public static void PromptUserToCreateQuestions() // NOTE: use for create part of program
         {
             Console.WriteLine("Please input the question text"); // use for Create part of program
         }
-        public static void CreatingAvailableOptionsPrompt()
+
+        public static void PromptUserToCreateOptions()
         {
             Console.WriteLine("Please Input the avaliable option");
         }
-        public static void CreatingCorrectAnswerPrompt()
+        public static void PromptUserToCreateAnswer()
         {
             Console.WriteLine("Please input the correct answer");
         }
@@ -67,13 +58,20 @@ namespace ElectricGuitarQuiz
         public static int InputNumberOfQuestions()// prompt user question on how many "questions" they want 
         {
             Console.WriteLine("How many questions do you want to create?");
-            int numberOfQuestions = Console.Read();
+            int numberOfQuestions = int.Parse(Console.ReadLine());
             return numberOfQuestions;
+        }
+
+        public static int InputNumberOfAnswers()
+        {
+            Console.WriteLine("How many options/answers do you want?");
+            int numberOfAnswers = int.Parse(Console.ReadLine()); // if Parse wasn't there it would have given an answer of 54 (ASCII)
+            return numberOfAnswers;
         }
 
         public static char GetValidUserChoice()// this is a answer "bluePrint" for the In game selection
         {
-            char userInput = Ui_Methods.GetUserInput();
+            char userInput = UiMethods.GetUserInput();
             bool isTheSelectionValid = false;
 
             do
@@ -85,7 +83,7 @@ namespace ElectricGuitarQuiz
                     && char.ToUpper(userInput) != ConstantsVAR.USER_SELECTION_E)
                 {
                     Console.WriteLine("This isn't within the selection parameters, Please try again");
-                    userInput = Ui_Methods.GetUserInput(); // if the user input is not valid, it will ask the user to try again.
+                    userInput = UiMethods.GetUserInput(); // if the user input is not valid, it will ask the user to try again.
                 }
 
                 else
@@ -94,7 +92,7 @@ namespace ElectricGuitarQuiz
                     Console.WriteLine($" You've selected {userInput}"); // might use GetcorrectAnswer() method here to check if the user input is correct or not.
                 }
 
-                Ui_Methods.GetCorrectAnswer(userInput); // this will check if the user input is correct or not.
+                UiMethods.GetCorrectAnswer(userInput); // this will check if the user input is correct or not.
             }
             while (!isTheSelectionValid); // this will keep asking the user for input until the input is valid.
 
@@ -103,11 +101,8 @@ namespace ElectricGuitarQuiz
 
         // ___-----_--------------------------------------  ---------------------------------------____-----_--_----_-//
         // Might delete from line 123 to line 147
-        public static char CreateUserTypedQuestion() // this will allow the user to create a quiz question 
+        public static char PromptingUserToCreateMoreQuestions() // this will allow the user to create a quiz question 
         {
-            Console.WriteLine("Create a Question for your Quiz Game");
-            string createdQuestionText = Console.ReadLine(); // this will store the users typed question text
-
             char userGameQuestionChoice = Console.ReadKey().KeyChar; // declare for char input for User variable
             bool isTheInputValid = false;
 
@@ -123,6 +118,7 @@ namespace ElectricGuitarQuiz
                 if (!isTheInputValid)
                 {
                     Console.WriteLine("This is not a valid selection. PLease enter Y or N.");
+                    userGameQuestionChoice = char.ToUpper(Console.ReadKey().KeyChar); // if the user input is not valid, it will ask the user to try again.
                 }
 
             } while (!isTheInputValid); // this will keep asking the user for input until the input is valid.
@@ -230,9 +226,11 @@ namespace ElectricGuitarQuiz
 
         public static char SelectingGameOrCreateMode()// selecting either create or play mode 
         {
-            Console.WriteLine("Please select a game mode A or B"); 
+            Console.WriteLine("Please select a game mode A or B");
 
             char userSelection = Console.ReadKey().KeyChar; // wait for user input for A and B selection 
+            userSelection = char.ToUpper(userSelection); // convert the user input to uppercase for consistency 
+
             bool isTheSelectionValid = false;
             do
             {

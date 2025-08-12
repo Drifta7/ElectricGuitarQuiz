@@ -19,7 +19,7 @@ namespace ElectricGuitarQuiz
             Options = new List<string>(); // initialize the List
         }
 
-        public QuizQuestion GetSampleQuestion()
+        public QuizQuestion GetSampleQuestion()// to be called in the Program.cs
         {
 
             QuizQuestion question = new QuizQuestion
@@ -27,7 +27,7 @@ namespace ElectricGuitarQuiz
                 Question = "What is the style of guitar that has an arch -top?",
                 CorrectAnswer = 'C'
             };
-            
+
             Console.WriteLine("What is the style the Guitar that has an arch-top?"); // Blueprint for a question.
 
             question.Options.Add($"A: Gibson Les Paul"); // make this a placeholder for a question perhaps(and for the rest of the other questions).
@@ -37,73 +37,148 @@ namespace ElectricGuitarQuiz
             question.Options.Add($"E: Gibson SG Standard");
             question.Options.Add($"F: Gretsch White Falcon");
 
+            foreach (string option in question.Options)
+            {
+                Console.WriteLine(option);
+            }
+
+            string CorrectAnswerVar = CorrectAnswer.ToString().ToUpper(); // converts the char to a string and makes it uppercase.
+
             return question; // store this for XML serialization later.
         }
 
-        public QuizQuestion BlankQuizQuestionsForUser()
+        public QuizQuestion GetSampleQuestion_2()// to be called in the Program.cs
         {
+
             QuizQuestion question = new QuizQuestion
             {
-                Question = " ",
-                CorrectAnswer = ' '
+                Question = "Which guitar has single coils?",
+                CorrectAnswer = 'B'
             };
 
-            //-------_--------- Questiond For the User to fill -----------_---_-_-----_- MIGHT NOT USE THIS FOR A FOR LOOP IS BETTER!!!!!
+            Console.WriteLine("Which guitar has single coils?"); // Blueprint for a question.
 
-            QuizQuestion userQuizQuestion = new QuizQuestion();
-            userQuizQuestion.Question = " ";    // this is a placeholder for the user to enter their own question.
-           
-                        
+            question.Options.Add($"A: Gibson Les Paul"); // make this a placeholder for a question perhaps(and for the rest of the other questions).
+            question.Options.Add($"B: Fender Stratocaster");
+            question.Options.Add($"C: Gibson ES-335");
+            question.Options.Add($"D: Fender JazzMaster");
+            question.Options.Add($"E: Gibson SG Standard");
+            question.Options.Add($"F: Gretsch White Falcon");
 
-            //QuizQuestion userQuizQuestion_2 = new QuizQuestion();
-            //userQuizQuestion_2.Question = "";
+            foreach (string option in question.Options)
+            {
+                Console.WriteLine(option);
+            }
 
-            //QuizQuestion userQuizQuestion_3 = new QuizQuestion();
-            //userQuizQuestion_2.Question = "";
+            string CorrectAnswerVar = CorrectAnswer.ToString().ToUpper(); // converts the char to a string and makes it uppercase.
 
-            //QuizQuestion userQuizQuestion_4 = new QuizQuestion();
-            //userQuizQuestion_4.Question = "";
+            return question; // store this for XML serialization later.
+        }
 
-            //QuizQuestion userQuizQuestion_5 = new QuizQuestion();
-            //userQuizQuestion_5.Question = "";
+        public QuizQuestion GetSampleQuestion_3()// to be called in the Program.cs
+        {
 
-            //QuizQuestion userQuizQuestion_6 = new QuizQuestion();
-            //userQuizQuestion_6.Question = "";
+            QuizQuestion question = new QuizQuestion
+            {
+                Question = "What is the style of guitar that has an arch -top?",
+                CorrectAnswer = 'C'
+            };
 
-            userQuizQuestion.CorrectAnswer = ' '; // this is a placeholder for the user to enter their own correct answer.
-           
+            Console.WriteLine("What is the style the Guitar that has an arch-top?"); // Blueprint for a question.
+
+            question.Options.Add($"A: Gibson Les Paul"); // make this a placeholder for a question perhaps(and for the rest of the other questions).
+            question.Options.Add($"B: Fender Stratocaster");
+            question.Options.Add($"C: Gibson ES-335");
+            question.Options.Add($"D: Fender JazzMaster");
+            question.Options.Add($"E: Gibson SG Standard");
+            question.Options.Add($"F: Gretsch White Falcon");
+
+            foreach (string option in question.Options)
+            {
+                Console.WriteLine(option);
+            }
+
+            string CorrectAnswerVar = CorrectAnswer.ToString().ToUpper(); // converts the char to a string and makes it uppercase.
+
+            return question; // store this for XML serialization later.
+        }
+
+        public QuizQuestion GetSampleQuestion_1()
+        {
+            QuizQuestion question1 = new QuizQuestion();
+
             Console.WriteLine("Enter the Question for the multiple answers");
+
+            QuizQuestion question = new QuizQuestion();
 
             question.Options.Add($"A:  ");
             question.Options.Add($"B:  ");
             question.Options.Add($"C:  ");
             question.Options.Add($"D:  ");
             question.Options.Add($"E:  ");
-            question.Options.Add($"A:  ");
+            question.Options.Add($"F:  ");
+
+            foreach (string option in question.Options)
+            {
+                Console.WriteLine(option);
+            }
+
+            Console.WriteLine("Enter the correct answer");
+            question1.Question = Console.ReadLine(); // allows the user to enter a question.
 
             return question;
         }
 
-
-       
         public static void PrintOutSelectedNumberOfQuestions() // this will be used for Create Mode 
         {
-            int numberOfQuestions = Ui_Methods.InputNumberOfQuestions();
-            
-            QuizQuestion question = new QuizQuestion();// for the user to enter their own question and answers
+            int numberOfQuestions = UiMethods.InputNumberOfQuestions(); // returned int in called method will be stored here.
+
+            List<QuizQuestion> quizQuestion = new List<QuizQuestion>();// for the user to enter their own question and answers in a list.
 
             for (int i = 0; i < numberOfQuestions; i++) // this will print out the selected number of questions
             {
-                
-                char multiChoiceChar = (char)('A' + i); string userInput = Console.ReadLine(); // this will cast a char and the iterator "i" will increment the char value
-                Console.WriteLine($"{multiChoiceChar}" + "Enter Question" + ":");
+                char multiChoiceChar = (char)('A' + i); // this will cast a char and the iterator "i" will increment the char value A, B, C, etc.
+                QuizQuestion question = new QuizQuestion(); // creates a new instance of the question.
 
-                string userInput = Console.ReadLine();
-                question.Options.Add($"{multiChoiceChar}: {userInput}"); // this will add to the list with the label
+                UiMethods.PromptUserToCreateQuestions();
+
+                Console.WriteLine($" Enter question {i + 1}:"); // prompts the user to enter a question
+                question.Question = Console.ReadLine(); // waits for user to input question
             }
         }
 
 
+        public static void PrintOutSelectedNumberOfOptions()
+        {
+            List<QuizQuestion> quizQuestion = new List<QuizQuestion>();
+            QuizQuestion question = new QuizQuestion();
+            
+            question.Options = new List<string>(); // initializes the Options list for each question
+            
+            int numberOfOptions = UiMethods.InputNumberOfAnswers(); //returned int in called method will be stored here.
+
+            for (int j = 0; j < numberOfOptions; j++)
+            {
+                char optionLabel = (char)('A' + j);
+                Console.WriteLine($"Option {optionLabel}");
+                string optionText = Console.ReadLine(); // waits for user to put in text for the option
+                question.Options.Add($"{optionLabel}: {optionText}"); // adds the option to the list with the label
+            }
+
+            string correctAnswerInput; // making sure that the user inputs a valid answer 
+            do
+            {
+                Console.WriteLine("Enter the correct option letter(A,B,C,D, etc..): ");
+                correctAnswerInput = Console.ReadLine().Trim().ToUpper(); //
+            }
+            while (string.IsNullOrEmpty(correctAnswerInput));
+
+            Console.Write("Enter the correct answer (A, B, C, D, etc..): ");
+            question.CorrectAnswer = Console.ReadLine().ToUpper()[0]; // reads the correct answer from user and selects the first character of the array from string array
+
+            quizQuestion.Add(question);// adds the question to the list of questions
+        }
+        
 
         //serialize
         public void SaveQuestionToFile(QuizQuestion question, string filepath)

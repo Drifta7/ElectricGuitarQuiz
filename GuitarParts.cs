@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace ElectricGuitarQuiz
-{
+{   
     public class GuitarParts
     {
         public string Name = "";

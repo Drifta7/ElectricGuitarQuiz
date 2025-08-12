@@ -7,43 +7,50 @@ namespace ElectricGuitarQuiz
         static void Main(string[] args)
         {
 
-           char userInputSelect = Ui_Methods.SelectingGameOrCreateMode();
+           char userInputSelect = UiMethods.SelectingGameOrCreateMode();
 
             if (userInputSelect == ConstantsVAR.START_PLAY_MODE) // this will house the Play Mode
-
             {
-                Ui_Methods.PrintWelcomeMessage();
-                QuizQuestion start = new GuitarQuestionsList().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
-               
+                UiMethods.PrintWelcomeMessage();
+                QuizQuestion start = new QuizQuestion().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
                 
                 // QuizQuestion Question_2 = new GuitarQuestionsList().GetSampleQuestion_1();
 
-
                 QuizQuestion.PrintOutSelectedNumberOfQuestions();
-                Ui_Methods.GetCorrectAnswer(Ui_Methods.GetUserInput());
-                //Ui_Methods.PrintGoodbyeMessage();
-
+                UiMethods.GetCorrectAnswer(UiMethods.GetUserInput());
+                //UiMethods.PrintGoodbyeMessage();
             }
-            if (userInputSelect == ConstantsVAR.BUILD_QUIZ_MODE) // this will house the Create mode
+             
+            if (userInputSelect == ConstantsVAR.BUILD_QUIZ_MODE) // this will houses the Create mode
             {
-                //Console.WriteLine("you have selected ");
-
-                Ui_Methods.CreateUserTypedQuestion();
-                QuizQuestion.PrintOutSelectedNumberOfQuestions();
+                bool hasTheUserQuit = false; // a Flag if the user has quit the game or not
+                bool gameOver = false;
+               
+                // will fix this later
+                while (!gameOver) 
+                {
+                        QuizQuestion.PrintOutSelectedNumberOfQuestions();
+                        QuizQuestion.PrintOutSelectedNumberOfOptions();
+                        UiMethods.PromptingUserToCreateMoreQuestions();
+                    
+                    if (hasTheUserQuit)
+                    {
+                        gameOver = true;
+                    }
+                }
             }
-            //_----____----_-______--_-______----------------  ---------__---__-_-_-_-------------_--_-_--__---------------__--__-_-___- 
+            
 
-            GuitarQuestionsList questionManager = new GuitarQuestionsList(); // creating an instance of the GuitarQuestion class
-
+            QuizQuestion questionManager = new QuizQuestion(); // creating an instance of the GuitarQuestion class
+            
             // create the question
-            QuizQuestion question = new GuitarQuestionsList().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
+            QuizQuestion question = new QuizQuestion().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
 
            
-            
             //serialized question to Xml
             string filepath = @"D:\Random Drawings\Serialization Guitar.xml";
             questionManager.SaveQuestionToFile(question, filepath); // saving the question to a file
-            Ui_Methods.DisplayingSavedToFile(); // displaying a message to the user that the question has been saved
+            UiMethods.DisplayingSavedToFile(); // displaying a message to the user that the question has been saved
 
             // derserialize the question from the file
             QuizQuestion loadedQuestion = questionManager.LoadQuestionFromFile(filepath); // loading the question from the file
