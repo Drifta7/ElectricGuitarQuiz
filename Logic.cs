@@ -39,5 +39,27 @@ namespace ElectricGuitarQuiz
                 Console.WriteLine(question);
             }
         }
+        public static bool IsTheAnswerCorrect(char userInput, char correctAnswer)
+        {
+            if (userInput == correctAnswer)
+            {
+                return true; // the answer is correct
+            }
+            else
+            {
+                return false; // the answer is incorrect
+            }
+        }
+        public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
+        {
+            if (ans1 == 'C' && ans2 == 'D')
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

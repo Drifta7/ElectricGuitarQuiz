@@ -99,11 +99,9 @@ namespace ElectricGuitarQuiz
             return userInput; // if the user input is valid, it will return the user input.
         }
 
-        // ___-----_--------------------------------------  ---------------------------------------____-----_--_----_-//
-        // Might delete from line 123 to line 147
         public static char PromptingUserToCreateMoreQuestions() // this will allow the user to create a quiz question 
         {
-            char userGameQuestionChoice = Console.ReadKey().KeyChar; // declare for char input for User variable
+            char userGameQuestionChoice; // declare for char input for User variable DELETE THE FUNCTION
             bool isTheInputValid = false;
 
             do
@@ -134,12 +132,6 @@ namespace ElectricGuitarQuiz
             }
             return userGameQuestionChoice; // this will return the user input
         }
-
-
-
-
-        // ___-----_--------------------------------------  ---------------------------------------____-----_--_----_-//
-
 
         public static string GetNumericUserInput() // This gets the Number input from the user for The SelectionGameMode() method
         {
@@ -247,19 +239,6 @@ namespace ElectricGuitarQuiz
             }
             while (!isTheSelectionValid);
             return userSelection;
-        }
-
-        public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
-        {
-            if (ans1 == 'C' && ans2 == 'D')
-            {
-                Console.WriteLine("These are the correct answers");
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }

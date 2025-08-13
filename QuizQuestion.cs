@@ -129,11 +129,12 @@ namespace ElectricGuitarQuiz
             return question;
         }
 
-        public static void PrintOutSelectedNumberOfQuestions() // this will be used for Create Mode 
+        public static List<QuizQuestion> PrintOutSelectedNumberOfQuestions() // this will be used for Create Mode 
         {
             int numberOfQuestions = UiMethods.InputNumberOfQuestions(); // returned int in called method will be stored here.
 
             List<QuizQuestion> quizQuestion = new List<QuizQuestion>();// for the user to enter their own question and answers in a list.
+            bool isQuestionCreationComplete = false;
 
             for (int i = 0; i < numberOfQuestions; i++) // this will print out the selected number of questions
             {
@@ -144,11 +145,21 @@ namespace ElectricGuitarQuiz
 
                 Console.WriteLine($" Enter question {i + 1}:"); // prompts the user to enter a question
                 question.Question = Console.ReadLine(); // waits for user to input question
+
+                quizQuestion.Add(question);
             }
+            
+            isQuestionCreationComplete = true;
+           
+            if (isQuestionCreationComplete)
+            {
+                UiMethods.PromptingUserToCreateMoreQuestions();
+            }
+            return quizQuestion;
         }
 
 
-        public static void PrintOutSelectedNumberOfOptions()
+        public static List <QuizQuestion> PrintOutSelectedNumberOfOptions()
         {
             List<QuizQuestion> quizQuestion = new List<QuizQuestion>();
             QuizQuestion question = new QuizQuestion();
@@ -177,6 +188,7 @@ namespace ElectricGuitarQuiz
             question.CorrectAnswer = Console.ReadLine().ToUpper()[0]; // reads the correct answer from user and selects the first character of the array from string array
 
             quizQuestion.Add(question);// adds the question to the list of questions
+            return quizQuestion;
         }
         
 

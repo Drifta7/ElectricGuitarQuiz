@@ -7,46 +7,46 @@ namespace ElectricGuitarQuiz
         static void Main(string[] args)
         {
 
-           char userInputSelect = UiMethods.SelectingGameOrCreateMode();
+            char userInputSelect = UiMethods.SelectingGameOrCreateMode();
 
             if (userInputSelect == ConstantsVAR.START_PLAY_MODE) // this will house the Play Mode
             {
                 UiMethods.PrintWelcomeMessage();
                 QuizQuestion start = new QuizQuestion().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
-                
+
                 // QuizQuestion Question_2 = new GuitarQuestionsList().GetSampleQuestion_1();
 
                 QuizQuestion.PrintOutSelectedNumberOfQuestions();
                 UiMethods.GetCorrectAnswer(UiMethods.GetUserInput());
                 //UiMethods.PrintGoodbyeMessage();
             }
-             
+
+            
             if (userInputSelect == ConstantsVAR.BUILD_QUIZ_MODE) // this will houses the Create mode
             {
-                bool hasTheUserQuit = false; // a Flag if the user has quit the game or not
                 bool gameOver = false;
-               
-                // will fix this later
-                while (!gameOver) 
+
+                while (!gameOver)
                 {
-                        QuizQuestion.PrintOutSelectedNumberOfQuestions();
-                        QuizQuestion.PrintOutSelectedNumberOfOptions();
-                        UiMethods.PromptingUserToCreateMoreQuestions();
-                    
-                    if (hasTheUserQuit)
+                    QuizQuestion.PrintOutSelectedNumberOfQuestions();
+                    QuizQuestion.PrintOutSelectedNumberOfOptions();
+                    char userToQuit = UiMethods.PromptingUserToCreateMoreQuestions();
+
+                    if (userToQuit == ConstantsVAR.USERSELECT_NO)
                     {
+                        UiMethods.PrintGoodbyeMessage(); // this will print out a goodbye message to the user when they quit the game
                         gameOver = true;
                     }
                 }
             }
-            
+
 
             QuizQuestion questionManager = new QuizQuestion(); // creating an instance of the GuitarQuestion class
-            
+
             // create the question
             QuizQuestion question = new QuizQuestion().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
 
-           
+
             //serialized question to Xml
             string filepath = @"D:\Random Drawings\Serialization Guitar.xml";
             questionManager.SaveQuestionToFile(question, filepath); // saving the question to a file
