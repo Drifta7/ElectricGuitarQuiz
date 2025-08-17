@@ -176,21 +176,21 @@ namespace ElectricGuitarQuiz
                 question.Options.Add($"{optionLabel}: {optionText}"); // adds the option to the list with the label
             }
 
-            string correctAnswerInput; // making sure that the user inputs a valid answer 
+             // from Line 180 to 188 is to just check if the user placed a valid answer or not 
+            string correctValidInput; // making sure that the user inputs a valid answer 
             do
             {
-                Console.WriteLine("Enter the correct option letter(A,B,C,D, etc..): ");
-                correctAnswerInput = Console.ReadLine().Trim().ToUpper(); //
+                correctValidInput = Console.ReadLine().Trim().ToUpper(); //
             }
-            while (string.IsNullOrEmpty(correctAnswerInput));
+            while (string.IsNullOrEmpty(correctValidInput));
 
-            Console.Write("Enter the correct answer (A, B, C, D, etc..): ");
+            UiMethods.PromptUserToCreateCorrectAnswer();
             question.CorrectAnswer = Console.ReadLine().ToUpper()[0]; // reads the correct answer from user and selects the first character of the array from string array
 
             quizQuestion.Add(question);// adds the question to the list of questions
             return quizQuestion;
         }
-        
+
 
         //serialize
         public void SaveQuestionToFile(QuizQuestion question, string filepath)

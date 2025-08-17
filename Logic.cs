@@ -21,24 +21,7 @@ namespace ElectricGuitarQuiz
         }
 
         // will have to change this later into ui methods.cs file
-        public static void UndersStandingList()
-        {
-            List<string> questionList = new List<string>()
-            {
-                "What is the name of the first electric guitar?",
-                "Who invented the electric guitar?",
-                "What is the most popular electric guitar brand?",
-                "What is the difference between an electric and an acoustic guitar?",
-                "What is the most expensive electric guitar ever sold?",
-                "What is the most popular electric guitar model?",
-                "What is the most popular electric guitar pickup type?"
-            };
-            // this will display the list of questions to the user
-            foreach (var question in questionList)
-            {
-                Console.WriteLine(question);
-            }
-        }
+
         public static bool IsTheAnswerCorrect(char userInput, char correctAnswer)
         {
             if (userInput == correctAnswer)
@@ -50,16 +33,34 @@ namespace ElectricGuitarQuiz
                 return false; // the answer is incorrect
             }
         }
+
+        public static void SavingQuestionsToFile()
+        {
+            List<QuizQuestion> questions = QuizQuestion.PrintOutSelectedNumberOfOptions();
+            QuizQuestion quizQuestionInstance = new QuizQuestion();
+            quizQuestionInstance.SaveQuestionToFile(questions[0], @"D:\Random Drawings\Serialization Guitar.xml");
+        }
+
         public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
         {
-            if (ans1 == 'C' && ans2 == 'D')
+            Console.WriteLine("Would you like for there to be 2 correct answers in the Question Y/N?");
+
+            char userInput = Console.ReadKey().KeyChar.ToString().ToUpper()[0]; // get the user input and make it uppercase
+
+            if (userInput == ConstantsVAR.USERSELECT_YES)
             {
-                return true;
+                if (ans1 == ConstantsVAR.USER_SELECTION_C && ans2 == ConstantsVAR.USER_SELECTION_D)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
-            {
-                return false;
-            }
+                Console.WriteLine("Please Continue with creating the Questions");
+            return false; // if the user does not want to have two correct answers, then return false
         }
     }
 }

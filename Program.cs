@@ -21,47 +21,39 @@ namespace ElectricGuitarQuiz
                 //UiMethods.PrintGoodbyeMessage();
             }
 
-            
             if (userInputSelect == ConstantsVAR.BUILD_QUIZ_MODE) // this will houses the Create mode
             {
-                bool gameOver = false;
+                UiMethods.PrintWelcomeMessageForCreateMode();
+                UiMethods.PrintMainMenu();
 
-                while (!gameOver)
+                int userChoice = Convert.ToInt32(Console.ReadLine());
+
+                if (userChoice == ConstantsVAR.USER_GAME_CHOICE_1)
                 {
-                    QuizQuestion.PrintOutSelectedNumberOfQuestions();
-                    QuizQuestion.PrintOutSelectedNumberOfOptions();
-                    char userToQuit = UiMethods.PromptingUserToCreateMoreQuestions();
+                    UiMethods.PrintWhatTheUserSelected(userChoice);
+                    bool gameOver = false;
 
-                    if (userToQuit == ConstantsVAR.USERSELECT_NO)
+                    while (!gameOver)
                     {
-                        UiMethods.PrintGoodbyeMessage(); // this will print out a goodbye message to the user when they quit the game
-                        gameOver = true;
+                        UiMethods.PrintQuestionsAndAnswersForGame();
+                        
+                        char userToQuit = UiMethods.PromptingUserToCreateMoreQuestions();
+
+                        if (userToQuit == ConstantsVAR.USERSELECT_NO)
+                        {
+                            UiMethods.PrintGoodbyeMessage(); // this will print out a goodbye message to the user when they quit the game
+                            gameOver = true;
+                        }
                     }
                 }
             }
-
-
             QuizQuestion questionManager = new QuizQuestion(); // creating an instance of the GuitarQuestion class
 
             // create the question
             QuizQuestion question = new QuizQuestion().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
 
-
-            //serialized question to Xml
-            string filepath = @"D:\Random Drawings\Serialization Guitar.xml";
-            questionManager.SaveQuestionToFile(question, filepath); // saving the question to a file
-            UiMethods.DisplayingSavedToFile(); // displaying a message to the user that the question has been saved
-
-            // derserialize the question from the file
-            QuizQuestion loadedQuestion = questionManager.LoadQuestionFromFile(filepath); // loading the question from the file
-            Console.WriteLine("\nLoaded Question:");
-            Console.WriteLine("Question:" + loadedQuestion.Question);
-
-            // prints out the list within the class QuizQuestion from SampleQuestion().cs (method)
-            foreach (string option in question.Options)
-            {
-                Console.WriteLine(option);
-            }
+            Logic.SavingQuestionsToFile(); //
+            
         }
     }
 }

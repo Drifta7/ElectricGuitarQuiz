@@ -27,6 +27,10 @@ namespace ElectricGuitarQuiz
         public const int NUMBER_ELECTION_THREE = 3;
         public const int RANGE_MAX = 4;
 
+        public const int USER_GAME_CHOICE_1 = 1; // for the select game menu
+        public const int USER_GAME_CHOICE_2 = 2; // ""
+        public const int USER_GAME_CHOICE_3 = 3; // ""
+
         public const char USERSELECT_YES = 'Y'; // these are the user selections for the quiz game, like if they want to create a question or not
         public const char USERSELECT_NO = 'N'; // " " " "
     }
