@@ -45,11 +45,25 @@ namespace ElectricGuitarQuiz
         {
             Console.WriteLine("Would you like for there to be 2 correct answers in the Question Y/N?");
 
-            char userInput = Console.ReadKey().KeyChar.ToString().ToUpper()[0]; // get the user input and make it uppercase
+            char userInput = char.ToUpper(Console.ReadKey().KeyChar); // get the user input and make it uppercase
 
             if (userInput == ConstantsVAR.USERSELECT_YES)
             {
-                if (ans1 == ConstantsVAR.USER_SELECTION_C && ans2 == ConstantsVAR.USER_SELECTION_D)
+                Console.WriteLine("Please Enter the 1st of two correct answers");
+                ans1 = char.ToUpper(Console.ReadKey().KeyChar);
+
+                Console.WriteLine("Enter the 2nd of 2 correct answers");
+                ans2 = char.ToUpper(Console.ReadKey().KeyChar);
+
+                Console.WriteLine("Please confirm the two correct answers for the question (e.g., A ,B C, etc.):");
+                
+                Console.WriteLine("\nPlace in the 1st answer");
+                char firstAnswer = char.ToUpper(Console.ReadKey().KeyChar);
+                
+                Console.WriteLine("\n Place in the 2nd answer");
+                char secondAnswer = char.ToUpper(Console.ReadKey().KeyChar);
+
+                if (ans1 == firstAnswer && ans2 == secondAnswer)
                 {
                     return true;
                 }

@@ -24,15 +24,13 @@ namespace ElectricGuitarQuiz
             Console.WriteLine("\nPlease Enter a Selection :");
         }
 
-        public static void CheckIfListIsNotEmpty()
+        public static bool CheckIfListIsNotEmpty(List<QuizQuestion> checkingList)
         {
-
+            bool istheListEmpty = checkingList.Any(); // checks if the list is empty or not
+            return istheListEmpty;
         }
         
-        public static void PromptUserTocreateTwoCorrectAnswers()
-        {
-            Console.WriteLine("Please enter the two correct answers for the question, separated by a comma (e.g., A,B):");
-        }
+       
         public static void PrintEndOfGameMenu() // place this at the end of the game.
         {
             Console.WriteLine("1. Create a new set of Questions");
@@ -93,8 +91,6 @@ namespace ElectricGuitarQuiz
             Console.WriteLine("Please Enter the question text"); // use for Create part of program
         }
 
-
-
         public static void PromptUserToCreateCorrectAnswer()
         {
             Console.WriteLine("Please input the correct answer, ex: (A, B, C, D, etc..):");
@@ -134,7 +130,9 @@ namespace ElectricGuitarQuiz
                     userGameQuestionChoice = char.ToUpper(Console.ReadKey().KeyChar); // if the user input is not valid, it will ask the user to try again.
                 }
                 else
+                {
                     isTheInputValid = true;
+                }
 
             } while (!isTheInputValid); // this will keep asking the user for input until the input is valid.
 

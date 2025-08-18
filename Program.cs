@@ -6,7 +6,6 @@ namespace ElectricGuitarQuiz
     {
         static void Main(string[] args)
         {
-
             char userInputSelect = UiMethods.SelectingGameOrCreateMode();
 
             if (userInputSelect == ConstantsVAR.START_PLAY_MODE) // this will house the Play Mode
@@ -20,6 +19,8 @@ namespace ElectricGuitarQuiz
                 UiMethods.GetCorrectAnswer(UiMethods.GetUserInput());
                 //UiMethods.PrintGoodbyeMessage();
             }
+            
+            List<QuizQuestion> PrintQnAndAnsMethodResults = UiMethods.PrintQuestionsAndAnswersForGame();
 
             if (userInputSelect == ConstantsVAR.BUILD_QUIZ_MODE) // this will houses the Create mode
             {
@@ -28,6 +29,7 @@ namespace ElectricGuitarQuiz
 
                 int userChoice = Convert.ToInt32(Console.ReadLine());
 
+                // if the user selects 1 enter game creation mode 
                 if (userChoice == ConstantsVAR.USER_GAME_CHOICE_1)
                 {
                     UiMethods.PrintWhatTheUserSelected(userChoice);
@@ -36,7 +38,7 @@ namespace ElectricGuitarQuiz
                     while (!gameOver)
                     {
                         UiMethods.PrintQuestionsAndAnswersForGame();
-                        
+
                         char userToQuit = UiMethods.PromptingUserToCreateMoreQuestions();
 
                         if (userToQuit == ConstantsVAR.USERSELECT_NO)
@@ -46,14 +48,19 @@ namespace ElectricGuitarQuiz
                         }
                     }
                 }
+                else if (userInputSelect == ConstantsVAR.USER_GAME_CHOICE_2)
+                {
+                    UiMethods.CheckIfListIsNotEmpty(PrintQnAndAnsMethodResults); // the actual name of the list not the class
+                }
             }
-            QuizQuestion questionManager = new QuizQuestion(); // creating an instance of the GuitarQuestion class
+
+           QuizQuestion questionManager = new QuizQuestion(); // creating an instance of the GuitarQuestion class
 
             // create the question
             QuizQuestion question = new QuizQuestion().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object
 
             Logic.SavingQuestionsToFile(); //
-            
+
         }
     }
 }

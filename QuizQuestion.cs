@@ -158,7 +158,6 @@ namespace ElectricGuitarQuiz
             return quizQuestion;
         }
 
-
         public static List <QuizQuestion> PrintOutSelectedNumberOfOptions()
         {
             List<QuizQuestion> quizQuestion = new List<QuizQuestion>();
