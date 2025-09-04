@@ -164,7 +164,7 @@ namespace ElectricGuitarQuiz
 
                 UiMethods.PromptUserToCreateQuestions();
 
-                Console.WriteLine($" Enter question {i + 1}:"); // prompts the user to enter a question
+                Console.WriteLine($" Enter question {i + 1}:"); 
                 question.Question = Console.ReadLine(); // waits for user to input question
 
                 for (int j = 0; j < numberOfAnswers; j++)
@@ -174,6 +174,7 @@ namespace ElectricGuitarQuiz
                     string optionText = Console.ReadLine();
                     question.Options.Add($"{optionLabel}: {optionText}");// adds the option to the list with the label
                 }
+               
                 string correctValidInput;
                 do
                 { // here should be a question asking for which is the right answer
@@ -188,7 +189,7 @@ namespace ElectricGuitarQuiz
             return quizQuestion;
         }
 
-
+        // here put in a method to seperate the nested for loop.
         public static string GetNumericUserInput() // This gets the Number input from the user for The SelectionGameMode() method
         {
             int numericInput;
@@ -238,6 +239,29 @@ namespace ElectricGuitarQuiz
 
             return numericInput;
         }
+
+        public static void FigureOutSeperateFunction()
+        {
+            bool doYouWantMoreQuestions = false;
+
+            while (!doYouWantMoreQuestions)
+            {
+                // run the for loop to create the questions after the prompt asked the user how many questions they want to create
+                // after the for loop is done running then ask the user if they want to create more questions or not 
+                Console.WriteLine("Do you want more questions?");
+                char userMakesDescision = char.ToUpper(Console.ReadKey().KeyChar);
+
+                if (userMakesDescision == ConstantsVAR.USERSELECT_YES)
+                {
+                    doYouWantMoreQuestions = true;
+                }
+                else if (userMakesDescision == ConstantsVAR.USERSELECT_NO)
+                {
+                    break;
+                }
+            }
+        }
+
 
         public static int SelectingGameMode() // this is for the outer game mode meaning selecting numeric values.
         {

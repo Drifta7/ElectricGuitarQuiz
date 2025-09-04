@@ -153,7 +153,7 @@ namespace ElectricGuitarQuiz
            
             if (isQuestionCreationComplete)
             {
-                UiMethods.PromptingUserToCreateMoreQuestions();
+                UiMethods.PromptingUserToCreateMoreQuestions(); //this is after the loop is finished and the user has a choice to make more question or not
             }
             return quizQuestion;
         }
