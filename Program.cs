@@ -26,7 +26,7 @@ namespace ElectricGuitarQuiz
             {
                 UiMethods.PrintWelcomeMessageForCreateMode();
                 UiMethods.PrintMainMenu();
-
+               
                 int userChoice = Convert.ToInt32(Console.ReadLine());
 
                 // if the user selects 1 enter game creation mode 
