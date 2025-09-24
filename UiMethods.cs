@@ -13,13 +13,13 @@ namespace ElectricGuitarQuiz
     {
         public static void PrintWelcomeMessageForCreateMode()
         {
-            Console.WriteLine(" \n Welcome to Quiz Creator mode you'll be guided step by step to create you own quiz");
+            Console.WriteLine("\n Welcome to Quiz Creator mode you'll be guided step by step to create you own quiz");
         }
         public static void PrintMainMenu()
         {
-            Console.WriteLine("\n 1. Create a new set of Questions");
-            Console.WriteLine("   2. View existing Questions");
-            Console.WriteLine("   3. Save and exit");
+            Console.WriteLine(" 1.Create a new set of Questions");
+            Console.WriteLine(" 2. View existing Questions");
+            Console.WriteLine(" 3. Save and exit");
 
             Console.WriteLine("\nPlease Enter a Selection :");
         }
@@ -29,8 +29,11 @@ namespace ElectricGuitarQuiz
             bool istheListEmpty = checkingList.Any(); // checks if the list is empty or not
             return istheListEmpty;
         }
-        
-       
+        public static void TestIfListIsThere()
+        {
+            Console.WriteLine("TESt list is there ");
+        }
+
         public static void PrintEndOfGameMenu() // place this at the end of the game.
         {
             Console.WriteLine("1. Create a new set of Questions");
@@ -55,7 +58,10 @@ namespace ElectricGuitarQuiz
 
             return userInput;
         }
-
+        public static void NoListToDisplayMessage()
+        {
+            Console.WriteLine("There is no list to display, You have to create on first");
+        }
         public static void PrintWelcomeMessage()
         {
             Console.WriteLine("Welcome to the Electric Guitar Quiz Challenge");
@@ -72,8 +78,8 @@ namespace ElectricGuitarQuiz
         public static void GetCorrectAnswer(char getUserInput)
         {
             if (char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_A || char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_B ||
-               char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_C || char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_D ||
-               char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_E)
+                char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_C || char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_D ||
+                char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_E)
             {
                 Console.WriteLine("This is NOT the correct Answer!");
             }
@@ -81,7 +87,7 @@ namespace ElectricGuitarQuiz
 
         public static void DisplayingSavedToFile()
         {
-            // basic messagefor saving files
+            // basic message for saving files
             Console.WriteLine("Saved To XML!");
         }
         ///__-------------------------------------------- UserCreation Prompts ---------------------------------------____-----_--_----_-//
@@ -164,7 +170,7 @@ namespace ElectricGuitarQuiz
 
                 UiMethods.PromptUserToCreateQuestions();
 
-                Console.WriteLine($" Enter question {i + 1}:"); 
+                Console.WriteLine($" Enter question {i + 1}:");
                 question.Question = Console.ReadLine(); // waits for user to input question
 
                 for (int j = 0; j < numberOfAnswers; j++)
@@ -174,17 +180,18 @@ namespace ElectricGuitarQuiz
                     string optionText = Console.ReadLine();
                     question.Options.Add($"{optionLabel}: {optionText}");// adds the option to the list with the label
                 }
-               
+
                 string correctValidInput;
                 do
                 { // here should be a question asking for which is the right answer
+                    Console.WriteLine("which question is the right answer?");
                     correctValidInput = Console.ReadLine().Trim().ToUpper();
                 }
                 while (string.IsNullOrEmpty(correctValidInput));
                 Console.WriteLine("Enter the correct (A,B,C,D, etc...):");
                 question.CorrectAnswer = Console.ReadLine().ToUpper()[0];
 
-                quizQuestion.Add(question);
+                quizQuestion.Add(question); // adds typed answer to the list 
             }
             return quizQuestion;
         }
@@ -240,27 +247,42 @@ namespace ElectricGuitarQuiz
             return numericInput;
         }
 
-        public static void FigureOutSeperateFunction()
-        {
-            bool doYouWantMoreQuestions = false;
+        //public static List<QuizQuestion> FigureOutSeperateFunction()
+        //{
+        //    bool doYouWantMoreQuestions = false;
 
-            while (!doYouWantMoreQuestions)
-            {
-                // run the for loop to create the questions after the prompt asked the user how many questions they want to create
-                // after the for loop is done running then ask the user if they want to create more questions or not 
-                Console.WriteLine("Do you want more questions?");
-                char userMakesDescision = char.ToUpper(Console.ReadKey().KeyChar);
+        //    while (!doYouWantMoreQuestions)
+        //    {
+        //        Console.WriteLine("Please input a Question");
 
-                if (userMakesDescision == ConstantsVAR.USERSELECT_YES)
-                {
-                    doYouWantMoreQuestions = true;
-                }
-                else if (userMakesDescision == ConstantsVAR.USERSELECT_NO)
-                {
-                    break;
-                }
-            }
-        }
+        //        string userInput = Console.ReadLine();
+        //        Console.WriteLine("How many answers to the questions?");
+        //        int numberOfAnswers = int.Parse(Console.ReadLine());
+
+        //        for (int i = 0; i < numberOfAnswers; i++)
+        //        {
+
+        //            char optionLabel = (char)('A' + i);
+        //            Console.WriteLine($"Option {optionLabel}");
+        //            string optionText = Console.ReadLine();
+        //        }
+
+        //        Console.WriteLine("Would you like to create more questions?");
+
+        //        Console.WriteLine("Do you want more questions?");
+        //        char userMakesDescision = char.ToUpper(Console.ReadKey().KeyChar);
+
+        //        if (userMakesDescision == ConstantsVAR.USERSELECT_YES)
+        //        {
+        //            doYouWantMoreQuestions = true;
+        //        }
+        //        else if (userMakesDescision == ConstantsVAR.USERSELECT_NO)
+        //        {
+        //            break;
+        //        }
+        //        return null;
+        //    }
+        //}
 
 
         public static int SelectingGameMode() // this is for the outer game mode meaning selecting numeric values.

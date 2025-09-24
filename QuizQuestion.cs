@@ -138,7 +138,7 @@ namespace ElectricGuitarQuiz
 
             for (int i = 0; i < numberOfQuestions; i++) // this will print out the selected number of questions
             {
-                char multiChoiceChar = (char)('A' + i); // this will cast a char and the iterator "i" will increment the char value A, B, C, etc.
+                char multiChoiceChar = (char)('A' + i); // this will cast a char and the iterator "i" will increment the char value as A, B, C, etc.
                 QuizQuestion question = new QuizQuestion(); // creates a new instance of the question.
 
                 UiMethods.PromptUserToCreateQuestions();
@@ -146,7 +146,7 @@ namespace ElectricGuitarQuiz
                 Console.WriteLine($" Enter question {i + 1}:"); // prompts the user to enter a question
                 question.Question = Console.ReadLine(); // waits for user to input question
 
-                quizQuestion.Add(question);
+                quizQuestion.Add(question); // add typed answer to the list
             }
             
             isQuestionCreationComplete = true;

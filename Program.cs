@@ -6,6 +6,9 @@ namespace ElectricGuitarQuiz
     {
         static void Main(string[] args)
         {
+            UiMethods.PrintWelcomeMessageForCreateMode();
+            UiMethods.PrintMainMenu();
+
             char userInputSelect = UiMethods.SelectingGameOrCreateMode();
 
             if (userInputSelect == ConstantsVAR.START_PLAY_MODE) // this will house the Play Mode
@@ -19,6 +22,7 @@ namespace ElectricGuitarQuiz
                 UiMethods.GetCorrectAnswer(UiMethods.GetUserInput());
                 //UiMethods.PrintGoodbyeMessage();
             }
+           
             
             List<QuizQuestion> PrintQnAndAnsMethodResults = UiMethods.PrintQuestionsAndAnswersForGame();
 
@@ -50,11 +54,21 @@ namespace ElectricGuitarQuiz
                 }
                 else if (userInputSelect == ConstantsVAR.USER_GAME_CHOICE_2)
                 {
-                    UiMethods.CheckIfListIsNotEmpty(PrintQnAndAnsMethodResults); // the actual name of the list not the class
+                    bool checkListVar =  UiMethods.CheckIfListIsNotEmpty(PrintQnAndAnsMethodResults); // the actual name of the list not the class
+
+                    if (checkListVar)
+                    {
+                        // display the list
+                        UiMethods.TestIfListIsThere(); //TESTing 
+                    }
+                    else if (!checkListVar)
+                    {
+                        UiMethods.NoListToDisplayMessage();
+                    }
                 }
             }
-
-           QuizQuestion questionManager = new QuizQuestion(); // creating an instance of the GuitarQuestion class
+           
+            QuizQuestion questionManager = new QuizQuestion(); // creating an instance of the GuitarQuestion class
 
             // create the question
             QuizQuestion question = new QuizQuestion().GetSampleQuestion(); // accessing the GuitarQuestions class to call the GetSampleQuestion method to create a question object

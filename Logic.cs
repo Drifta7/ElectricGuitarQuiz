@@ -41,40 +41,42 @@ namespace ElectricGuitarQuiz
             quizQuestionInstance.SaveQuestionToFile(questions[0], @"D:\Random Drawings\Serialization Guitar.xml");
         }
 
-        public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
-        {
-            Console.WriteLine("Would you like for there to be 2 correct answers in the Question Y/N?");
+       
 
-            char userInput = char.ToUpper(Console.ReadKey().KeyChar); // get the user input and make it uppercase
+        //public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
+        //{
+        //    Console.WriteLine("Would you like for there to be 2 correct answers in the Question Y/N?");
 
-            if (userInput == ConstantsVAR.USERSELECT_YES)
-            {
-                Console.WriteLine("Please Enter the 1st of two correct answers");
-                ans1 = char.ToUpper(Console.ReadKey().KeyChar);
+        //    char userInput = char.ToUpper(Console.ReadKey().KeyChar); // get the user input and make it uppercase
 
-                Console.WriteLine("Enter the 2nd of 2 correct answers");
-                ans2 = char.ToUpper(Console.ReadKey().KeyChar);
+        //    if (userInput == ConstantsVAR.USERSELECT_YES)
+        //    {
+        //        Console.WriteLine("Please Enter the 1st of two correct answers");
+        //        ans1 = char.ToUpper(Console.ReadKey().KeyChar);
 
-                Console.WriteLine("Please confirm the two correct answers for the question (e.g., A ,B C, etc.):");
+        //        Console.WriteLine("Enter the 2nd of 2 correct answers");
+        //        ans2 = char.ToUpper(Console.ReadKey().KeyChar);
+
+        //        Console.WriteLine("Please confirm the two correct answers for the question (e.g., A ,B C, etc.):");
                 
-                Console.WriteLine("\nPlace in the 1st answer");
-                char firstAnswer = char.ToUpper(Console.ReadKey().KeyChar);
+        //        Console.WriteLine("\nPlace in the 1st answer");
+        //        char firstAnswer = char.ToUpper(Console.ReadKey().KeyChar);
                 
-                Console.WriteLine("\n Place in the 2nd answer");
-                char secondAnswer = char.ToUpper(Console.ReadKey().KeyChar);
+        //        Console.WriteLine("\n Place in the 2nd answer");
+        //        char secondAnswer = char.ToUpper(Console.ReadKey().KeyChar);
 
-                if (ans1 == firstAnswer && ans2 == secondAnswer)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-                Console.WriteLine("Please Continue with creating the Questions");
-            return false; // if the user does not want to have two correct answers, then return false
-        }
+        //        if (ans1 == firstAnswer && ans2 == secondAnswer)
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    else
+        //        Console.WriteLine("Please Continue with creating the Questions");
+        //    return false; // if the user does not want to have two correct answers, then return false
+        //}
     }
 }
