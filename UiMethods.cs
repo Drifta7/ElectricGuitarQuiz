@@ -14,6 +14,7 @@ namespace ElectricGuitarQuiz
         public static void PrintWelcomeMessageForCreateMode()
         {
             Console.WriteLine("\n Welcome to Quiz Creator mode you'll be guided step by step to create you own quiz");
+            Console.WriteLine("\nFirst you will either select Create or Play");
         }
         public static void PrintMainMenu()
         {
@@ -34,6 +35,11 @@ namespace ElectricGuitarQuiz
             Console.WriteLine("TESt list is there ");
         }
 
+        public static void EnterTheRightAnswerLetter()
+        {
+            Console.WriteLine("PLease lock in the answer");
+            Console.WriteLine("Enter the correct (A,B,C,D, etc...):");
+        }
         public static void PrintEndOfGameMenu() // place this at the end of the game.
         {
             Console.WriteLine("1. Create a new set of Questions");
@@ -75,6 +81,27 @@ namespace ElectricGuitarQuiz
             char userInput = Console.ReadKey().KeyChar; // get the user input to work in the in game selection
             return userInput;
         }
+
+        public static int UserChoice()
+        {
+            int userChoice = Convert.ToInt32(Console.ReadLine());
+            do
+            {
+                if (int.TryParse(userChoice.ToString(), out userChoice))
+                {
+                    Console.WriteLine($"You have selected {userChoice}");
+                }
+                else
+                {
+                    Console.WriteLine("This is not a valid selection, please try again");
+                    userChoice = Convert.ToInt32(Console.ReadLine());
+                }
+            }
+            while (!int.TryParse(userChoice.ToString(), out userChoice));
+            
+            return userChoice;
+        }
+        
         public static void GetCorrectAnswer(char getUserInput)
         {
             if (char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_A || char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_B ||
@@ -171,7 +198,7 @@ namespace ElectricGuitarQuiz
                 UiMethods.PromptUserToCreateQuestions();
 
                 Console.WriteLine($" Enter question {i + 1}:");
-                question.Question = Console.ReadLine(); // waits for user to input question
+                question.WrittenOutQuestion = Console.ReadLine(); // waits for user to input question
 
                 for (int j = 0; j < numberOfAnswers; j++)
                 {
@@ -187,11 +214,11 @@ namespace ElectricGuitarQuiz
                     Console.WriteLine("which question is the right answer?");
                     correctValidInput = Console.ReadLine().Trim().ToUpper();
                 }
-                while (string.IsNullOrEmpty(correctValidInput));
-                Console.WriteLine("Enter the correct (A,B,C,D, etc...):");
-                question.CorrectAnswer = Console.ReadLine().ToUpper()[0];
+                while (string.IsNullOrEmpty(correctValidInput)); // used to make sure the user doesn't enter a blank entry
+                UiMethods.EnterTheRightAnswerLetter();// <-----this is not needed 
+                question.CorrectAnswer = Console.ReadLine().ToUpper()[0];// saved question? 
 
-                quizQuestion.Add(question); // adds typed answer to the list 
+                quizQuestion.Add(question); // adds typed answer to the list NEEDS to BE SAVED TO VARIABLE?
             }
             return quizQuestion;
         }
@@ -285,44 +312,12 @@ namespace ElectricGuitarQuiz
         //}
 
 
-        public static int SelectingGameMode() // this is for the outer game mode meaning selecting numeric values.
-        {
-            Console.WriteLine("Please Select ONE of the following game mode please ");
-
-            int userChoice = ValidatingNumericInput(); // potnetial issue?
-
-            Console.WriteLine();
-
-            if (userChoice == ConstantsVAR.RANGE_MIN)
-            {
-                Console.WriteLine($"You have selected: {userChoice}");
-                Console.WriteLine("GuitarBodies");
-            }
-
-            else if (userChoice == ConstantsVAR.NUMBER_SELECTION_TWO)
-            {
-                Console.WriteLine($"You have selected: {userChoice}");
-                Console.WriteLine("GuitarPickups");
-            }
-
-            else if (userChoice == ConstantsVAR.NUMBER_ELECTION_THREE)
-            {
-                Console.WriteLine($"You have selected: {userChoice}");
-                Console.WriteLine("ColorORFinish");
-            }
-            else if (userChoice == ConstantsVAR.RANGE_MAX)
-            {
-                Console.WriteLine($"You have selected: {userChoice}");
-                Console.WriteLine("FretBoard");
-            }
-            return userChoice;
-        }
-
         public static char SelectingGameOrCreateMode()// selecting either create or play mode 
         {
             Console.WriteLine("Please select a mode A or B \n A: Play Mode \n B: Create Mode");
 
             char userSelection = Console.ReadKey().KeyChar; // wait for user input for A and B selection 
+
             userSelection = char.ToUpper(userSelection); // convert the user input to uppercase for consistency 
 
             bool isTheSelectionValid = false;

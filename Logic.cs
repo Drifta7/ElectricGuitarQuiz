@@ -41,7 +41,18 @@ namespace ElectricGuitarQuiz
             quizQuestionInstance.SaveQuestionToFile(questions[0], @"D:\Random Drawings\Serialization Guitar.xml");
         }
 
-       
+        public static void ValidatingCreatedQuestionList()
+        {
+            List<QuizQuestion> questions = QuizQuestion.PrintOutSelectedNumberOfOptions();
+            if (questions == null || questions.Count == 0)
+            {
+                Console.WriteLine("No questions available. Please create some questions first.");
+            }
+            else
+            {
+                Console.WriteLine($"There are {questions.Count} questions available.");
+            } //  dont use this method yet 
+        }
 
         //public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
         //{

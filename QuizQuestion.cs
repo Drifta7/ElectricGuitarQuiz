@@ -10,7 +10,7 @@ namespace ElectricGuitarQuiz
 {
     public class QuizQuestion
     {
-        public string Question { get; set; }
+        public string WrittenOutQuestion { get; set; }
         public List<string> Options { get; set; }
         public char CorrectAnswer { get; set; }
 
@@ -24,7 +24,8 @@ namespace ElectricGuitarQuiz
 
             QuizQuestion question = new QuizQuestion
             {
-                Question = "What is the style of guitar that has an arch -top?",
+                // instead of this use the questions and answersf from the user input in the Create Mode
+                WrittenOutQuestion = "What is the style of guitar that has an arch -top?",
                 CorrectAnswer = 'C'
             };
 
@@ -47,87 +48,6 @@ namespace ElectricGuitarQuiz
             return question; // store this for XML serialization later.
         }
 
-        public QuizQuestion GetSampleQuestion_2()// to be called in the Program.cs
-        {
-
-            QuizQuestion question = new QuizQuestion
-            {
-                Question = "Which guitar has single coils?",
-                CorrectAnswer = 'B'
-            };
-
-            Console.WriteLine("Which guitar has single coils?"); // Blueprint for a question.
-
-            question.Options.Add($"A: Gibson Les Paul"); // make this a placeholder for a question perhaps(and for the rest of the other questions).
-            question.Options.Add($"B: Fender Stratocaster");
-            question.Options.Add($"C: Gibson ES-335");
-            question.Options.Add($"D: Fender JazzMaster");
-            question.Options.Add($"E: Gibson SG Standard");
-            question.Options.Add($"F: Gretsch White Falcon");
-
-            foreach (string option in question.Options)
-            {
-                Console.WriteLine(option);
-            }
-
-            string CorrectAnswerVar = CorrectAnswer.ToString().ToUpper(); // converts the char to a string and makes it uppercase.
-
-            return question; // store this for XML serialization later.
-        }
-
-        public QuizQuestion GetSampleQuestion_3()// to be called in the Program.cs
-        {
-
-            QuizQuestion question = new QuizQuestion
-            {
-                Question = "What is the style of guitar that has an arch -top?",
-                CorrectAnswer = 'C'
-            };
-
-            Console.WriteLine("What is the style the Guitar that has an arch-top?"); // Blueprint for a question.
-
-            question.Options.Add($"A: Gibson Les Paul"); // make this a placeholder for a question perhaps(and for the rest of the other questions).
-            question.Options.Add($"B: Fender Stratocaster");
-            question.Options.Add($"C: Gibson ES-335");
-            question.Options.Add($"D: Fender JazzMaster");
-            question.Options.Add($"E: Gibson SG Standard");
-            question.Options.Add($"F: Gretsch White Falcon");
-
-            foreach (string option in question.Options)
-            {
-                Console.WriteLine(option);
-            }
-
-            string CorrectAnswerVar = CorrectAnswer.ToString().ToUpper(); // converts the char to a string and makes it uppercase.
-
-            return question; // store this for XML serialization later.
-        }
-
-        public QuizQuestion GetSampleQuestion_1()
-        {
-            QuizQuestion question1 = new QuizQuestion();
-
-            Console.WriteLine("Enter the Question for the multiple answers");
-
-            QuizQuestion question = new QuizQuestion();
-
-            question.Options.Add($"A:  ");
-            question.Options.Add($"B:  ");
-            question.Options.Add($"C:  ");
-            question.Options.Add($"D:  ");
-            question.Options.Add($"E:  ");
-            question.Options.Add($"F:  ");
-
-            foreach (string option in question.Options)
-            {
-                Console.WriteLine(option);
-            }
-
-            Console.WriteLine("Enter the correct answer");
-            question1.Question = Console.ReadLine(); // allows the user to enter a question.
-
-            return question;
-        }
 
         public static List<QuizQuestion> PrintOutSelectedNumberOfQuestions() // this will be used for Create Mode 
         {
@@ -144,7 +64,7 @@ namespace ElectricGuitarQuiz
                 UiMethods.PromptUserToCreateQuestions();
 
                 Console.WriteLine($" Enter question {i + 1}:"); // prompts the user to enter a question
-                question.Question = Console.ReadLine(); // waits for user to input question
+                question.WrittenOutQuestion = Console.ReadLine(); // waits for user to input question
 
                 quizQuestion.Add(question); // add typed answer to the list
             }
@@ -190,6 +110,11 @@ namespace ElectricGuitarQuiz
             return quizQuestion;
         }
 
+        public override string ToString()
+        {
+            string optionsText = string.Join("\n", Options);
+            return $"Question: {WrittenOutQuestion}\n {optionsText}\nCorrect Answer:{CorrectAnswer}";
+        }
 
         //serialize
         public void SaveQuestionToFile(QuizQuestion question, string filepath)
