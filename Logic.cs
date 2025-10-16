@@ -40,13 +40,16 @@ namespace ElectricGuitarQuiz
             QuizQuestion quizQuestionInstance = new QuizQuestion();
             quizQuestionInstance.SaveQuestionToFile(questions[0], @"D:\Random Drawings\Serialization Guitar.xml");
         }
+        // this is supposed to check IF the user selects the play mode first!
 
         public static void ValidatingCreatedQuestionList()
-        {
-            List<QuizQuestion> questions = QuizQuestion.PrintOutSelectedNumberOfOptions();
+        { 
+             List<QuizQuestion> questions = QuizQuestion.PrintOutSelectedNumberOfOptions();
             if (questions == null || questions.Count == 0)
             {
                 Console.WriteLine("No questions available. Please create some questions first.");
+                questions = QuizQuestion.PrintOutSelectedNumberOfQuestions();
+
             }
             else
             {
@@ -54,6 +57,16 @@ namespace ElectricGuitarQuiz
             } //  dont use this method yet 
         }
 
+        // used to pass in list of questions to check if null or empty
+        public static List<QuizQuestion> EnsureQuestionListExists(List<QuizQuestion> existingList)
+        {
+            if (existingList == null || existingList.Count == 0)
+            {
+                Console.WriteLine("No questions available. Please create some questions first.");
+                existingList = QuizQuestion.PrintOutSelectedNumberOfQuestions();
+            }
+            return existingList;
+        }
         //public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
         //{
         //    Console.WriteLine("Would you like for there to be 2 correct answers in the Question Y/N?");
@@ -69,10 +82,10 @@ namespace ElectricGuitarQuiz
         //        ans2 = char.ToUpper(Console.ReadKey().KeyChar);
 
         //        Console.WriteLine("Please confirm the two correct answers for the question (e.g., A ,B C, etc.):");
-                
+
         //        Console.WriteLine("\nPlace in the 1st answer");
         //        char firstAnswer = char.ToUpper(Console.ReadKey().KeyChar);
-                
+
         //        Console.WriteLine("\n Place in the 2nd answer");
         //        char secondAnswer = char.ToUpper(Console.ReadKey().KeyChar);
 

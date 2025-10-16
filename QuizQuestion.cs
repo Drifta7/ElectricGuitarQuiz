@@ -78,7 +78,7 @@ namespace ElectricGuitarQuiz
             return quizQuestion;
         }
 
-        public static List <QuizQuestion> PrintOutSelectedNumberOfOptions()
+        public static List <QuizQuestion> PrintOutSelectedNumberOfOptions() // this is the issue it's not supposed to create this, nbhkl
         {
             List<QuizQuestion> quizQuestion = new List<QuizQuestion>();
             QuizQuestion question = new QuizQuestion();
@@ -117,12 +117,12 @@ namespace ElectricGuitarQuiz
         }
 
         //serialize
-        public void SaveQuestionToFile(QuizQuestion question, string filepath)
+        public void SaveQuestionToFile(List<QuizQuestion> question, string filepath)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(QuizQuestion));
+            XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestion>));
             string path = @"D:\Random Drawings\Serialization Guitar.xml";
 
-            using (FileStream fs = new FileStream(filepath, FileMode.Create)) // creates the file to the HD
+            using (FileStream fs = new FileStream(path, FileMode.Create)) // creates the file to the HD
             {
                 serializer.Serialize(fs, question);
             }
@@ -130,7 +130,7 @@ namespace ElectricGuitarQuiz
         // deserialize
         public QuizQuestion LoadQuestionFromFile(string filepath)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(QuizQuestion));
+            XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestion>));
             using (FileStream fs = new FileStream(filepath, FileMode.Open))
             {
                 return (QuizQuestion)serializer.Deserialize(fs);

@@ -11,14 +11,14 @@ namespace ElectricGuitarQuiz
 {
     class UiMethods
     {
-        public static void PrintWelcomeMessageForCreateMode()
+        public static void PrintWelcomeMessageForBuildMode()
         {
-            Console.WriteLine("\n Welcome to Quiz Creator mode you'll be guided step by step to create you own quiz");
-            Console.WriteLine("\nFirst you will either select Create or Play");
+            Console.WriteLine("\n Welcome to Quiz Creator mode you'll be guided step by step to Build you own quiz");
+            Console.WriteLine("\nFirst you will either select build or Play");
         }
         public static void PrintMainMenu()
         {
-            Console.WriteLine(" 1.Create a new set of Questions");
+            Console.WriteLine(" 1. Build a new set of Questions");
             Console.WriteLine(" 2. View existing Questions");
             Console.WriteLine(" 3. Save and exit");
 
@@ -27,14 +27,13 @@ namespace ElectricGuitarQuiz
 
         public static bool CheckIfListIsNotEmpty(List<QuizQuestion> checkingList)
         {
-            bool istheListEmpty = checkingList.Any(); // checks if the list is empty or not
-            return istheListEmpty;
-        }
-        public static void TestIfListIsThere()
-        {
-            Console.WriteLine("TESt list is there ");
+            return checkingList != null && checkingList.Any(); // this checks if the list isn't null before it checks if it's empty
         }
 
+        public static void ContinueWithPlayingMessage()
+        {
+            Console.WriteLine("Please continue with playing");
+        }
         public static void EnterTheRightAnswerLetter()
         {
             Console.WriteLine("PLease lock in the answer");
@@ -43,7 +42,7 @@ namespace ElectricGuitarQuiz
         public static void PrintEndOfGameMenu() // place this at the end of the game.
         {
             Console.WriteLine("1. Create a new set of Questions");
-            Console.WriteLine("2. View existing questions");
+            Console.WriteLine("2. View existing questions and answers ");
             Console.WriteLine("3. Save and exit");
 
             Console.WriteLine("\n Please enter a selection: ");
@@ -84,24 +83,34 @@ namespace ElectricGuitarQuiz
 
         public static int UserChoice()
         {
-            int userChoice = Convert.ToInt32(Console.ReadLine());
+            int userChoice;
+            bool isTheInputValid = false;
             do
             {
-                if (int.TryParse(userChoice.ToString(), out userChoice))
+                string input = Console.ReadLine();
+                if (int.TryParse(input, out userChoice))
                 {
-                    Console.WriteLine($"You have selected {userChoice}");
+                    if (userChoice >= ConstantsVAR.GAMEOPTION_MIN && userChoice <= ConstantsVAR.GAMEOPTION_MAX)
+                    {
+                        Console.WriteLine($"You have selected {userChoice}");
+                        isTheInputValid = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($" Number is out of range. Please enter a number between" +
+                            $"{ConstantsVAR.GAMEOPTION_MIN} & {ConstantsVAR.GAMEOPTION_MAX}");
+                    }
                 }
                 else
                 {
                     Console.WriteLine("This is not a valid selection, please try again");
-                    userChoice = Convert.ToInt32(Console.ReadLine());
                 }
             }
-            while (!int.TryParse(userChoice.ToString(), out userChoice));
-            
+            while (!isTheInputValid);
+
             return userChoice;
         }
-        
+
         public static void GetCorrectAnswer(char getUserInput)
         {
             if (char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_A || char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_B ||
@@ -167,7 +176,8 @@ namespace ElectricGuitarQuiz
                     isTheInputValid = true;
                 }
 
-            } while (!isTheInputValid); // this will keep asking the user for input until the input is valid.
+            }
+            while (!isTheInputValid); // this will keep asking the user for input until the input is valid.
 
             if (userGameQuestionChoice == ConstantsVAR.USERSELECT_YES)
             {
@@ -273,48 +283,9 @@ namespace ElectricGuitarQuiz
 
             return numericInput;
         }
-
-        //public static List<QuizQuestion> FigureOutSeperateFunction()
-        //{
-        //    bool doYouWantMoreQuestions = false;
-
-        //    while (!doYouWantMoreQuestions)
-        //    {
-        //        Console.WriteLine("Please input a Question");
-
-        //        string userInput = Console.ReadLine();
-        //        Console.WriteLine("How many answers to the questions?");
-        //        int numberOfAnswers = int.Parse(Console.ReadLine());
-
-        //        for (int i = 0; i < numberOfAnswers; i++)
-        //        {
-
-        //            char optionLabel = (char)('A' + i);
-        //            Console.WriteLine($"Option {optionLabel}");
-        //            string optionText = Console.ReadLine();
-        //        }
-
-        //        Console.WriteLine("Would you like to create more questions?");
-
-        //        Console.WriteLine("Do you want more questions?");
-        //        char userMakesDescision = char.ToUpper(Console.ReadKey().KeyChar);
-
-        //        if (userMakesDescision == ConstantsVAR.USERSELECT_YES)
-        //        {
-        //            doYouWantMoreQuestions = true;
-        //        }
-        //        else if (userMakesDescision == ConstantsVAR.USERSELECT_NO)
-        //        {
-        //            break;
-        //        }
-        //        return null;
-        //    }
-        //}
-
-
         public static char SelectingGameOrCreateMode()// selecting either create or play mode 
         {
-            Console.WriteLine("Please select a mode A or B \n A: Play Mode \n B: Create Mode");
+            Console.WriteLine("Please select a mode A or B \n A: Build Mode \n B: Play Mode");
 
             char userSelection = Console.ReadKey().KeyChar; // wait for user input for A and B selection 
 
@@ -336,6 +307,18 @@ namespace ElectricGuitarQuiz
             }
             while (!isTheSelectionValid);
             return userSelection;
+        }
+        public static void GetAndDisplayUserCreatedQAndAs(List<QuizQuestion> questions)
+        {
+            foreach (var question in questions)
+            {
+                Console.WriteLine(question.WrittenOutQuestion);
+                foreach (var option in question.Options)
+                {
+                    Console.WriteLine(option);
+                }
+                Console.WriteLine($"Correct Answer: {question.CorrectAnswer}");
+            }
         }
     }
 }
