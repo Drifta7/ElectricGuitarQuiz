@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ElectricGuitarQuiz
+﻿namespace ElectricGuitarQuiz
 {
     class UiMethods
     {
@@ -21,6 +12,7 @@ namespace ElectricGuitarQuiz
             Console.WriteLine(" 1. Build a new set of Questions");
             Console.WriteLine(" 2. View existing Questions");
             Console.WriteLine(" 3. Save and exit");
+            Console.WriteLine(" 4. Load Game");
 
             Console.WriteLine("\nPlease Enter a Selection :");
         }
@@ -49,12 +41,12 @@ namespace ElectricGuitarQuiz
         }
         public static int PrintWhatTheUserSelected(int userInput)
         {
-            if (userInput == ConstantsVAR.USER_GAME_CHOICE_1)
+            if (userInput == ConstantsVAR.USER_SELECT_CHOICE_1)
             {
                 Console.WriteLine($"You Have selected {userInput}: Create a new set");
             }
 
-            else if (userInput == ConstantsVAR.USER_GAME_CHOICE_2)
+            else if (userInput == ConstantsVAR.USER_SELECT_CHOICE_2)
             {
                 Console.WriteLine($"You have selected{userInput}: View existing questions");
             }
@@ -121,7 +113,14 @@ namespace ElectricGuitarQuiz
             }
         }
 
-        public static void DisplayingSavedToFile()
+        public static string GetUserSelectedSavePath()
+        {
+            Console.WriteLine("Please enter the Directory to save your questions and answers to.");
+            string userDirectory = Console.ReadLine();
+            return userDirectory;
+        }
+
+        public static void DisplayingSavedToFileMessage()
         {
             // basic message for saving files
             Console.WriteLine("Saved To XML!");
@@ -308,7 +307,7 @@ namespace ElectricGuitarQuiz
             while (!isTheSelectionValid);
             return userSelection;
         }
-        public static void GetAndDisplayUserCreatedQAndAs(List<QuizQuestion> questions)
+        public static void GetAndDisplayUserCreatedQAndAs(List<QuizQuestion> questions) // q's and A's = questions and answers :P
         {
             foreach (var question in questions)
             {

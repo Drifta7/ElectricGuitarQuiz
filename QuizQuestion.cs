@@ -117,23 +117,25 @@ namespace ElectricGuitarQuiz
         }
 
         //serialize
-        public void SaveQuestionToFile(List<QuizQuestion> question, string filepath)
+        public static void SaveQuestionToFile(List<QuizQuestion> question, string filepath)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestion>));
-            string path = @"D:\Random Drawings\Serialization Guitar.xml";
+            
+            string directory = Path.GetDirectoryName(filepath);
+            Directory.CreateDirectory(directory);
 
-            using (FileStream fs = new FileStream(path, FileMode.Create)) // creates the file to the HD
+            using (FileStream fs = new FileStream(filepath, FileMode.Create)) // creates the file to the HD
             {
                 serializer.Serialize(fs, question);
             }
         }
         // deserialize
-        public QuizQuestion LoadQuestionFromFile(string filepath)
+        public static List<QuizQuestion> LoadQuestionFromFile(string filepath)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestion>));
             using (FileStream fs = new FileStream(filepath, FileMode.Open))
             {
-                return (QuizQuestion)serializer.Deserialize(fs);
+                return (List <QuizQuestion>)serializer.Deserialize(fs);
             }
         }
     }

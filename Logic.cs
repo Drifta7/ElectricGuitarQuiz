@@ -34,13 +34,6 @@ namespace ElectricGuitarQuiz
             }
         }
 
-        public static void SavingQuestionsToFile()
-        {
-            List<QuizQuestion> questions = QuizQuestion.PrintOutSelectedNumberOfOptions();
-            QuizQuestion quizQuestionInstance = new QuizQuestion();
-            quizQuestionInstance.SaveQuestionToFile(questions[0], @"D:\Random Drawings\Serialization Guitar.xml");
-        }
-        // this is supposed to check IF the user selects the play mode first!
 
         public static void ValidatingCreatedQuestionList()
         { 
@@ -57,7 +50,7 @@ namespace ElectricGuitarQuiz
             } //  dont use this method yet 
         }
 
-        // used to pass in list of questions to check if null or empty
+        // used to pass in list of questions to check if null or empty "THIS IS MORE DYNAMIC"
         public static List<QuizQuestion> EnsureQuestionListExists(List<QuizQuestion> existingList)
         {
             if (existingList == null || existingList.Count == 0)
@@ -65,6 +58,10 @@ namespace ElectricGuitarQuiz
                 Console.WriteLine("No questions available. Please create some questions first.");
                 existingList = QuizQuestion.PrintOutSelectedNumberOfQuestions();
             }
+            else
+            {
+                Console.WriteLine($"There are {existingList.Count} questions available.");
+            } // 
             return existingList;
         }
         //public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
