@@ -17,6 +17,18 @@
             Console.WriteLine("\nPlease Enter a Selection :");
         }
 
+        public static void PrintMainMenuWOBuildingNewQuestions()
+        {
+            Console.WriteLine(" 1. View existing Questions");
+            Console.WriteLine(" 2. Save and exit");
+            Console.WriteLine(" 3. Load Game");
+
+            Console.WriteLine("\nPlease Enter a Selection :");
+        }
+        public static void CreatedQuestionsMessage()
+        {
+            Console.WriteLine("Here are the Questions that were created ");
+        }
         public static bool CheckIfListIsNotEmpty(List<QuizQuestion> checkingList)
         {
             return checkingList != null && checkingList.Any(); // this checks if the list isn't null before it checks if it's empty
@@ -31,14 +43,7 @@
             Console.WriteLine("PLease lock in the answer");
             Console.WriteLine("Enter the correct (A,B,C,D, etc...):");
         }
-        public static void PrintEndOfGameMenu() // place this at the end of the game.
-        {
-            Console.WriteLine("1. Create a new set of Questions");
-            Console.WriteLine("2. View existing questions and answers ");
-            Console.WriteLine("3. Save and exit");
-
-            Console.WriteLine("\n Please enter a selection: ");
-        }
+       
         public static int PrintWhatTheUserSelected(int userInput)
         {
             if (userInput == ConstantsVAR.USER_SELECT_CHOICE_1)
@@ -57,12 +62,9 @@
         }
         public static void NoListToDisplayMessage()
         {
-            Console.WriteLine("There is no list to display, You have to create on first");
+            Console.WriteLine("There is no list to display, You have to create one first");
         }
-        public static void PrintWelcomeMessage()
-        {
-            Console.WriteLine("Welcome to the Electric Guitar Quiz Challenge");
-        }
+        
         public static void PrintGoodbyeMessage()
         {
             Console.WriteLine("Thank you for playing the Electric Guitar Quiz Challenge");
@@ -307,6 +309,30 @@
             while (!isTheSelectionValid);
             return userSelection;
         }
+        //use this in the main program to replace the other stuff i have in the playmode and change the name of method later
+        public static void PlayGameMode(List<QuizQuestion> quizQuestions, char userSelection, char CorrectAnswer, int variable)
+        {
+            // have a display message for created questions method here
+            // usd randomizer method to pick a random question from the list
+            UiMethods.CreatedQuestionsMessage();
+            bool isTheAnswerCorrect = false;
+            int addedScore, deductedScore; ;
+            
+            if (userSelection == CorrectAnswer)
+            {
+                isTheAnswerCorrect = true;
+                Console.WriteLine($"{userSelection} is correct");
+                addedScore = GameVariable.POINTS_PER_CORRECT_ANSWER + GameVariable.PLAYER_SCORE;
+                Console.WriteLine($" Your score is :{addedScore}");
+            }
+            else
+            {
+                Console.WriteLine($"{userSelection} is incorrect");
+                deductedScore = GameVariable.POINTS_DEDUCTED_PER_WRONG_ANSWER + GameVariable.PLAYER_SCORE;
+                Console.WriteLine($" Your score is :{deductedScore}");
+            }
+        }
+
         public static void GetAndDisplayUserCreatedQAndAs(List<QuizQuestion> questions) // q's and A's = questions and answers :P
         {
             foreach (var question in questions)

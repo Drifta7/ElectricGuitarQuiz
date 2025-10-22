@@ -11,43 +11,46 @@ namespace ElectricGuitarQuiz
             UiMethods.PrintWelcomeMessageForBuildMode();
             // UiMethods.PrintQuestionsAndAnswersForGame(); //placed here to make this a global method
             //UiMethods.PrintMainMenu();
-            // while (!quit) {
+           
             char userInputSelect = UiMethods.SelectingGameOrCreateMode();
 
-            List<QuizQuestion> questions = null;// used to scan for is user is going to select this first without creating a question first
-            
+            //used as a safty measure to ensure that if the user selects to view it will prompt a create message
+            List<QuizQuestion> questions = null;
+
             if (userInputSelect == ConstantsVAR.BUILD_QUIZ_MODE)
             {
+
+                List<QuizQuestion> createdQsAndAs = new List<QuizQuestion>();
+
                 UiMethods.PrintMainMenu();
                 int userChoice = UiMethods.UserChoice();
 
+                bool didTheUserFinishedCreatingTheQsAndAs = false;
                 // Builds a new set of Questions.
                 if (userChoice == ConstantsVAR.USER_SELECT_CHOICE_1)
                 {
-                    UiMethods.PrintWhatTheUserSelected(userChoice);
-                    bool gameOver = false;
-
-                    while (!gameOver)
+                    while (!didTheUserFinishedCreatingTheQsAndAs)
                     {
-                        UiMethods.PrintQuestionsAndAnswersForGame();
+                        UiMethods.PrintWhatTheUserSelected(userChoice);
 
-                        char userToQuit = UiMethods.PromptingUserToCreateMoreQuestions();
+                        createdQsAndAs = UiMethods.PrintQuestionsAndAnswersForGame(); // saved to a var to be displayed later in the program
+                        didTheUserFinishedCreatingTheQsAndAs = true;
 
-                        if (userToQuit == ConstantsVAR.USERSELECT_NO)
-                        {
-                            UiMethods.PrintGoodbyeMessage(); // this will print out a goodbye message to the user when they quit the game
-                            gameOver = true;
-                        }
+                        UiMethods.PrintMainMenuWOBuildingNewQuestions();
+                        // what to choose after creating questions
                     }
+                    //
                 }
 
-                
+
                 // if the user selects 2 view existing questions
                 else if (userChoice == ConstantsVAR.USER_SELECT_CHOICE_2)
                 {
                     Logic.EnsureQuestionListExists(questions);
-                    // method made to view existing questions for the list that the user has created
-                    //Logic.ValidatingCreatedQuestionList();
+                    
+                    // existing questions for the list that the user has created
+                    UiMethods.GetAndDisplayUserCreatedQAndAs(createdQsAndAs);
+                    
                 }
 
                 //if user selects 3 save question to file 
@@ -65,8 +68,9 @@ namespace ElectricGuitarQuiz
                     // this is just a message method.
                     UiMethods.DisplayingSavedToFileMessage();
                 }
+                UiMethods.PrintMainMenu();
+                UiMethods.UserChoice();
 
-               
 
                 bool isThereAListInPlace = UiMethods.CheckIfListIsNotEmpty(questions); // this is to check if the list is empty or not
 
@@ -117,17 +121,19 @@ namespace ElectricGuitarQuiz
                 {
                     Logic.ValidatingCreatedQuestionList();
                     UiMethods.GetAndDisplayUserCreatedQAndAs(UiMethods.PrintQuestionsAndAnswersForGame());
-
                 }
 
+                // select to save the list
                 else if (userChoice == ConstantsVAR.USER_SELECT_CHOICE_3_SAVE)
-                {   // is placed the just in case the user tries to save without creating any questions first
+                {
+                    // is placed the just in case the user tries to save without creating any questions first
                     Logic.EnsureQuestionListExists(UiMethods.PrintQuestionsAndAnswersForGame());
 
                     List<QuizQuestion> results = UiMethods.PrintQuestionsAndAnswersForGame();
                     string saveFilePath = UiMethods.GetUserSelectedSavePath();
                     QuizQuestion.SaveQuestionToFile(results, saveFilePath);
                 }
+
                 // deserialize the list
                 else if (userChoice == ConstantsVAR.USER_SELECT_CHOICE_4_DESERIALIZE)
                 {// is placed the just in case the user tries to load without creating any questions first

@@ -40,5 +40,7 @@ namespace ElectricGuitarQuiz
 
         public const char USERSELECT_YES = 'Y'; // these are the user selections for the quiz game, like if they want to create a question or not
         public const char USERSELECT_NO = 'N'; // " " " "
+
+       
     }
 }
