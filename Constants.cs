@@ -6,14 +6,8 @@ using System.Threading.Tasks;
 
 namespace ElectricGuitarQuiz
 {
-    public class ConstantsVAR
+    public class Constants
     {
-        // these numbers will repsent the game choices like for The SelectionGamemode() method
-        public const char USER_GAME_CHOICE1 = '1';
-        public const char USER_OPTION_CHOICE2 = '2';
-        public const char USER_SELECT_CHOICE3 = '3';
-        public const char USER_GAME_CHOICE4 = '4';
-
         //these represent the in game multiple choice selections
         public const char USER_SELECTION_A = 'A';
         public const char USER_SELECTION_B = 'B';
@@ -21,7 +15,7 @@ namespace ElectricGuitarQuiz
         public const char USER_SELECTION_D = 'D';
         public const char USER_SELECTION_E = 'E';
 
-        public const char BUILD_QUIZ_MODE = 'A'; // const for the Build Quiz mode 
+        public const char BUILD_QUIZ_MODE = 'A' ; // const for the Build Quiz mode 
         public const char START_PLAY_MODE = 'B'; // const for the mutiple choice 
 
         public const int RANGE_MIN = 1;

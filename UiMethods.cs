@@ -19,9 +19,10 @@
 
         public static void PrintMainMenuWOBuildingNewQuestions()
         {
-            Console.WriteLine(" 1. View existing Questions");
-            Console.WriteLine(" 2. Save and exit");
-            Console.WriteLine(" 3. Load Game");
+            Console.WriteLine(" 1.Build a new set of Questions [COMPLETED]");
+            Console.WriteLine(" 2. View existing Questions");
+            Console.WriteLine(" 3. Save and exit");
+            Console.WriteLine(" 4. Load Game");
 
             Console.WriteLine("\nPlease Enter a Selection :");
         }
@@ -29,11 +30,19 @@
         {
             Console.WriteLine("Here are the Questions that were created ");
         }
+
+        public static void NoQuestionsCreatedMessage()
+        {
+            Console.WriteLine("No questions have been created yet, please create some questions first.");
+        }
         public static bool CheckIfListIsNotEmpty(List<QuizQuestion> checkingList)
         {
             return checkingList != null && checkingList.Any(); // this checks if the list isn't null before it checks if it's empty
         }
-
+        public static void WelcomeToPlayModeMessage()
+        {
+            Console.WriteLine("Welcome to play mode");
+        }
         public static void ContinueWithPlayingMessage()
         {
             Console.WriteLine("Please continue with playing");
@@ -43,15 +52,15 @@
             Console.WriteLine("PLease lock in the answer");
             Console.WriteLine("Enter the correct (A,B,C,D, etc...):");
         }
-       
+
         public static int PrintWhatTheUserSelected(int userInput)
         {
-            if (userInput == ConstantsVAR.USER_SELECT_CHOICE_1)
+            if (userInput == Constants.USER_SELECT_CHOICE_1)
             {
                 Console.WriteLine($"You Have selected {userInput}: Create a new set");
             }
 
-            else if (userInput == ConstantsVAR.USER_SELECT_CHOICE_2)
+            else if (userInput == Constants.USER_SELECT_CHOICE_2)
             {
                 Console.WriteLine($"You have selected{userInput}: View existing questions");
             }
@@ -64,7 +73,7 @@
         {
             Console.WriteLine("There is no list to display, You have to create one first");
         }
-        
+
         public static void PrintGoodbyeMessage()
         {
             Console.WriteLine("Thank you for playing the Electric Guitar Quiz Challenge");
@@ -84,7 +93,7 @@
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out userChoice))
                 {
-                    if (userChoice >= ConstantsVAR.GAMEOPTION_MIN && userChoice <= ConstantsVAR.GAMEOPTION_MAX)
+                    if (userChoice >= Constants.GAMEOPTION_MIN && userChoice <= Constants.GAMEOPTION_MAX)
                     {
                         Console.WriteLine($"You have selected {userChoice}");
                         isTheInputValid = true;
@@ -92,7 +101,7 @@
                     else
                     {
                         Console.WriteLine($" Number is out of range. Please enter a number between" +
-                            $"{ConstantsVAR.GAMEOPTION_MIN} & {ConstantsVAR.GAMEOPTION_MAX}");
+                             $"{Constants.GAMEOPTION_MIN} & {Constants.GAMEOPTION_MAX}");
                     }
                 }
                 else
@@ -103,16 +112,6 @@
             while (!isTheInputValid);
 
             return userChoice;
-        }
-
-        public static void GetCorrectAnswer(char getUserInput)
-        {
-            if (char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_A || char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_B ||
-                char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_C || char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_D ||
-                char.ToUpper(getUserInput) == ConstantsVAR.USER_SELECTION_E)
-            {
-                Console.WriteLine("This is NOT the correct Answer!");
-            }
         }
 
         public static string GetUserSelectedSavePath()
@@ -164,8 +163,8 @@
                 userGameQuestionChoice = char.ToUpper(Console.ReadKey().KeyChar); // this will get the user input and convert it to uppercase
                 Console.WriteLine(); // creates a "break" line in the program 
 
-                isTheInputValid = userGameQuestionChoice == ConstantsVAR.USERSELECT_YES ||
-                                  userGameQuestionChoice == ConstantsVAR.USERSELECT_NO; // this will check if the user input is valid or not
+                isTheInputValid = userGameQuestionChoice == Constants.USERSELECT_YES ||
+                                  userGameQuestionChoice == Constants.USERSELECT_NO; // this will check if the user input is valid or not
 
                 if (!isTheInputValid)
                 {
@@ -180,7 +179,7 @@
             }
             while (!isTheInputValid); // this will keep asking the user for input until the input is valid.
 
-            if (userGameQuestionChoice == ConstantsVAR.USERSELECT_YES)
+            if (userGameQuestionChoice == Constants.USERSELECT_YES)
             {
                 Console.WriteLine("Please continue to create more question");
             }
@@ -226,8 +225,7 @@
                     correctValidInput = Console.ReadLine().Trim().ToUpper();
                 }
                 while (string.IsNullOrEmpty(correctValidInput)); // used to make sure the user doesn't enter a blank entry
-                UiMethods.EnterTheRightAnswerLetter();// <-----this is not needed 
-                question.CorrectAnswer = Console.ReadLine().ToUpper()[0];// saved question? 
+                question.CorrectAnswer = correctValidInput[0];// saved question? 
 
                 quizQuestion.Add(question); // adds typed answer to the list NEEDS to BE SAVED TO VARIABLE?
             }
@@ -258,33 +256,24 @@
 
             return numericInput.ToString(); // return the numeric input as a string
         }
-        public static int ValidatingNumericInput() // this will validate the numeric input within the range of 1 to 4 and will not exceed that range.
+
+        public static void ValidatingCreatedQuestionList()
         {
-            string userInput = GetNumericUserInput();
-            int numericInput;
-            bool isTheSelectionValid = false;
-
-            do
+            List<QuizQuestion> questions = UiMethods.PrintQuestionsAndAnswersForGame();
+            if (questions == null || questions.Count == 0)
             {
-                if (Int32.TryParse(userInput, out numericInput))
-                {
-                    if (numericInput < ConstantsVAR.RANGE_MIN && numericInput > ConstantsVAR.RANGE_MAX)
-                    {
-                        Console.WriteLine("This is not within the Correct Selection range Please try again");
-                        userInput = GetNumericUserInput();// the the input isn't valid the user get this message. 
-                    }
-                    else
-                    {
-                        isTheSelectionValid = true;
-                        Console.WriteLine($"You have selected {numericInput}");
-                    }
-                }
+                Console.WriteLine("No questions available. Please create some questions first.");
+                questions = UiMethods.PrintQuestionsAndAnswersForGame();
 
-            } while (!isTheSelectionValid);
-
-            return numericInput;
+            }
+            else
+            {
+                Console.WriteLine($"There are {questions.Count} questions available.");
+            } //  dont use this method yet 
         }
-        public static char SelectingGameOrCreateMode()// selecting either create or play mode 
+
+
+        public static char GetValidOptionMode()// selecting either create or play mode 
         {
             Console.WriteLine("Please select a mode A or B \n A: Build Mode \n B: Play Mode");
 
@@ -295,7 +284,7 @@
             bool isTheSelectionValid = false;
             do
             {
-                if (userSelection != ConstantsVAR.USER_SELECTION_A && userSelection != ConstantsVAR.USER_SELECTION_B)
+                if (userSelection != Constants.USER_SELECTION_A && userSelection != Constants.USER_SELECTION_B)
                 {
                     Console.WriteLine("\n This is not the correct selection, please make the correct selection");
                     userSelection = Console.ReadKey().KeyChar;// prompts the user to enter again.
@@ -310,14 +299,15 @@
             return userSelection;
         }
         //use this in the main program to replace the other stuff i have in the playmode and change the name of method later
-        public static void PlayGameMode(List<QuizQuestion> quizQuestions, char userSelection, char CorrectAnswer, int variable)
+        public static void PlayGameMode( char userSelection, char CorrectAnswer)
         {
             // have a display message for created questions method here
             // usd randomizer method to pick a random question from the list
+
             UiMethods.CreatedQuestionsMessage();
             bool isTheAnswerCorrect = false;
-            int addedScore, deductedScore; ;
-            
+            int addedScore, deductedScore;
+
             if (userSelection == CorrectAnswer)
             {
                 isTheAnswerCorrect = true;
@@ -325,7 +315,7 @@
                 addedScore = GameVariable.POINTS_PER_CORRECT_ANSWER + GameVariable.PLAYER_SCORE;
                 Console.WriteLine($" Your score is :{addedScore}");
             }
-            else
+            else if (userSelection != CorrectAnswer)
             {
                 Console.WriteLine($"{userSelection} is incorrect");
                 deductedScore = GameVariable.POINTS_DEDUCTED_PER_WRONG_ANSWER + GameVariable.PLAYER_SCORE;
@@ -333,7 +323,8 @@
             }
         }
 
-        public static void GetAndDisplayUserCreatedQAndAs(List<QuizQuestion> questions) // q's and A's = questions and answers :P
+        // used to pass questions and answers variable to display them to user
+        public static void GetAndDisplayUserCreatedQAndAs(List <QuizQuestion> questions) // q's and A's = questions and answers :P
         {
             foreach (var question in questions)
             {
@@ -342,7 +333,7 @@
                 {
                     Console.WriteLine(option);
                 }
-                Console.WriteLine($"Correct Answer: {question.CorrectAnswer}");
+                // Console.WriteLine($"Correct Answer: {question.CorrectAnswer}"); commented out to not display correct answer to Player
             }
         }
     }

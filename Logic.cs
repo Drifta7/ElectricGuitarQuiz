@@ -13,16 +13,16 @@ namespace ElectricGuitarQuiz
 
         // might have to use a foreach loop to get the question to the user but that miight be in the UImethods file
 
-        public static int QuestionRandomizer(int questionNumber)
-        {// in order for this to work ther needs to be a saved var that stores a question number 
+
+        public static  QuizQuestion GetRandomQuestion(List<QuizQuestion> questions)
+        {
             Random random = new Random();
-            questionNumber = random.Next(ConstantsVAR.RANGE_MIN, ConstantsVAR.RANGE_MAX); // this will pick a number between 1 and 8
-            return questionNumber;
+            int randomIndex = random.Next(questions.Count); // get a random index based on the number of questions available
+            return questions[randomIndex]; // return the randomly selected question
         }
-
+        
         // will have to change this later into ui methods.cs file
-
-        public static bool IsTheAnswerCorrect(char userInput, char correctAnswer)
+        public static bool IsTheAnswerCorrect(char userInput, char correctAnswer) 
         {
             if (userInput == correctAnswer)
             {
@@ -35,28 +35,14 @@ namespace ElectricGuitarQuiz
         }
 
 
-        public static void ValidatingCreatedQuestionList()
-        { 
-             List<QuizQuestion> questions = QuizQuestion.PrintOutSelectedNumberOfOptions();
-            if (questions == null || questions.Count == 0)
-            {
-                Console.WriteLine("No questions available. Please create some questions first.");
-                questions = QuizQuestion.PrintOutSelectedNumberOfQuestions();
-
-            }
-            else
-            {
-                Console.WriteLine($"There are {questions.Count} questions available.");
-            } //  dont use this method yet 
-        }
-
         // used to pass in list of questions to check if null or empty "THIS IS MORE DYNAMIC"
         public static List<QuizQuestion> EnsureQuestionListExists(List<QuizQuestion> existingList)
         {
             if (existingList == null || existingList.Count == 0)
             {
-                Console.WriteLine("No questions available. Please create some questions first.");
-                existingList = QuizQuestion.PrintOutSelectedNumberOfQuestions();
+                    
+                Console.WriteLine("No questions and answers are available. Please create some them first.");
+                existingList = UiMethods.PrintQuestionsAndAnswersForGame();
             }
             else
             {

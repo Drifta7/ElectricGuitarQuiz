@@ -13,3 +13,10 @@ namespace ElectricGuitarQuiz
         public static int POINTS_DEDUCTED_PER_WRONG_ANSWER = -1; // points deducted per wrong answer
     }
 }
+// dispay the question and answers in play mode
+// have a method MATCH the UserAnswer to The CorrectANswer then if correctadd points else deduct points
+// update the PLAYER_SCORE variable accordingly
+// at the end of the quiz display the final score
+
+// Give the option to display the Random Question from the quiz
+// give the option to play again or exit the game
