@@ -353,6 +353,7 @@
             bool isTheAnswerCorrect = false;
             int addedScore, deductedScore;
 
+            // might have to change the logic here later
             if (CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
             {
                 isTheAnswerCorrect = true;
