@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace ElectricGuitarQuiz
 {
@@ -22,68 +23,52 @@ namespace ElectricGuitarQuiz
         }
         
         // will have to change this later into ui methods.cs file
-        public static bool IsTheAnswerCorrect(char userInput, char correctAnswer) 
-        {
-            if (userInput == correctAnswer)
+        public static bool IsBothTheAnswersCorrect(char ans1,  char ans2, char correctAnswer1, char correctAnswer2)
+        { 
+            if (ans1 == correctAnswer1 && ans2 == correctAnswer2)
             {
-                return true; // the answer is correct
+                return true; // the answers is correct
             }
             else
             {
-                return false; // the answer is incorrect
+                return false; // the answers is incorrect
             }
         }
-
 
         // used to pass in list of questions to check if null or empty "THIS IS MORE DYNAMIC"
-        public static List<QuizQuestion> EnsureQuestionListExists(List<QuizQuestion> existingList)
+       
+
+        public static bool CheckIfListIsNotEmpty(List<QuizQuestion> checkingList)
         {
-            if (existingList == null || existingList.Count == 0)
-            {
-                    
-                Console.WriteLine("No questions and answers are available. Please create some them first.");
-                existingList = UiMethods.PrintQuestionsAndAnswersForGame();
-            }
-            else
-            {
-                Console.WriteLine($"There are {existingList.Count} questions available.");
-            } // 
-            return existingList;
+            return checkingList != null && checkingList.Any(); // this checks if the list isn't null before it checks if it's empty
         }
-        //public static bool AreBothAnswersCorrect(char ans1, char ans2) // this is for if one or more answers are correct. this will be corrected afterwards
-        //{
-        //    Console.WriteLine("Would you like for there to be 2 correct answers in the Question Y/N?");
 
-        //    char userInput = char.ToUpper(Console.ReadKey().KeyChar); // get the user input and make it uppercase
+        //serialize
+        public static void SaveQuestionToFile(List<QuizQuestion> question, string filepath)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestion>));
 
-        //    if (userInput == ConstantsVAR.USERSELECT_YES)
-        //    {
-        //        Console.WriteLine("Please Enter the 1st of two correct answers");
-        //        ans1 = char.ToUpper(Console.ReadKey().KeyChar);
+            string directory = Path.GetDirectoryName(filepath);
+            Directory.CreateDirectory(directory);
 
-        //        Console.WriteLine("Enter the 2nd of 2 correct answers");
-        //        ans2 = char.ToUpper(Console.ReadKey().KeyChar);
+            //DEBUG
+            Console.WriteLine(directory);
+            Console.WriteLine(filepath);
 
-        //        Console.WriteLine("Please confirm the two correct answers for the question (e.g., A ,B C, etc.):");
+            using (FileStream fs = new FileStream(filepath, FileMode.Create)) // creates the file to the HD
+            {
+                serializer.Serialize(fs, question);
+            }
+        }
+        // deserialize
+        public static List<QuizQuestion> LoadQuestionFromFile(string filepath)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestion>));
+            using (FileStream fs = new FileStream(filepath, FileMode.Open))
+            {
+                return (List<QuizQuestion>)serializer.Deserialize(fs);
+            }
+        }
 
-        //        Console.WriteLine("\nPlace in the 1st answer");
-        //        char firstAnswer = char.ToUpper(Console.ReadKey().KeyChar);
-
-        //        Console.WriteLine("\n Place in the 2nd answer");
-        //        char secondAnswer = char.ToUpper(Console.ReadKey().KeyChar);
-
-        //        if (ans1 == firstAnswer && ans2 == secondAnswer)
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    else
-        //        Console.WriteLine("Please Continue with creating the Questions");
-        //    return false; // if the user does not want to have two correct answers, then return false
-        //}
     }
 }

@@ -7,6 +7,33 @@
             Console.WriteLine("\n Welcome to Quiz Creator mode you'll be guided step by step to Build you own quiz");
             Console.WriteLine("\nFirst you will either select build or Play");
         }
+
+        public static char PrintWelcomeMessageForPlayMode()
+        {
+            Console.WriteLine("Please select a mode A or B \n A: Build Mode [Completed] \n B: Play Mode");
+
+            char userSelection = Console.ReadKey().KeyChar; // wait for user input for A and B selection 
+
+            userSelection = char.ToUpper(userSelection); // convert the user input to uppercase for consistency 
+
+            bool isTheSelectionValid = false;
+            do
+            {
+                if (userSelection != Constants.USER_SELECTION_A && userSelection != Constants.USER_SELECTION_B)
+                {
+                    Console.WriteLine("\n This is not the correct selection, please make the correct selection");
+                    userSelection = Console.ReadKey().KeyChar;// prompts the user to enter again.
+                }
+                else
+                {
+                    Console.WriteLine($"\n You have selected {userSelection}");
+                    isTheSelectionValid = true;
+                }
+            }
+            while (!isTheSelectionValid);
+            return userSelection;
+
+        }
         public static void PrintMainMenu()
         {
             Console.WriteLine(" 1. Build a new set of Questions");
@@ -35,10 +62,7 @@
         {
             Console.WriteLine("No questions have been created yet, please create some questions first.");
         }
-        public static bool CheckIfListIsNotEmpty(List<QuizQuestion> checkingList)
-        {
-            return checkingList != null && checkingList.Any(); // this checks if the list isn't null before it checks if it's empty
-        }
+        
         public static void WelcomeToPlayModeMessage()
         {
             Console.WriteLine("Welcome to play mode");
@@ -53,6 +77,11 @@
             Console.WriteLine("Enter the correct (A,B,C,D, etc...):");
         }
 
+        
+        public static void ClearingTheUserScreen()
+        {
+            Console.Clear();
+        }
         public static int PrintWhatTheUserSelected(int userInput)
         {
             if (userInput == Constants.USER_SELECT_CHOICE_1)
@@ -64,8 +93,14 @@
             {
                 Console.WriteLine($"You have selected{userInput}: View existing questions");
             }
-            else
+            else if (userInput == Constants.USER_SELECT_CHOICE_3_SAVE)
+            {
                 Console.WriteLine($" You have selected {userInput}: Save and exit");
+            }
+            else if (userInput == Constants.USER_SELECT_CHOICE_4_DESERIALIZE)
+            {
+                Console.WriteLine($"You have selected {userInput}: Deserialize");
+            }
 
             return userInput;
         }
@@ -116,15 +151,15 @@
 
         public static string GetUserSelectedSavePath()
         {
-            Console.WriteLine("Please enter the Directory to save your questions and answers to.");
+            Console.WriteLine("Please enter the Directory to save your questions and answers to and please affix a XML file.");
             string userDirectory = Console.ReadLine();
             return userDirectory;
         }
 
-        public static void DisplayingSavedToFileMessage()
+        public static void DisplayingSavedFileMessage()
         {
             // basic message for saving files
-            Console.WriteLine("Saved To XML!");
+            Console.WriteLine(".....Saved To XML!");
         }
         ///__-------------------------------------------- UserCreation Prompts ---------------------------------------____-----_--_----_-//
 
@@ -140,7 +175,7 @@
 
         public static int InputNumberOfQuestions()// prompt user question on how many "questions" they want 
         {
-            Console.WriteLine("How many questions do you want to create?");
+            Console.WriteLine("\nHow many questions do you want to create?");
             int numberOfQuestions = int.Parse(Console.ReadLine());
             return numberOfQuestions;
         }
@@ -218,14 +253,10 @@
                     question.Options.Add($"{optionLabel}: {optionText}");// adds the option to the list with the label
                 }
 
-                string correctValidInput;
-                do
-                { // here should be a question asking for which is the right answer
-                    Console.WriteLine("which question is the right answer?");
-                    correctValidInput = Console.ReadLine().Trim().ToUpper();
-                }
-                while (string.IsNullOrEmpty(correctValidInput)); // used to make sure the user doesn't enter a blank entry
-                question.CorrectAnswer = correctValidInput[0];// saved question? 
+
+
+                question.CorrectAnswers = CreatingMultipleOrSingleCorrectAnswers();
+               
 
                 quizQuestion.Add(question); // adds typed answer to the list NEEDS to BE SAVED TO VARIABLE?
             }
@@ -272,6 +303,20 @@
             } //  dont use this method yet 
         }
 
+        public static List<QuizQuestion> EnsureQuestionListExists(List<QuizQuestion> existingList)
+        {
+            if (existingList == null || existingList.Count == 0)
+            {
+                Console.WriteLine("No questions and answers are available. Please create some them first.");
+                existingList = UiMethods.PrintQuestionsAndAnswersForGame();
+            }
+            else
+            {
+                Console.WriteLine($"There are {existingList.Count} questions available.");
+            }
+
+            return existingList;
+        }
 
         public static char GetValidOptionMode()// selecting either create or play mode 
         {
@@ -298,8 +343,8 @@
             while (!isTheSelectionValid);
             return userSelection;
         }
-        //use this in the main program to replace the other stuff i have in the playmode and change the name of method later
-        public static void PlayGameMode( char userSelection, char CorrectAnswer)
+        //use this in the main program to replace the other stuff I have in the playmode and change the name of method later
+        public static void PlayGameMode(char userSelection, List <char> CorrectAnswer)
         {
             // have a display message for created questions method here
             // usd randomizer method to pick a random question from the list
@@ -308,14 +353,14 @@
             bool isTheAnswerCorrect = false;
             int addedScore, deductedScore;
 
-            if (userSelection == CorrectAnswer)
+            if (CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
             {
                 isTheAnswerCorrect = true;
                 Console.WriteLine($"{userSelection} is correct");
                 addedScore = GameVariable.POINTS_PER_CORRECT_ANSWER + GameVariable.PLAYER_SCORE;
                 Console.WriteLine($" Your score is :{addedScore}");
             }
-            else if (userSelection != CorrectAnswer)
+            else if (CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
             {
                 Console.WriteLine($"{userSelection} is incorrect");
                 deductedScore = GameVariable.POINTS_DEDUCTED_PER_WRONG_ANSWER + GameVariable.PLAYER_SCORE;
@@ -324,7 +369,7 @@
         }
 
         // used to pass questions and answers variable to display them to user
-        public static void GetAndDisplayUserCreatedQAndAs(List <QuizQuestion> questions) // q's and A's = questions and answers :P
+        public static void GetAndDisplayUserCreatedQAndAs(List<QuizQuestion> questions) // q's and A's = questions and answers :P
         {
             foreach (var question in questions)
             {
@@ -335,6 +380,38 @@
                 }
                 // Console.WriteLine($"Correct Answer: {question.CorrectAnswer}"); commented out to not display correct answer to Player
             }
+        }
+        // put this into the program create Mode
+        public static List <char> CreatingMultipleOrSingleCorrectAnswers() // this is for if one or more answers are correct. this will be corrected afterwards
+        {
+            Console.WriteLine("Would you like for there to be 2 correct answers in the Question Y/N?");
+
+            char userInput = char.ToUpper(Console.ReadKey().KeyChar); // get the user input and make it uppercase
+
+            List<char> correctAnswers = new List<char>();
+
+            if (userInput == Constants.USERSELECT_YES)
+            {
+                Console.WriteLine("Please Enter the 1st of two correct answers");
+                char ans1 = char.ToUpper(Console.ReadKey().KeyChar);
+                Console.WriteLine();
+
+                Console.WriteLine("Enter the 2nd of 2 correct answers");
+                char ans2 = char.ToUpper(Console.ReadKey().KeyChar);
+                Console.WriteLine();
+
+                correctAnswers.Add(ans1);
+                correctAnswers.Add(ans2);
+
+            }
+            else if (userInput == Constants.USERSELECT_NO)
+            {
+                Console.WriteLine("Please Continue with creating the Single Questions");
+                char ans = char.ToUpper(Console.ReadKey().KeyChar);
+                Console.WriteLine();
+                correctAnswers.Add(ans);
+            }
+                return correctAnswers; // if the user does not want to have two correct answers, then return false
         }
     }
 }

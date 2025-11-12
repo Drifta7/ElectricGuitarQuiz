@@ -11,6 +11,9 @@ namespace ElectricGuitarQuiz
         public static int PLAYER_SCORE = 10;
         public static int POINTS_PER_CORRECT_ANSWER = 1; // points awarded per correct answer
         public static int POINTS_DEDUCTED_PER_WRONG_ANSWER = -1; // points deducted per wrong answer
+
+        public static int WINNING_SCORE_THRESHOLD = 12; // score needed to win
+        public static int LOSING_SCORE_THRESHOLD = 0; // score at which the game is over
     }
 }
 // dispay the question and answers in play mode
