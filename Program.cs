@@ -45,6 +45,7 @@ namespace ElectricGuitarQuiz
                             UiMethods.ClearingTheUserScreen();
                             didTheUserFinishedCreatingTheQsAndAs = true;
                         }
+                        isBuildModeCompeleted = true;
                     }
 
                     // if the user selects 2 view existing questions
@@ -54,8 +55,9 @@ namespace ElectricGuitarQuiz
 
                         // existing questions for the list that the user has created
                         UiMethods.GetAndDisplayUserCreatedQAndAs(createdQsAndAs);
+                        
                         areTheQuestionsAndAnswersSaved = true;
-
+                        
                         UiMethods.ClearingTheUserScreen();
                     }
 
@@ -74,13 +76,17 @@ namespace ElectricGuitarQuiz
                         UiMethods.DisplayingSavedFileMessage();
 
                         UiMethods.ClearingTheUserScreen();
+                        UiMethods.PriniMainMenuWithoutOptions123();
                     }
 
                     // used to deserialize the list from file
                     if (userChoice == Constants.USER_SELECT_CHOICE_4_DESERIALIZE)
                     {
-                        UiMethods.EnsureQuestionListExists(createdQsAndAs);
+                        //Console.WriteLine("do you have a load file?");
+                        //UiMethods.EnsureQuestionListExists(createdQsAndAs);
                         Logic.LoadQuestionFromFile(UiMethods.GetUserSelectedSavePath());
+                        isBuildModeCompeleted = true;
+                        areTheQuestionsAndAnswersSaved = true; // testing out
                     }
 
                     if (isBuildModeCompeleted && areTheQuestionsAndAnswersSaved)
@@ -88,20 +94,23 @@ namespace ElectricGuitarQuiz
                         break;
                     }
                     else
+                       
                         UiMethods.PrintMainMenuWOBuildingNewQuestions();
                     continue;
                 }
 
                 UiMethods.PrintWelcomeMessageForPlayMode(); // used to have User go back to first menu
+                
                 userInputSelect = UiMethods.GetValidOptionMode();
-
+                //bottom method not needed 
                 bool isThereAListInPlace = Logic.CheckIfListIsNotEmpty(questions); // this is to check if the list is empty or not
 
 
                 List<QuizQuestion> GetRandomListQuestions = new List<QuizQuestion>();
+                //bottom method not needed delete later
                 UiMethods.CreatingMultipleOrSingleCorrectAnswers(); // used to create multiple correct answers
 
-                if (userInputSelect == Constants.START_PLAY_MODE) // this will houses the Create mode
+                if (userInputSelect == Constants.START_PLAY_MODE) // this will houses the play mode
                 {
                     UiMethods.WelcomeToPlayModeMessage(); // welcome message
 
@@ -111,7 +120,7 @@ namespace ElectricGuitarQuiz
                     GetRandomListQuestions = new List<QuizQuestion> { Logic.GetRandomQuestion(createdQsAndAs) };
 
                     // this will loop through and display the questions and answers to the user
-                    UiMethods.GetAndDisplayUserCreatedQAndAs(GetRandomListQuestions);
+                    UiMethods.GetAndDisplayUserCreatedQAndAs(GetRandomListQuestions); // this works
 
                     char UserSelection = UiMethods.GetUserInput();
                     List<char> CorrectAnswer = GetRandomListQuestions[0].CorrectAnswers; // used GetRandomListQuestions w/ [0] to get the first question in the list
@@ -120,6 +129,7 @@ namespace ElectricGuitarQuiz
 
                     while (!gameOver)
                     {
+                        // display the questions here 
                         UiMethods.PlayGameMode(UserSelection, CorrectAnswer); // fix this later
                         if (GameVariable.PLAYER_SCORE >= GameVariable.WINNING_SCORE_THRESHOLD)
                         {

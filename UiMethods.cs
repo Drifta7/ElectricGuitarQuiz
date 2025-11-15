@@ -1,4 +1,6 @@
-﻿namespace ElectricGuitarQuiz
+﻿using System.Diagnostics;
+
+namespace ElectricGuitarQuiz
 {
     class UiMethods
     {
@@ -34,6 +36,7 @@
             return userSelection;
 
         }
+
         public static void PrintMainMenu()
         {
             Console.WriteLine(" 1. Build a new set of Questions");
@@ -49,6 +52,16 @@
             Console.WriteLine(" 1.Build a new set of Questions [COMPLETED]");
             Console.WriteLine(" 2. View existing Questions");
             Console.WriteLine(" 3. Save and exit");
+            Console.WriteLine(" 4. Load Game");
+
+            Console.WriteLine("\nPlease Enter a Selection :");
+        }
+
+        public static void PriniMainMenuWithoutOptions123()
+        {
+            Console.WriteLine(" 1.Build a new set of Questions [COMPLETED]");
+            Console.WriteLine(" 2. View existing Questions[COMPLETED]");
+            Console.WriteLine(" 3. Save and exit[COMPLETED]");
             Console.WriteLine(" 4. Load Game");
 
             Console.WriteLine("\nPlease Enter a Selection :");
@@ -151,7 +164,8 @@
 
         public static string GetUserSelectedSavePath()
         {
-            Console.WriteLine("Please enter the Directory to save your questions and answers to and please affix a XML file.");
+            Console.WriteLine("Please enter the Directory to load your questions and answers to and please affix a XML file.");
+            Console.WriteLine("\n example (Name).xml");
             string userDirectory = Console.ReadLine();
             return userDirectory;
         }
@@ -253,10 +267,8 @@
                     question.Options.Add($"{optionLabel}: {optionText}");// adds the option to the list with the label
                 }
 
-
-
                 question.CorrectAnswers = CreatingMultipleOrSingleCorrectAnswers();
-               
+                Console.WriteLine();
 
                 quizQuestion.Add(question); // adds typed answer to the list NEEDS to BE SAVED TO VARIABLE?
             }
@@ -349,6 +361,14 @@
             // have a display message for created questions method here
             // usd randomizer method to pick a random question from the list
 
+            // and also display the questions to the user, The random questions 
+           // GamePLAy MOde should have game points in this method 
+
+            // step1 display the questions to the user 
+            //step 2 display the current score to the user
+            // Perhaps that this whole method should return a score so that the consdition under it can deterime whether the...
+            // ..user has won or not 
+
             UiMethods.CreatedQuestionsMessage();
             bool isTheAnswerCorrect = false;
             int addedScore, deductedScore;
@@ -393,7 +413,7 @@
 
             if (userInput == Constants.USERSELECT_YES)
             {
-                Console.WriteLine("Please Enter the 1st of two correct answers");
+                Console.WriteLine("\nPlease Enter the 1st of two correct answers");
                 char ans1 = char.ToUpper(Console.ReadKey().KeyChar);
                 Console.WriteLine();
 
@@ -407,7 +427,7 @@
             }
             else if (userInput == Constants.USERSELECT_NO)
             {
-                Console.WriteLine("Please Continue with creating the Single Questions");
+                Console.WriteLine(" \nPlease Continue with creating the Single Questions..press any key to proceed");
                 char ans = char.ToUpper(Console.ReadKey().KeyChar);
                 Console.WriteLine();
                 correctAnswers.Add(ans);
