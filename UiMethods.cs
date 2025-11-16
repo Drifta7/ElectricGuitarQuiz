@@ -308,14 +308,10 @@ namespace ElectricGuitarQuiz
 
         public static List<QuizQuestion> EnsureQuestionListExists(List<QuizQuestion> existingList)
         {
-            if (existingList == null || existingList.Count == 0)
+            if (!Logic.CheckIfListIsNotEmpty(existingList))
             {
                 Console.WriteLine("No questions and answers are available. Please create some them first.");
-                existingList = UiMethods.PrintQuestionsAndAnswersForGame();
-            }
-            else
-            {
-                Console.WriteLine($"There are {existingList.Count} questions available.");
+                return UiMethods.PrintQuestionsAndAnswersForGame();
             }
 
             return existingList;

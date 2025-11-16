@@ -33,6 +33,7 @@ namespace ElectricGuitarQuiz
                     int userChoice = UiMethods.UserChoice();
 
                     bool didTheUserFinishedCreatingTheQsAndAs = false;
+                   
                     // Builds a new set of Questions.
                     if (userChoice == Constants.USER_SELECT_CHOICE_1)
                     {
@@ -43,8 +44,8 @@ namespace ElectricGuitarQuiz
                             createdQsAndAs = UiMethods.PrintQuestionsAndAnswersForGame(); // saved to a var to be displayed later in the program
                             
                             UiMethods.ClearingTheUserScreen();
-
                             didTheUserFinishedCreatingTheQsAndAs = true;
+
                         }
                         
                     }
@@ -52,21 +53,29 @@ namespace ElectricGuitarQuiz
                     // if the user selects 2 view existing questions
                     if (userChoice == Constants.USER_SELECT_CHOICE_2)
                     {
-                        UiMethods.EnsureQuestionListExists(createdQsAndAs); // checks if the created questions are there or not 
-
-                        // existing questions for the list that the user has created
-                        UiMethods.GetAndDisplayUserCreatedQAndAs(createdQsAndAs);
-
-                        areTheQuestionsAndAnswersSaved = true;
-
-                        UiMethods.ClearingTheUserScreen();
+                        // placed here just in case if the user selects option as a safety measure 
+                        if (Logic.CheckIfListIsNotEmpty(createdQsAndAs)) // checks if the created questions are there or not 
+                        {
+                            // displaying existing questions for the list that the user created
+                            UiMethods.GetAndDisplayUserCreatedQAndAs(createdQsAndAs);
+                            areTheQuestionsAndAnswersSaved = true;
+                        }
+                        else
+                        {
+                            UiMethods.NoListToDisplayMessage();
+                        }
+                            UiMethods.ClearingTheUserScreen();
                     }
 
                     //if user selects 3 save question to file 
                     if (userChoice == Constants.USER_SELECT_CHOICE_3_SAVE)
                     {
                         // placed here just in case if the user selects option as a safety measure 
-                        UiMethods.EnsureQuestionListExists(createdQsAndAs);
+                        if (Logic.CheckIfListIsNotEmpty(createdQsAndAs))
+                        {
+                            UiMethods.NoListToDisplayMessage();
+                            continue;
+                        }
 
                         string saveUserDirectoryPath = UiMethods.GetUserSelectedSavePath();
 
@@ -83,8 +92,8 @@ namespace ElectricGuitarQuiz
                     // used to deserialize the list from file
                     if (userChoice == Constants.USER_SELECT_CHOICE_4_DESERIALIZE)
                     {
-                        //Console.WriteLine("do you have a load file?");
-                        //UiMethods.EnsureQuestionListExists(createdQsAndAs);
+                       
+                        UiMethods.EnsureQuestionListExists(createdQsAndAs);
                         Logic.LoadQuestionFromFile(UiMethods.GetUserSelectedSavePath());
                         isBuildModeCompeleted = true;
                     }
