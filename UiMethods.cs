@@ -24,7 +24,7 @@ namespace ElectricGuitarQuiz
                 if (userSelection != Constants.USER_SELECTION_A && userSelection != Constants.USER_SELECTION_B)
                 {
                     Console.WriteLine("\n This is not the correct selection, please make the correct selection");
-                    userSelection = Console.ReadKey().KeyChar;// prompts the user to enter again.
+                    userSelection = char.ToUpper(Console.ReadKey().KeyChar);// prompts the user to enter again.
                 }
                 else
                 {
@@ -41,7 +41,7 @@ namespace ElectricGuitarQuiz
         {
             Console.WriteLine(" 1. Build a new set of Questions");
             Console.WriteLine(" 2. View existing Questions");
-            Console.WriteLine(" 3. Save and exit");
+            Console.WriteLine(" 3. Save");
             Console.WriteLine(" 4. Load Game");
 
             Console.WriteLine("\nPlease Enter a Selection :");
@@ -51,7 +51,7 @@ namespace ElectricGuitarQuiz
         {
             Console.WriteLine(" 1.Build a new set of Questions [COMPLETED]");
             Console.WriteLine(" 2. View existing Questions");
-            Console.WriteLine(" 3. Save and exit");
+            Console.WriteLine(" 3. Save");
             Console.WriteLine(" 4. Load Game");
 
             Console.WriteLine("\nPlease Enter a Selection :");
@@ -61,7 +61,7 @@ namespace ElectricGuitarQuiz
         {
             Console.WriteLine(" 1.Build a new set of Questions [COMPLETED]");
             Console.WriteLine(" 2. View existing Questions[COMPLETED]");
-            Console.WriteLine(" 3. Save and exit[COMPLETED]");
+            Console.WriteLine(" 3. Save[COMPLETED]");
             Console.WriteLine(" 4. Load Game");
 
             Console.WriteLine("\nPlease Enter a Selection :");
@@ -84,15 +84,11 @@ namespace ElectricGuitarQuiz
         {
             Console.WriteLine("Please continue with playing");
         }
-        public static void EnterTheRightAnswerLetter()
-        {
-            Console.WriteLine("PLease lock in the answer");
-            Console.WriteLine("Enter the correct (A,B,C,D, etc...):");
-        }
-
-        
+       
         public static void ClearingTheUserScreen()
         {
+            Console.WriteLine("Press any key to clear the screen");
+            char PressAnyKey = char.ToUpper(Console.ReadKey().KeyChar);
             Console.Clear();
         }
         public static int PrintWhatTheUserSelected(int userInput)
@@ -126,9 +122,9 @@ namespace ElectricGuitarQuiz
         {
             Console.WriteLine("Thank you for playing the Electric Guitar Quiz Challenge");
         }
-        public static char GetUserInput() // this will act as a placeholder for the user input unless saved in a var
+        public static string GetUserInput() // this will act as a placeholder for the user input unless saved in a var
         {
-            char userInput = Console.ReadKey().KeyChar; // get the user input to work in the in game selection
+            string userInput = Console.ReadLine(); // get the user input to work in the in game selection
             return userInput;
         }
 
@@ -180,11 +176,6 @@ namespace ElectricGuitarQuiz
         public static void PromptUserToCreateQuestions() // NOTE: use for create part of program
         {
             Console.WriteLine("Please Enter the question text"); // use for Create part of program
-        }
-
-        public static void PromptUserToCreateCorrectAnswer()
-        {
-            Console.WriteLine("Please input the correct answer, ex: (A, B, C, D, etc..):");
         }
 
         public static int InputNumberOfQuestions()// prompt user question on how many "questions" they want 
@@ -300,12 +291,12 @@ namespace ElectricGuitarQuiz
             return numericInput.ToString(); // return the numeric input as a string
         }
 
-        public static void ValidatingCreatedQuestionList()
+        public static void CheckingForCreatedQuestionsList()
         {
             List<QuizQuestion> questions = UiMethods.PrintQuestionsAndAnswersForGame();
             if (questions == null || questions.Count == 0)
             {
-                Console.WriteLine("No questions available. Please create some questions first.");
+                Console.WriteLine("No questions are available. Please create some questions first.");
                 questions = UiMethods.PrintQuestionsAndAnswersForGame();
 
             }
@@ -344,7 +335,7 @@ namespace ElectricGuitarQuiz
                 if (userSelection != Constants.USER_SELECTION_A && userSelection != Constants.USER_SELECTION_B)
                 {
                     Console.WriteLine("\n This is not the correct selection, please make the correct selection");
-                    userSelection = Console.ReadKey().KeyChar;// prompts the user to enter again.
+                    userSelection = char.ToUpper(Console.ReadKey().KeyChar);// prompts the user to enter again.
                 }
                 else
                 {
@@ -356,7 +347,7 @@ namespace ElectricGuitarQuiz
             return userSelection;
         }
         //use this in the main program to replace the other stuff I have in the playmode and change the name of method later
-        public static void PlayGameMode(char userSelection, List <char> CorrectAnswer)
+        public static void PlayGameMode(string userSelection, List <string> CorrectAnswer)
         {
             // have a display message for created questions method here
             // usd randomizer method to pick a random question from the list
@@ -403,22 +394,22 @@ namespace ElectricGuitarQuiz
             }
         }
         // put this into the program create Mode
-        public static List <char> CreatingMultipleOrSingleCorrectAnswers() // this is for if one or more answers are correct. this will be corrected afterwards
+        public static List <string> CreatingMultipleOrSingleCorrectAnswers() // this is for if one or more answers are correct. this will be corrected afterwards
         {
             Console.WriteLine("Would you like for there to be 2 correct answers in the Question Y/N?");
 
             char userInput = char.ToUpper(Console.ReadKey().KeyChar); // get the user input and make it uppercase
 
-            List<char> correctAnswers = new List<char>();
+            List<string> correctAnswers = new List<string>();
 
             if (userInput == Constants.USERSELECT_YES)
             {
-                Console.WriteLine("\nPlease Enter the 1st of two correct answers");
-                char ans1 = char.ToUpper(Console.ReadKey().KeyChar);
+                Console.WriteLine("\nPlease Enter the 1st of 2 correct answers");
+                string ans1 = (Console.ReadLine());
                 Console.WriteLine();
 
-                Console.WriteLine("Enter the 2nd of 2 correct answers");
-                char ans2 = char.ToUpper(Console.ReadKey().KeyChar);
+                Console.WriteLine("\nPLease Enter the 2nd of 2 correct answers");
+                string ans2 = (Console.ReadLine());
                 Console.WriteLine();
 
                 correctAnswers.Add(ans1);
@@ -427,8 +418,8 @@ namespace ElectricGuitarQuiz
             }
             else if (userInput == Constants.USERSELECT_NO)
             {
-                Console.WriteLine(" \nPlease Continue with creating the Single Questions..press any key to proceed");
-                char ans = char.ToUpper(Console.ReadKey().KeyChar);
+                Console.WriteLine(" \nPlease Continue with inputting the Single correct questions..");
+                string ans = (Console.ReadLine()); // have the User create the single answer 
                 Console.WriteLine();
                 correctAnswers.Add(ans);
             }
