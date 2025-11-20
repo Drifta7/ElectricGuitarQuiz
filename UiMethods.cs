@@ -26,9 +26,14 @@ namespace ElectricGuitarQuiz
                     Console.WriteLine("\n This is not the correct selection, please make the correct selection");
                     userSelection = char.ToUpper(Console.ReadKey().KeyChar);// prompts the user to enter again.
                 }
-                else
+                else if (userSelection == Constants.USER_SELECTION_A)
                 {
-                    Console.WriteLine($"\n You have selected {userSelection}");
+                    Console.WriteLine($"\n You have selected {userSelection} Build Mode");
+                    isTheSelectionValid = true;
+                }
+                else if (userSelection == Constants.USER_SELECTION_B)
+                {
+                    Console.WriteLine($"\n You have selected {userSelection} Play Mode");
                     isTheSelectionValid = true;
                 }
             }
@@ -188,7 +193,7 @@ namespace ElectricGuitarQuiz
         public static int InputNumberOfAnswers()
         {
             Console.WriteLine("How many options/answers do you want?");
-            int numberOfAnswers = int.Parse(Console.ReadLine()); // if Parse wasn't there it would have given an answer of 54 (ASCII)
+            int numberOfAnswers = int.Parse(Console.ReadLine()); // used Parse because it would have given an answer of 54 (ASCII)
             return numberOfAnswers;
         }
 
@@ -333,9 +338,14 @@ namespace ElectricGuitarQuiz
                     Console.WriteLine("\n This is not the correct selection, please make the correct selection");
                     userSelection = char.ToUpper(Console.ReadKey().KeyChar);// prompts the user to enter again.
                 }
-                else
+                else if (userSelection == Constants.USER_SELECTION_A)
                 {
-                    Console.WriteLine($"\n You have selected {userSelection}");
+                    Console.WriteLine($"\n You have selected {userSelection}... Build Mode");
+                    isTheSelectionValid = true;
+                }
+                else if (userSelection == Constants.USER_SELECTION_B)
+                {
+                    Console.WriteLine($"\n You have selected {userSelection}... Play Mode");
                     isTheSelectionValid = true;
                 }
             }
@@ -414,8 +424,9 @@ namespace ElectricGuitarQuiz
             }
             else if (userInput == Constants.USERSELECT_NO)
             {
-                Console.WriteLine(" \nPlease Continue with inputting the Single correct questions..");
-                string ans = (Console.ReadLine()); // have the User create the single answer 
+                Console.WriteLine(" \nPlease input one single correct answer for the question..");
+                string ans = (Console.ReadLine()); // have the User create the single answer // make this uppercase
+                string upperAns = ans.ToUpper(); // used to make the answer uppercase
                 Console.WriteLine();
                 correctAnswers.Add(ans);
             }
