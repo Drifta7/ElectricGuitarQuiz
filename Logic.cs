@@ -15,16 +15,16 @@ namespace ElectricGuitarQuiz
         // might have to use a foreach loop to get the question to the user but that miight be in the UImethods file
 
 
-        public static  QuizQuestion GetRandomQuestion(List<QuizQuestion> questions)
+        public static QuizQuestion GetRandomQuestion(List<QuizQuestion> questions)
         {
             Random random = new Random();
             int randomIndex = random.Next(questions.Count); // get a random index based on the number of questions available
             return questions[randomIndex]; // return the randomly selected question
         }
-        
+
         // will have to change this later into ui methods.cs file
-        public static bool IsBothTheAnswersCorrect(char ans1,  char ans2, char correctAnswer1, char correctAnswer2)
-        { 
+        public static bool IsBothTheAnswersCorrect(char ans1, char ans2, char correctAnswer1, char correctAnswer2)
+        {
             if (ans1 == correctAnswer1 && ans2 == correctAnswer2)
             {
                 return true; // the answers is correct
@@ -36,7 +36,9 @@ namespace ElectricGuitarQuiz
         }
 
         // used to pass in list of questions to check if null or empty "THIS IS MORE DYNAMIC"
-       
+
+        public static string saveUserDirectoryPath = null;
+
 
         public static bool CheckIfListIsNotEmpty(List<QuizQuestion> checkingList)
         {
@@ -51,9 +53,9 @@ namespace ElectricGuitarQuiz
             string directory = Path.GetDirectoryName(filepath);
             Directory.CreateDirectory(directory);
 
-            //DEBUG
-            Console.WriteLine(directory);
-            Console.WriteLine(filepath);
+            ////DEBUG
+            //Console.WriteLine(directory); //Delete later
+            //Console.WriteLine(filepath); //Delete later
 
             using (FileStream fs = new FileStream(filepath, FileMode.Create)) // creates the file to the HD
             {

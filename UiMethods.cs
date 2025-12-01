@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ElectricGuitarQuiz
 {
@@ -10,9 +11,9 @@ namespace ElectricGuitarQuiz
             Console.WriteLine("\nFirst you will either select build or Play");
         }
 
-        public static char PrintWelcomeMessageForPlayMode()
+        public static char GetValidSelectionWhileBuildModeIsCompleted()
         {
-            Console.WriteLine("Please select a mode A or B \n A: Build Mode [Completed] \n B: Play Mode");
+            Console.WriteLine("\nPlease select a mode A or B \n A: Build Mode [Completed] \n B: Play Mode");
 
             char userSelection = Console.ReadKey().KeyChar; // wait for user input for A and B selection 
 
@@ -52,7 +53,7 @@ namespace ElectricGuitarQuiz
             Console.WriteLine("\nPlease Enter a Selection :");
         }
 
-        public static void PrintMainMenuWOBuildingNewQuestions()
+        public static void PrintMainMenuWithBuildQuestCompleted()
         {
             Console.WriteLine(" 1.Build a new set of Questions [COMPLETED]");
             Console.WriteLine(" 2. View existing Questions");
@@ -80,16 +81,16 @@ namespace ElectricGuitarQuiz
         {
             Console.WriteLine("No questions have been created yet, please create some questions first.");
         }
-        
+
         public static void WelcomeToPlayModeMessage()
         {
             Console.WriteLine("Welcome to play mode");
         }
-        public static void ContinueWithPlayingMessage()
+        public static void ClearScreenAfterPlayModeSelected()
         {
-            Console.WriteLine("Please continue with playing");
+            Console.Clear ();
         }
-       
+
         public static void ClearingTheUserScreen()
         {
             Console.WriteLine("Press any key to clear the screen");
@@ -123,10 +124,6 @@ namespace ElectricGuitarQuiz
             Console.WriteLine("There is no list to display, You have to create one first");
         }
 
-        public static void PrintGoodbyeMessage()
-        {
-            Console.WriteLine("Thank you for playing the Electric Guitar Quiz Challenge");
-        }
         public static string GetUserInput() // this will act as a placeholder for the user input unless saved in a var
         {
             string userInput = Console.ReadLine(); // get the user input to work in the in game selection
@@ -149,7 +146,7 @@ namespace ElectricGuitarQuiz
                     }
                     else
                     {
-                        Console.WriteLine($" Number is out of range. Please enter a number between" +
+                        Console.WriteLine($" Number is out of range. Please enter a number between " +
                              $"{Constants.GAMEOPTION_MIN} & {Constants.GAMEOPTION_MAX}");
                     }
                 }
@@ -166,10 +163,17 @@ namespace ElectricGuitarQuiz
         public static string GetUserSelectedSavePath()
         {
             Console.WriteLine("Please enter the Directory to load your questions and answers to and please affix a XML file.");
-            Console.WriteLine("\n example (Name).xml");
+            Console.WriteLine("\nexample: (Name).xml");
             string userDirectory = Console.ReadLine();
             return userDirectory;
         }
+
+        public static void QuestionsLoadedMessage()
+        {
+            Console.WriteLine("Questions from xml file loaded.....");
+        }
+
+        public static string saveUserDirectoryPath = null;
 
         public static void DisplayingSavedFileMessage()
         {
@@ -303,12 +307,11 @@ namespace ElectricGuitarQuiz
             {
                 Console.WriteLine("No questions are available. Please create some questions first.");
                 questions = UiMethods.PrintQuestionsAndAnswersForGame();
-
             }
             else
             {
                 Console.WriteLine($"There are {questions.Count} questions available.");
-            } //  dont use this method yet 
+            } 
         }
 
         public static List<QuizQuestion> EnsureQuestionListExists(List<QuizQuestion> existingList)
@@ -353,30 +356,22 @@ namespace ElectricGuitarQuiz
             return userSelection;
         }
         //use this in the main program to replace the other stuff I have in the playmode and change the name of method later
-        public static void PlayGameMode(string userSelection, List <string> CorrectAnswer)
+
+        public static bool CheckIfAnswerIsCorrect(string userSelection, List<string> CorrectAnswer)
         {
-            // have a display message for created questions method here
-            // usd randomizer method to pick a random question from the list
-
-            // and also display the questions to the user, The random questions 
-           // GamePLAy MOde should have game points in this method 
-
-            // step1 display the questions to the user 
-            //step 2 display the current score to the user
-            // Perhaps that this whole method should return a score so that the consdition under it can deterime whether the...
-            // ..user has won or not 
-
-            UiMethods.CreatedQuestionsMessage();
+            
             bool isTheAnswerCorrect = false;
+            bool isEitherAnswerCorrectOrIncorrect = false;
             int addedScore, deductedScore;
 
-            // might have to change the logic here later
             if (CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
             {
                 isTheAnswerCorrect = true;
                 Console.WriteLine($"{userSelection} is correct");
                 addedScore = GameVariable.POINTS_PER_CORRECT_ANSWER + GameVariable.PLAYER_SCORE;
                 Console.WriteLine($" Your score is :{addedScore}");
+                isTheAnswerCorrect = true;
+
             }
             else if (CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
             {
@@ -384,6 +379,33 @@ namespace ElectricGuitarQuiz
                 deductedScore = GameVariable.POINTS_DEDUCTED_PER_WRONG_ANSWER + GameVariable.PLAYER_SCORE;
                 Console.WriteLine($" Your score is :{deductedScore}");
             }
+            return isEitherAnswerCorrectOrIncorrect; // this might now wotk correctly GO OVER THIS AGAIN!!
+
+        }
+
+        public static int ReturnPlayerScore(string userSelection, List<string> CorrectAnswer)
+        {
+            bool isTheAnswerCorrect = false;
+            bool isEitherAnswerCorrectOrIncorrect = false;
+            int addedScore, deductedScore;
+           
+            if (CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
+            {
+                isTheAnswerCorrect = true;
+                Console.WriteLine($"{userSelection} is correct");
+                addedScore = GameVariable.POINTS_PER_CORRECT_ANSWER + GameVariable.PLAYER_SCORE;
+                Console.WriteLine($" Your score is :{addedScore}");
+                isTheAnswerCorrect = true;
+
+            }
+            else if (CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
+            {
+                Console.WriteLine($"{userSelection} is incorrect");
+                deductedScore = GameVariable.POINTS_DEDUCTED_PER_WRONG_ANSWER + GameVariable.PLAYER_SCORE;
+                Console.WriteLine($" Your score is :{deductedScore}");
+            }
+            //return isEitherAnswerCorrectOrIncorrect; // this might now wotk correctly GO OVER THIS AGAIN!!
+            return GameVariable.PLAYER_SCORE;
         }
 
         // used to pass questions and answers variable to display them to user
@@ -400,7 +422,7 @@ namespace ElectricGuitarQuiz
             }
         }
         // put this into the program create Mode
-        public static List <string> CreatingMultipleOrSingleCorrectAnswers() // this is for if one or more answers are correct. this will be corrected afterwards
+        public static List<string> CreatingMultipleOrSingleCorrectAnswers() // this is for if one or more answers are correct. this will be corrected afterwards
         {
             Console.WriteLine("Would you like for there to be 2 correct answers in the Question Y/N?");
 
@@ -430,7 +452,7 @@ namespace ElectricGuitarQuiz
                 Console.WriteLine();
                 correctAnswers.Add(ans);
             }
-                return correctAnswers; // if the user does not want to have two correct answers, then return false
+            return correctAnswers; // if the user does not want to have two correct answers, then return false
         }
     }
 }
