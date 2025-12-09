@@ -16,6 +16,7 @@ namespace ElectricGuitarQuiz
 
             //used as a safty measure to ensure that if the user selects to view it will prompt a create message
             List<QuizQuestion> questions = null;
+            // string saveUserSelectedPath = null;
 
             Logic.saveUserDirectoryPath = "";
 
@@ -24,7 +25,6 @@ namespace ElectricGuitarQuiz
 
             bool isBuildModeCompeleted = false;
             bool areTheQuestionsAndAnswersSaved = false;
-            bool hasDeserializeTakenPlace = false;
             bool hasTheSavingOfquestionsHappend = false;
 
             if (userInputSelect == Constants.BUILD_QUIZ_MODE)
@@ -33,12 +33,12 @@ namespace ElectricGuitarQuiz
 
                 while (!isBuildModeCompeleted)
                 {
-                    int userChoice = UiMethods.UserChoice();
+                    int userChoice = UiMethods.ValidateUserChoice();
 
                     bool didTheUserFinishedCreatingTheQsAndAs = false;
 
                     // Builds a new set of Questions.
-                    if (userChoice == Constants.USER_SELECT_CHOICE_1)
+                    if (userChoice == Constants.USER_SELECT_CHOICE_BUILD_GAME_MODE_1)
                     {
                         while (!didTheUserFinishedCreatingTheQsAndAs)
                         {
@@ -51,7 +51,7 @@ namespace ElectricGuitarQuiz
                     }
 
                     // if the user selects 2 view existing questions
-                    if (userChoice == Constants.USER_SELECT_CHOICE_2)
+                    if (userChoice == Constants.USER_SELECT_CHOICE_VIEW_QUESTIONS_2)
                     {
                         // placed here just in case if the user selects option as a safety measure 
                         if (Logic.CheckIfListIsNotEmpty(createdQsAndAs)) // checks if the created questions are there or not 
@@ -78,8 +78,9 @@ namespace ElectricGuitarQuiz
                             continue;
                         }
 
-                        Logic.saveUserDirectoryPath = UiMethods.GetUserSelectedSavePath();
+                      
 
+                        Logic.saveUserDirectoryPath = UiMethods.GetUserSelectedSavePath();
                         // method made to save questions passed into the parameters to create an XML file
                         Logic.SaveQuestionToFile(createdQsAndAs, Logic.saveUserDirectoryPath);
 
@@ -92,15 +93,14 @@ namespace ElectricGuitarQuiz
 
                         UiMethods.PriniMainMenuWithoutOptions123();
                         areTheQuestionsAndAnswersSaved = true;
-
                     }
 
                     // used to deserialize the list from file
                     if (userChoice == Constants.USER_SELECT_CHOICE_4_DESERIALIZE)
                     {
-                        questions = Logic.LoadQuestionFromFile(Logic.saveUserDirectoryPath);
-                        UiMethods.QuestionsLoadedMessage();// generic message
-                        isBuildModeCompeleted = true;
+                            questions = Logic.LoadQuestionFromFile(Logic.saveUserDirectoryPath);
+                            UiMethods.QuestionsLoadedMessage();// generic message
+                            isBuildModeCompeleted = true;
                     }
 
                     if (isBuildModeCompeleted && areTheQuestionsAndAnswersSaved)
@@ -117,13 +117,14 @@ namespace ElectricGuitarQuiz
                 userInputSelect = UiMethods.GetValidSelectionWhileBuildModeIsCompleted();
             }
 
-            List<QuizQuestion> GetRandomListQuestions = new List<QuizQuestion>();
 
             if (userInputSelect == Constants.START_PLAY_MODE) // this will houses the play mode
             {
+                List<QuizQuestion> GetRandomListQuestions = new List<QuizQuestion>();
                 //placed to check if user accidentally selected play mode without creating questions
                 //UiMethods.CheckingForCreatedQuestionsList();
 
+                // clears the screen
                 UiMethods.ClearScreenAfterPlayModeSelected();
                 UiMethods.WelcomeToPlayModeMessage(); // welcome message
 
@@ -131,12 +132,10 @@ namespace ElectricGuitarQuiz
                 GetRandomListQuestions = new List<QuizQuestion> { Logic.GetRandomQuestion(createdQsAndAs) };
 
                 // displays the question(s) and answer(s) through a loop
-                UiMethods.GetAndDisplayUserCreatedQAndAs(GetRandomListQuestions);
+                //UiMethods.GetAndDisplayUserCreatedQAndAs(GetRandomListQuestions); // should this be here??????????
 
-                // 1. here should be user input to answer the question
-                
-                // 2. here should check the answer if it's correct 
-                
+
+                // this is used to place the created list into a variable for the while loop condition count 
                 List<QuizQuestion> availableQuestions = new List<QuizQuestion>(createdQsAndAs);
 
                 bool gameOver = false;
@@ -145,22 +144,22 @@ namespace ElectricGuitarQuiz
                 while (!gameOver && availableQuestions.Count > Constants.VALUE_OF_ZERO)
                 {
                     // randomizes the questions order and places it in a variable
-                    QuizQuestion currentQuestion = Logic.GetRandomQuestion(availableQuestions); 
+                    QuizQuestion currentQuestion = Logic.GetRandomQuestion(availableQuestions);
 
                     // displays  the question(s) for the user to answer
-                    UiMethods.GetAndDisplayUserCreatedQAndAs(new List<QuizQuestion> { currentQuestion }); 
-                    
+                    UiMethods.GetAndDisplayUserCreatedQAndAs(new List<QuizQuestion> { currentQuestion });
+
                     //get the user input 
                     string userSelection = UiMethods.GetUserInput();
 
                     // this checks the single answer from the user 
-                    List<string> correctAnswer = currentQuestion.CorrectAnswers; 
-                    checkIfCorrect = UiMethods.CheckIfAnswerIsCorrect(userSelection, correctAnswer); // might have to delete this later
+                    List<string> correctAnswer = currentQuestion.CorrectAnswers;
+                   // checkIfCorrect = UiMethods.CheckIfAnswerIsCorrect(userSelection, correctAnswer); // might have to delete this later
 
                     GameVariable.PLAYER_SCORE = UiMethods.ReturnPlayerScore(userSelection, correctAnswer); // used this for to check player score
-                   
+
                     // removes the question once it has been asked  
-                    availableQuestions.Remove(currentQuestion); 
+                    availableQuestions.Remove(currentQuestion);
 
                     //checks conditions for winning or losing the game
                     if (GameVariable.PLAYER_SCORE >= GameVariable.WINNING_SCORE_THRESHOLD)

@@ -22,18 +22,6 @@ namespace ElectricGuitarQuiz
             return questions[randomIndex]; // return the randomly selected question
         }
 
-        // will have to change this later into ui methods.cs file
-        public static bool IsBothTheAnswersCorrect(char ans1, char ans2, char correctAnswer1, char correctAnswer2)
-        {
-            if (ans1 == correctAnswer1 && ans2 == correctAnswer2)
-            {
-                return true; // the answers is correct
-            }
-            else
-            {
-                return false; // the answers is incorrect
-            }
-        }
 
         // used to pass in list of questions to check if null or empty "THIS IS MORE DYNAMIC"
 

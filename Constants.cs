@@ -28,8 +28,8 @@ namespace ElectricGuitarQuiz
         public const int GAMEOPTION_MAX = 4;// when selecting the choice for PrintGameMenu
 
 
-        public const int USER_SELECT_CHOICE_1 = 1; // for the select game menu
-        public const int USER_SELECT_CHOICE_2 = 2; // ""
+        public const int USER_SELECT_CHOICE_BUILD_GAME_MODE_1 = 1; // for the select game menu
+        public const int USER_SELECT_CHOICE_VIEW_QUESTIONS_2 = 2; // ""
         public const int USER_SELECT_CHOICE_3_SAVE = 3; // ""
         public const int USER_SELECT_CHOICE_4_DESERIALIZE = 4; //
 

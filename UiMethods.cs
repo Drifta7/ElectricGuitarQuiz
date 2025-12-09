@@ -13,7 +13,8 @@ namespace ElectricGuitarQuiz
 
         public static char GetValidSelectionWhileBuildModeIsCompleted()
         {
-            Console.WriteLine("\nPlease select a mode A or B \n A: Build Mode [Completed] \n B: Play Mode");
+            Console.WriteLine($"\nPlease select a mode {Constants.USER_SELECTION_A} or {Constants.USER_SELECTION_B} \n" +
+                $" {Constants.USER_SELECTION_A}: Build Mode [Completed] \n {Constants.USER_SELECTION_B}: Play Mode");
 
             char userSelection = Console.ReadKey().KeyChar; // wait for user input for A and B selection 
 
@@ -72,15 +73,7 @@ namespace ElectricGuitarQuiz
 
             Console.WriteLine("\nPlease Enter a Selection :");
         }
-        public static void CreatedQuestionsMessage()
-        {
-            Console.WriteLine("Here are the Questions that were created ");
-        }
 
-        public static void NoQuestionsCreatedMessage()
-        {
-            Console.WriteLine("No questions have been created yet, please create some questions first.");
-        }
 
         public static void WelcomeToPlayModeMessage()
         {
@@ -88,7 +81,7 @@ namespace ElectricGuitarQuiz
         }
         public static void ClearScreenAfterPlayModeSelected()
         {
-            Console.Clear ();
+            Console.Clear();
         }
 
         public static void ClearingTheUserScreen()
@@ -97,14 +90,14 @@ namespace ElectricGuitarQuiz
             char PressAnyKey = char.ToUpper(Console.ReadKey().KeyChar);
             Console.Clear();
         }
-        public static int PrintWhatTheUserSelected(int userInput)
+        //migh delete this method later
+        public static void PrintWhatTheUserSelected(int userInput)
         {
-            if (userInput == Constants.USER_SELECT_CHOICE_1)
+            if (userInput == Constants.USER_SELECT_CHOICE_BUILD_GAME_MODE_1)
             {
                 Console.WriteLine($"You Have selected {userInput}: Create a new set");
             }
-
-            else if (userInput == Constants.USER_SELECT_CHOICE_2)
+            else if (userInput == Constants.USER_SELECT_CHOICE_VIEW_QUESTIONS_2)
             {
                 Console.WriteLine($"You have selected{userInput}: View existing questions");
             }
@@ -116,8 +109,27 @@ namespace ElectricGuitarQuiz
             {
                 Console.WriteLine($"You have selected {userInput}: Deserialize");
             }
-
-            return userInput;
+        }
+        public static void PrintWHATtheUserSelected(int userInput)
+        {
+            switch (userInput)
+            {
+                case Constants.USER_SELECT_CHOICE_BUILD_GAME_MODE_1:
+                    Console.WriteLine($"You have selected {userInput}: Create a new set");
+                    break;
+                case Constants.USER_SELECT_CHOICE_VIEW_QUESTIONS_2:
+                    Console.WriteLine($"You have selected {userInput}: View existing questions");
+                    break;
+                case Constants.USER_SELECT_CHOICE_3_SAVE:
+                    Console.WriteLine($"You have selected {userInput}: Save and exit");
+                    break;
+                case Constants.USER_SELECT_CHOICE_4_DESERIALIZE:
+                    Console.WriteLine($"You have selected {userInput}: Deserialize");
+                    break;
+                default:
+                    Console.WriteLine("Invalid selection.");
+                    break;
+            }
         }
         public static void NoListToDisplayMessage()
         {
@@ -130,7 +142,7 @@ namespace ElectricGuitarQuiz
             return userInput;
         }
 
-        public static int UserChoice()
+        public static int ValidateUserChoice()
         {
             int userChoice;
             bool isTheInputValid = false;
@@ -311,7 +323,7 @@ namespace ElectricGuitarQuiz
             else
             {
                 Console.WriteLine($"There are {questions.Count} questions available.");
-            } 
+            }
         }
 
         public static List<QuizQuestion> EnsureQuestionListExists(List<QuizQuestion> existingList)
@@ -359,7 +371,7 @@ namespace ElectricGuitarQuiz
 
         public static bool CheckIfAnswerIsCorrect(string userSelection, List<string> CorrectAnswer)
         {
-            
+
             bool isTheAnswerCorrect = false;
             bool isEitherAnswerCorrectOrIncorrect = false;
             int addedScore, deductedScore;
@@ -373,7 +385,7 @@ namespace ElectricGuitarQuiz
                 isTheAnswerCorrect = true;
 
             }
-            else if (CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
+            else if (!CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
             {
                 Console.WriteLine($"{userSelection} is incorrect");
                 deductedScore = GameVariable.POINTS_DEDUCTED_PER_WRONG_ANSWER + GameVariable.PLAYER_SCORE;
@@ -388,7 +400,7 @@ namespace ElectricGuitarQuiz
             bool isTheAnswerCorrect = false;
             bool isEitherAnswerCorrectOrIncorrect = false;
             int addedScore, deductedScore;
-           
+
             if (CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
             {
                 isTheAnswerCorrect = true;
@@ -398,13 +410,15 @@ namespace ElectricGuitarQuiz
                 isTheAnswerCorrect = true;
 
             }
-            else if (CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
+            else if (!CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
             {
                 Console.WriteLine($"{userSelection} is incorrect");
                 deductedScore = GameVariable.POINTS_DEDUCTED_PER_WRONG_ANSWER + GameVariable.PLAYER_SCORE;
                 Console.WriteLine($" Your score is :{deductedScore}");
             }
             //return isEitherAnswerCorrectOrIncorrect; // this might now wotk correctly GO OVER THIS AGAIN!!
+            GameVariable.PLAYER_SCORE++;
+
             return GameVariable.PLAYER_SCORE;
         }
 
