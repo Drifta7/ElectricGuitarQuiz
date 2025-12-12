@@ -16,7 +16,7 @@ namespace ElectricGuitarQuiz
         public static int LOSING_SCORE_THRESHOLD = 0; // score at which the game is over
     }
 }
-// dispay the question and answers in play mode
+// display the question and answers in play mode
 // have a method MATCH the UserAnswer to The CorrectANswer then if correctadd points else deduct points
 // update the PLAYER_SCORE variable accordingly
 // at the end of the quiz display the final score

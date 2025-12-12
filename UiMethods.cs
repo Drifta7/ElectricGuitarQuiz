@@ -43,7 +43,6 @@ namespace ElectricGuitarQuiz
             return userSelection;
 
         }
-
         public static void PrintMainMenu()
         {
             Console.WriteLine(" 1. Build a new set of Questions");
@@ -64,7 +63,7 @@ namespace ElectricGuitarQuiz
             Console.WriteLine("\nPlease Enter a Selection :");
         }
 
-        public static void PriniMainMenuWithoutOptions123()
+        public static void PrintMainMenuWithoutOptions123()
         {
             Console.WriteLine(" 1.Build a new set of Questions [COMPLETED]");
             Console.WriteLine(" 2. View existing Questions[COMPLETED]");
@@ -73,7 +72,6 @@ namespace ElectricGuitarQuiz
 
             Console.WriteLine("\nPlease Enter a Selection :");
         }
-
 
         public static void WelcomeToPlayModeMessage()
         {
@@ -90,42 +88,31 @@ namespace ElectricGuitarQuiz
             char PressAnyKey = char.ToUpper(Console.ReadKey().KeyChar);
             Console.Clear();
         }
-        //migh delete this method later
+        
         public static void PrintWhatTheUserSelected(int userInput)
-        {
-            if (userInput == Constants.USER_SELECT_CHOICE_BUILD_GAME_MODE_1)
-            {
-                Console.WriteLine($"You Have selected {userInput}: Create a new set");
-            }
-            else if (userInput == Constants.USER_SELECT_CHOICE_VIEW_QUESTIONS_2)
-            {
-                Console.WriteLine($"You have selected{userInput}: View existing questions");
-            }
-            else if (userInput == Constants.USER_SELECT_CHOICE_3_SAVE)
-            {
-                Console.WriteLine($" You have selected {userInput}: Save and exit");
-            }
-            else if (userInput == Constants.USER_SELECT_CHOICE_4_DESERIALIZE)
-            {
-                Console.WriteLine($"You have selected {userInput}: Deserialize");
-            }
-        }
-        public static void PrintWHATtheUserSelected(int userInput)
         {
             switch (userInput)
             {
                 case Constants.USER_SELECT_CHOICE_BUILD_GAME_MODE_1:
                     Console.WriteLine($"You have selected {userInput}: Create a new set");
+                    
                     break;
+                
                 case Constants.USER_SELECT_CHOICE_VIEW_QUESTIONS_2:
                     Console.WriteLine($"You have selected {userInput}: View existing questions");
+                
                     break;
+                
                 case Constants.USER_SELECT_CHOICE_3_SAVE:
                     Console.WriteLine($"You have selected {userInput}: Save and exit");
+                   
                     break;
+                
                 case Constants.USER_SELECT_CHOICE_4_DESERIALIZE:
                     Console.WriteLine($"You have selected {userInput}: Deserialize");
+                   
                     break;
+                
                 default:
                     Console.WriteLine("Invalid selection.");
                     break;
@@ -192,6 +179,7 @@ namespace ElectricGuitarQuiz
             // basic message for saving files
             Console.WriteLine(".....Saved To XML!");
         }
+       
         ///__-------------------------------------------- UserCreation Prompts ---------------------------------------____-----_--_----_-//
 
         public static void PromptUserToCreateQuestions() // NOTE: use for create part of program
@@ -211,44 +199,6 @@ namespace ElectricGuitarQuiz
             Console.WriteLine("How many options/answers do you want?");
             int numberOfAnswers = int.Parse(Console.ReadLine()); // used Parse because it would have given an answer of 54 (ASCII)
             return numberOfAnswers;
-        }
-
-        public static char PromptingUserToCreateMoreQuestions() // this will allow the user to create a quiz question 
-        {
-            char userGameQuestionChoice; // declare for char input for User variable DELETE THE FUNCTION
-            bool isTheInputValid = false;
-
-            do
-            {
-                Console.WriteLine("Would you like to Create more question for the Quiz Game Y/N ?");
-                userGameQuestionChoice = char.ToUpper(Console.ReadKey().KeyChar); // this will get the user input and convert it to uppercase
-                Console.WriteLine(); // creates a "break" line in the program 
-
-                isTheInputValid = userGameQuestionChoice == Constants.USERSELECT_YES ||
-                                  userGameQuestionChoice == Constants.USERSELECT_NO; // this will check if the user input is valid or not
-
-                if (!isTheInputValid)
-                {
-                    Console.WriteLine("This is not a valid selection. PLease enter Y or N.");
-                    userGameQuestionChoice = char.ToUpper(Console.ReadKey().KeyChar); // if the user input is not valid, it will ask the user to try again.
-                }
-                else
-                {
-                    isTheInputValid = true;
-                }
-
-            }
-            while (!isTheInputValid); // this will keep asking the user for input until the input is valid.
-
-            if (userGameQuestionChoice == Constants.USERSELECT_YES)
-            {
-                Console.WriteLine("Please continue to create more question");
-            }
-            else
-            {
-                Console.WriteLine("Thank you for creating a question for the Quiz Game");
-            }
-            return userGameQuestionChoice; // this will return the user input
         }
 
         public static List<QuizQuestion> PrintQuestionsAndAnswersForGame()
@@ -286,57 +236,6 @@ namespace ElectricGuitarQuiz
             }
             return quizQuestion;
         }
-
-        // here put in a method to seperate the nested for loop.
-        public static string GetNumericUserInput() // This gets the Number input from the user for The SelectionGameMode() method
-        {
-            int numericInput;
-            string userNumericInput = "";
-
-            do
-            {
-                Console.WriteLine("Enter a choice ");
-                userNumericInput = Console.ReadLine(); // <=== fix this potential issue with the input being null or empty
-
-                if (int.TryParse(userNumericInput, out numericInput))
-                {
-                    Console.WriteLine($"You've Entered{numericInput} ");
-                }
-                else
-                {
-                    Console.WriteLine("Invaild number , please enter again.");
-                }
-
-            } while (!int.TryParse(userNumericInput, out numericInput)); // this will keep asking the user for input until the input is valid.
-
-            return numericInput.ToString(); // return the numeric input as a string
-        }
-
-        public static void CheckingForCreatedQuestionsList()
-        {
-            List<QuizQuestion> questions = UiMethods.PrintQuestionsAndAnswersForGame();
-            if (questions == null || questions.Count == 0)
-            {
-                Console.WriteLine("No questions are available. Please create some questions first.");
-                questions = UiMethods.PrintQuestionsAndAnswersForGame();
-            }
-            else
-            {
-                Console.WriteLine($"There are {questions.Count} questions available.");
-            }
-        }
-
-        public static List<QuizQuestion> EnsureQuestionListExists(List<QuizQuestion> existingList)
-        {
-            if (!Logic.CheckIfListIsNotEmpty(existingList))
-            {
-                Console.WriteLine("No questions and answers are available. Please create some them first.");
-                return UiMethods.PrintQuestionsAndAnswersForGame();
-            }
-
-            return existingList;
-        }
-
         public static char GetValidOptionMode()// selecting either create or play mode 
         {
             Console.WriteLine("Please select a mode A or B \n A: Build Mode \n B: Play Mode");
@@ -368,32 +267,6 @@ namespace ElectricGuitarQuiz
             return userSelection;
         }
         //use this in the main program to replace the other stuff I have in the playmode and change the name of method later
-
-        public static bool CheckIfAnswerIsCorrect(string userSelection, List<string> CorrectAnswer)
-        {
-
-            bool isTheAnswerCorrect = false;
-            bool isEitherAnswerCorrectOrIncorrect = false;
-            int addedScore, deductedScore;
-
-            if (CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
-            {
-                isTheAnswerCorrect = true;
-                Console.WriteLine($"{userSelection} is correct");
-                addedScore = GameVariable.POINTS_PER_CORRECT_ANSWER + GameVariable.PLAYER_SCORE;
-                Console.WriteLine($" Your score is :{addedScore}");
-                isTheAnswerCorrect = true;
-
-            }
-            else if (!CorrectAnswer.Contains(userSelection)) //used Contains() method because cannot compare list to char directly
-            {
-                Console.WriteLine($"{userSelection} is incorrect");
-                deductedScore = GameVariable.POINTS_DEDUCTED_PER_WRONG_ANSWER + GameVariable.PLAYER_SCORE;
-                Console.WriteLine($" Your score is :{deductedScore}");
-            }
-            return isEitherAnswerCorrectOrIncorrect; // this might now wotk correctly GO OVER THIS AGAIN!!
-
-        }
 
         public static int ReturnPlayerScore(string userSelection, List<string> CorrectAnswer)
         {
@@ -461,11 +334,12 @@ namespace ElectricGuitarQuiz
             else if (userInput == Constants.USERSELECT_NO)
             {
                 Console.WriteLine(" \nPlease input one single correct answer for the question..");
-                string ans = (Console.ReadLine()); // have the User create the single answer // make this uppercase
+                string ans = (Console.ReadLine()); // have the User create the single answer 
                 string upperAns = ans.ToUpper(); // used to make the answer uppercase
                 Console.WriteLine();
                 correctAnswers.Add(ans);
             }
+
             return correctAnswers; // if the user does not want to have two correct answers, then return false
         }
     }

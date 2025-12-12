@@ -30,13 +30,11 @@ namespace ElectricGuitarQuiz
 
         public const int USER_SELECT_CHOICE_BUILD_GAME_MODE_1 = 1; // for the select game menu
         public const int USER_SELECT_CHOICE_VIEW_QUESTIONS_2 = 2; // ""
-        public const int USER_SELECT_CHOICE_3_SAVE = 3; // ""
+        public const int USER_SELECT_CHOICE_3_SAVE = 3; // 
         public const int USER_SELECT_CHOICE_4_DESERIALIZE = 4; //
 
         // probably will no use these.
         public const char USERSELECT_YES = 'Y'; // these are the user selections for the quiz game, like if they want to create a question or not
         public const char USERSELECT_NO = 'N'; // " " " "
-
-       
     }
 }

@@ -18,12 +18,6 @@ namespace ElectricGuitarQuiz
         {
             Options = new List<string>(); // initialize the List
         }
-
-        public override string ToString()
-        {
-            string optionsText = string.Join("\n", Options);
-            return $"Question: {WrittenOutQuestion}\n {optionsText}\nCorrect Answer:{CorrectAnswers}";
-        }
     }
 }
 
